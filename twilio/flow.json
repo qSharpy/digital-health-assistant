@@ -1,0 +1,278 @@
+{
+  "description": "A New Flow",
+  "states": [
+    {
+      "type": "InitialState",
+      "name": "Trigger",
+      "properties": {
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "flow_url": "https://webhooks.twilio.com/v1/Accounts/ACf38048e6ff075d2868ea745f557d2c31/Flows/FW5889ad716ce6f568b2519e6572e2d7c0"
+      },
+      "transitions": [
+        {
+          "event": "incomingMessage",
+          "conditions": [],
+          "next": null,
+          "uuid": "d285f52a-0a45-4067-8412-222391a6beed"
+        },
+        {
+          "event": "incomingCall",
+          "conditions": [],
+          "next": null,
+          "uuid": "2760334a-32ed-4af9-a51d-92baae91f0f0"
+        },
+        {
+          "event": "incomingRequest",
+          "conditions": [],
+          "next": "FF80f29906ad6fc8a4fb6333ef3ee4fa85",
+          "uuid": "81847f6e-2b57-465e-ab79-4c3343e61771"
+        }
+      ],
+      "sid": "FF32cd37ba8de2a838f4f8fc9143d7adab"
+    },
+    {
+      "type": "DialV2",
+      "name": "call_user",
+      "properties": {
+        "offset": {
+          "x": 220,
+          "y": 220
+        },
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "record": false,
+        "recording_channels": "mono",
+        "recording_status_callback": null,
+        "trim": "do-not-trim",
+        "detect_answering_machine": false,
+        "machine_detection": "Enable",
+        "machine_detection_timeout": "30",
+        "machine_detection_speech_threshold": "2400",
+        "machine_detection_speech_end_threshold": "1200",
+        "machine_detection_silence_timeout": "5000",
+        "send_digits": null,
+        "timeout": 60,
+        "sip_auth_username": null,
+        "sip_auth_password": null
+      },
+      "transitions": [
+        {
+          "event": "answered",
+          "conditions": [],
+          "next": "FF2ca954a1316666b8999a895f1327eeb5",
+          "uuid": "b77ae574-c2f3-4090-b970-24a48d1b03ed"
+        },
+        {
+          "event": "busy",
+          "conditions": [],
+          "next": "FF6575e2b4e25a6798bb677a16bf7be576",
+          "uuid": "11a3b626-a7e3-402c-8e0b-24889e9ec7ad"
+        },
+        {
+          "event": "noAnswer",
+          "conditions": [],
+          "next": "FF6575e2b4e25a6798bb677a16bf7be576",
+          "uuid": "3fc0f0cb-8f3e-4621-bdac-87ba9d3d8a0f"
+        },
+        {
+          "event": "failed",
+          "conditions": [],
+          "next": null,
+          "uuid": "3b592e27-1330-4042-8b29-cc16d2206669"
+        }
+      ],
+      "sid": "FF80f29906ad6fc8a4fb6333ef3ee4fa85"
+    },
+    {
+      "type": "Message",
+      "name": "send_message_1",
+      "properties": {
+        "offset": {
+          "x": 1150,
+          "y": 400
+        },
+        "body": "Ati fost contactat de Digital Health Assistant.",
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "media_url": null,
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "attributes": null
+      },
+      "transitions": [
+        {
+          "event": "sent",
+          "conditions": [],
+          "next": null,
+          "uuid": "1299c65f-5a40-45b1-b3ef-e8f7614ab9f3"
+        },
+        {
+          "event": "failed",
+          "conditions": [],
+          "next": null,
+          "uuid": "5e78880e-6f4b-4f75-898b-fc96f5a81d37"
+        }
+      ],
+      "sid": "FF6575e2b4e25a6798bb677a16bf7be576"
+    },
+    {
+      "type": "Webhook",
+      "name": "post_text_to_firebase_functions",
+      "properties": {
+        "offset": {
+          "x": -170,
+          "y": 1120
+        },
+        "method": "POST",
+        "url": "https://us-central1-digital-health-assistant.cloudfunctions.net/process",
+        "body": null,
+        "timeout": null,
+        "parameters": [
+          {
+            "key": "text",
+            "value": "{{widgets.gather.SpeechResult}}"
+          }
+        ],
+        "save_response_as": null,
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      "transitions": [
+        {
+          "event": "success",
+          "conditions": [],
+          "next": "FF960b7c9c9df8ead6695adfb2ab5308ef",
+          "uuid": "98f6deb0-4bc3-4694-bde5-17cef6033d92"
+        },
+        {
+          "event": "failed",
+          "conditions": [],
+          "next": "FF95bf66416b5585cbb141074d2a23d801",
+          "uuid": "1e13f3d5-48ab-49d3-b183-7eb2d9448de7"
+        }
+      ],
+      "sid": "FF316eb41901b8fde8e30afafe4a58b844"
+    },
+    {
+      "type": "Gather",
+      "name": "gather",
+      "properties": {
+        "offset": {
+          "x": -160,
+          "y": 790
+        },
+        "timeout": 5,
+        "finish_on_key": "#",
+        "stop_gather": true,
+        "number_of_digits": null,
+        "save_response_as": null,
+        "say": "{{flow.variables.text}}",
+        "play": null,
+        "voice": "default",
+        "language": "ro-RO",
+        "loop": 1,
+        "hints": null,
+        "gather_language": "ro-RO"
+      },
+      "transitions": [
+        {
+          "event": "keypress",
+          "conditions": [],
+          "next": null,
+          "uuid": "24ba67be-2c9b-4aee-a4fc-7ce3acbf5de8"
+        },
+        {
+          "event": "speech",
+          "conditions": [],
+          "next": "FF316eb41901b8fde8e30afafe4a58b844",
+          "uuid": "5502a9ca-e9ca-4d60-95cd-a2abb6f8bf37"
+        },
+        {
+          "event": "timeout",
+          "conditions": [],
+          "next": null,
+          "uuid": "494eb8ef-e9a0-49f5-9daf-033596b2c93b"
+        }
+      ],
+      "sid": "FFf20583370e2e39b6e68aad8e7c6f5603"
+    },
+    {
+      "type": "SetVariables",
+      "name": "set_text_var_init",
+      "properties": {
+        "offset": {
+          "x": 0,
+          "y": 550
+        },
+        "variables": [
+          {
+            "key": "text",
+            "value": "Salut {{flow.data.userName}}, cu ce te pot ajuta?",
+            "index": 0
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "event": "next",
+          "conditions": [],
+          "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
+          "uuid": "6ec2dee6-23a9-400e-9148-ce635877231f"
+        }
+      ],
+      "sid": "FF2ca954a1316666b8999a895f1327eeb5"
+    },
+    {
+      "type": "SetVariables",
+      "name": "set_text_var",
+      "properties": {
+        "offset": {
+          "x": -680,
+          "y": 1390
+        },
+        "variables": [
+          {
+            "key": "text",
+            "value": "{{widgets.post_text_to_firebase_functions.parsed.say}}",
+            "index": "0"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "event": "next",
+          "conditions": [],
+          "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
+          "uuid": "af808c51-7c06-4d2b-b8df-83ab30b00491"
+        }
+      ],
+      "sid": "FF960b7c9c9df8ead6695adfb2ab5308ef"
+    },
+    {
+      "type": "SayPlay",
+      "name": "say_error_from_function",
+      "properties": {
+        "offset": {
+          "x": 220,
+          "y": 1360
+        },
+        "say": "{{widgets.post_text_to_firebase_functions.parsed.say}}",
+        "play": null,
+        "voice": "default",
+        "language": "ro-RO",
+        "loop": 1
+      },
+      "transitions": [
+        {
+          "event": "audioComplete",
+          "conditions": [],
+          "next": null,
+          "uuid": "2717e2b5-1d8e-4fc5-8db3-949481e73dc2"
+        }
+      ],
+      "sid": "FF95bf66416b5585cbb141074d2a23d801"
+    }
+  ]
+}
