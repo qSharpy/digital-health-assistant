@@ -1,6 +1,9 @@
 import { ChatAdapter, Message, ParticipantResponse, ChatParticipantType, ChatParticipantStatus, IChatParticipant } from 'ng-chat';
 import { Observable, of } from 'rxjs';
 import { FunctionsService } from '../services/functions.service';
+import { WordProcessorService } from '../services/word-processor.service';
+import { ChatService } from '../services/chat.service';
+import { switchMap } from 'rxjs/operators';
 
 export class HealthChatAdapter extends ChatAdapter {
   private chatHistory: Message[] = [];
@@ -12,8 +15,12 @@ export class HealthChatAdapter extends ChatAdapter {
     status: ChatParticipantStatus.Online
   };
 
-  constructor(private fctService: FunctionsService) {
+  constructor(private fctService: FunctionsService, private wordProcessorService: WordProcessorService, private chatService: ChatService) {
     super();
+
+    this.chatService.onChatCleared.subscribe(() => {
+      this.chatHistory = [];
+    });
   }
 
 
@@ -30,17 +37,25 @@ export class HealthChatAdapter extends ChatAdapter {
   }
 
   sendMessage(message: Message): void {
+    const lowerMessage = message.message.toLowerCase();
+    this.chatService.allUserSentences.push(lowerMessage);
     this.chatHistory.push(message);
-    this.fctService.process(message.message).subscribe(say => {
-      const replyMessage = {
-        dateSent: new Date(),
-        fromId: 1,
-        toId: 999,
-        message: say
-      };
-      this.chatHistory.push(replyMessage);
-      this.onMessageReceived(this.botParticipant, replyMessage);
+    this.wordProcessorService.process(lowerMessage).pipe(
+      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage))
+    ).subscribe(say => {
+      this.receiveMessage(say);
     });
+  }
+
+  receiveMessage(say: string) {
+    const replyMessage = {
+      dateSent: new Date(),
+      fromId: 1,
+      toId: 999,
+      message: say
+    };
+    this.chatHistory.push(replyMessage);
+    this.onMessageReceived(this.botParticipant, replyMessage);
   }
 
 }
