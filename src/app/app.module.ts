@@ -14,6 +14,8 @@ import { NgChatModule } from 'ng-chat';
 import { environment } from 'src/environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     NgChatModule,
     AngularFireModule.initializeApp(environment.firebase, 'Digital Health Assistant'),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
