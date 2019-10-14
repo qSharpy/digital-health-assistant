@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "11.0"
+git:
+  quiet: true
+branches:
+  only:
+    - master
+    - develop
+    - /^release-.*$/
+install:
+  - npm install
+script:
+  - npm run ng build -- --prod
+cache:
+  directories:
+    - ./node_modules
+    - ./functions/node_modules
+deploy:
+  skip_cleanup: true
+  provider: firebase
+  token:
+    secure: "1/SHOTfvw2RAQ_KDdwERnQWBQc_kIE-eBHhtY-yJP4T7A"
