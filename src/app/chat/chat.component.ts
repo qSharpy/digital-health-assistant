@@ -3,6 +3,7 @@ import { FunctionsService } from '../services/functions.service';
 import { HealthChatAdapter } from './health.chat-adapter';
 import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 
 @Component({
@@ -13,9 +14,11 @@ import { ChatService } from '../services/chat.service';
 export class ChatComponent implements OnInit {
   userId = 999;
   adapter: HealthChatAdapter;
+  chatTheme = 'light-theme';
+  buttonColor = 'primary';
   @ViewChild('chat', { static: true, read: ElementRef }) chat: ElementRef<HTMLElement>;
 
-  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService) {
+  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService, private elRef: ElementRef) {
     this.adapter = new HealthChatAdapter(fctService, wps, cs);
   }
 
@@ -25,4 +28,8 @@ export class ChatComponent implements OnInit {
     }, 1000);
   }
 
+  onThemeChanged(event: MatSlideToggleChange) {
+    this.chatTheme = event.checked ? 'dark-theme' : 'light-theme';
+    this.buttonColor = event.checked ? 'accent' : 'primary';
+  }
 }
