@@ -73,7 +73,11 @@
           "options": {
             "browserTarget": "dha:build",
             "hmr": true,
-            "hmrWarning": false
+            "hmrWarning": false,
+            "ssl": true,
+            "sslCert": "ssl/cert.crt",
+            "sslKey": "ssl/cert.key",
+            "disableHostCheck": true
           },
           "configurations": {
             "production": {
