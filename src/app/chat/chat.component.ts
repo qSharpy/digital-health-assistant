@@ -23,8 +23,10 @@ export class ChatComponent implements OnInit {
   private sub: Subscription;
   @ViewChild('chat', { static: true }) chat: NgChat;
 
-  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService,
-    private wcs: WebCallService, private zone: NgZone) {
+  constructor(fctService: FunctionsService, private wps: WordProcessorService,
+    private cs: ChatService,
+    private wcs: WebCallService,
+    private zone: NgZone) {
     this.adapter = new HealthChatAdapter(fctService, wps, cs);
   }
 
