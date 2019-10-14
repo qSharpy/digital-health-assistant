@@ -15,11 +15,14 @@ export class WebCallService {
     this.speechRecognition = new w.SpeechRecognition();
     this.speechRecognition.interimResults = false;
     this.speechRecognition.continuous = true;
+    this.speechRecognition.lang = 'en-US';
   }
 
   startCall(): Observable<string> {
     this.speechRecognition.onresult = e => {
-      this.sttSubject.next(e.results[0][0].transcript);
+      if (e.results[e.results.length - 1].isFinal) {
+        this.sttSubject.next(e.results[e.results.length - 1][0].transcript);
+      }
     };
     this.speechRecognition.onerror = e => {
       this.sttSubject.error(e);

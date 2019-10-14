@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FunctionsService } from '../services/functions.service';
 import { HealthChatAdapter } from './health.chat-adapter';
 import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { WebCallService } from '../services/web-call.service';
+import { Subscription } from 'rxjs';
+import { NgChat } from 'ng-chat/ng-chat/ng-chat.component';
 
 
 @Component({
@@ -18,9 +20,11 @@ export class ChatComponent implements OnInit {
   chatTheme = 'light-theme';
   buttonColor = 'primary';
   phoneColor = 'primary';
-  @ViewChild('chat', { static: true, read: ElementRef }) chat: ElementRef<HTMLElement>;
+  private sub: Subscription;
+  @ViewChild('chat', { static: true }) chat: NgChat;
 
-  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService, private wcs: WebCallService) {
+  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService,
+    private wcs: WebCallService, private zone: NgZone) {
     this.adapter = new HealthChatAdapter(fctService, wps, cs);
   }
 
@@ -39,13 +43,19 @@ export class ChatComponent implements OnInit {
   startOrEndWebCall() {
     if (this.wcs.isInCall) {
       // hangup
+      if (this.sub != null) {
+        this.sub.unsubscribe();
+      }
       this.wcs.hangup();
       this.phoneColor = this.buttonColor;
     } else {
       // call
-      this.wcs.startCall().subscribe(newMessage => {
-        this.adapter.sendStringMessage(newMessage);
+      this.sub = this.wcs.startCall().subscribe(newMessage => {
+        this.zone.run(() => {
+          this.adapter.sendMessageFromAudio(newMessage);
+        });
       });
+
       this.phoneColor = 'warn';
     }
   }

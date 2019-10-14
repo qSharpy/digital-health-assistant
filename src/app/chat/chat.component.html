@@ -1,6 +1,7 @@
 <ng-chat #chat [adapter]="adapter" [userId]="userId" [emojisEnabled]="true" title="Digital Assistant"
-  [historyEnabled]="true" [searchEnabled]="false" [hideFriendsList]="true" [audioEnabled]="false" [theme]="chatTheme"
-  [historyPageSize]="1000" [persistWindowsState]="false" [isViewportOnMobileEnabled]="true">
+  [browserNotificationsEnabled]="false" [historyEnabled]="true" [searchEnabled]="false" [hideFriendsList]="true"
+  [audioEnabled]="false" [theme]="chatTheme" [historyPageSize]="1000" [persistWindowsState]="false"
+  [isViewportOnMobileEnabled]="true">
 </ng-chat>
 <div class="chat-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
   <mat-icon (click)="startOrEndWebCall()" color="{{phoneColor}}" class="clickable">

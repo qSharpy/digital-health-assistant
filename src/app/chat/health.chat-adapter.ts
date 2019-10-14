@@ -50,21 +50,28 @@ export class HealthChatAdapter extends ChatAdapter {
   receiveMessage(say: string) {
     const replyMessage = {
       dateSent: new Date(),
-      fromId: 999,
-      toId: 1,
+      fromId: 1,
+      toId: 999,
       message: say
     };
     this.chatHistory.push(replyMessage);
     this.onMessageReceived(this.botParticipant, replyMessage);
   }
 
-  sendStringMessage(messageText: string) {
-    this.sendMessage({
+  sendMessageFromAudio(say: string) {
+    const msg = {
       dateSent: new Date(),
       fromId: 999,
       toId: 1,
-      message: messageText
+      message: say
+    };
+    this.chatHistory.push(msg);
+    this.onMessageReceived(this.botParticipant, msg);
+    const lowerMessage = msg.message.toLowerCase();
+    this.wordProcessorService.process(lowerMessage).pipe(
+      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage))
+    ).subscribe(x => {
+      this.receiveMessage(x);
     });
   }
-
 }
