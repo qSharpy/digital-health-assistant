@@ -15,13 +15,13 @@ export class WordProcessorService {
     switch (message) {
       case 'clear':
         this.chatService.clearChat();
-        return of('Hai sa incepem de la capat.');
+        return of('Let\'s start fresh.');
     }
 
-    if (message.includes('suna la ')) {
-      const phoneNo = message.replace('suna la ', '');
+    if (message.includes('call ')) {
+      const phoneNo = message.replace('call ', '');
       const userName = null; // get this from account, here
-      return this.tws.startCallFlow(phoneNo, userName).pipe(map(() => 'Imediat te sun.'));
+      return this.tws.startCallFlow(phoneNo, userName).pipe(map(() => 'Calling you in a second.'));
     }
 
     return of(null);

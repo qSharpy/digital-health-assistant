@@ -19,6 +19,6 @@ export class ChatService {
   }
 
   get initialMessage() {
-    return 'Salut! Poti spune suna la *nr tel*!';
+    return 'Hi! You can even say "call *phone no*"!';
   }
 }

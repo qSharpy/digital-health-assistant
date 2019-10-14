@@ -16,19 +16,19 @@
           "event": "incomingMessage",
           "conditions": [],
           "next": null,
-          "uuid": "3ce0a546-be9d-48bb-8dac-3b77cdf63bb5"
+          "uuid": "cfb22788-2b1e-4511-9493-70b033896923"
         },
         {
           "event": "incomingCall",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "768c9d2b-4141-4d2b-9815-bcfda1be606e"
+          "uuid": "14f95fde-d6c5-4ccf-9ec2-3970cba0d038"
         },
         {
           "event": "incomingRequest",
           "conditions": [],
           "next": "FF80f29906ad6fc8a4fb6333ef3ee4fa85",
-          "uuid": "997d4252-5017-4181-a1ba-6e5c670cb3f6"
+          "uuid": "eb79abd2-c497-4cb9-8c76-d5b0a48ebda8"
         }
       ],
       "sid": "FF32cd37ba8de2a838f4f8fc9143d7adab"
@@ -63,25 +63,25 @@
           "event": "answered",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "94899fb8-3c50-46c2-9ebd-22eeba191643"
+          "uuid": "d7e0c37b-0e29-459d-9334-e08758774c6e"
         },
         {
           "event": "busy",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "a040c9ef-a598-437b-8faa-a123fce8eb84"
+          "uuid": "d4682247-c053-482a-99f5-0a245d51369d"
         },
         {
           "event": "noAnswer",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "b42e8174-16db-46db-a732-98bcb5f00a44"
+          "uuid": "6ae75eab-50d2-4a3c-acc9-f461c45cefb9"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "485f9142-81bd-4d37-b375-073f6c7bb12e"
+          "uuid": "fb93d55f-e89e-40e2-88f9-796217d3b66f"
         }
       ],
       "sid": "FF80f29906ad6fc8a4fb6333ef3ee4fa85"
@@ -94,7 +94,7 @@
           "x": 370,
           "y": 540
         },
-        "body": "Ati fost contactat de Digital Health Assistant.",
+        "body": "You were contacted by Digital Health Assistant.",
         "from": "{{flow.channel.address}}",
         "to": "{{contact.channel.address}}",
         "media_url": null,
@@ -107,13 +107,13 @@
           "event": "sent",
           "conditions": [],
           "next": null,
-          "uuid": "0dc02f41-e218-41cd-9ba4-773a566784aa"
+          "uuid": "5e1b6b90-d56d-46a1-93d0-784dca018119"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "a8ffb2ff-d9b2-4833-8b0a-5c035be58045"
+          "uuid": "c60c8b61-cb66-456f-b903-3e59196b1603"
         }
       ],
       "sid": "FF6575e2b4e25a6798bb677a16bf7be576"
@@ -148,13 +148,13 @@
           "event": "success",
           "conditions": [],
           "next": "FF960b7c9c9df8ead6695adfb2ab5308ef",
-          "uuid": "d6aa16e6-6204-4cc0-aa73-7d4b52b8da83"
+          "uuid": "3acbb0e8-3c73-4e24-ab56-de51bcba4ecf"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": "FF95bf66416b5585cbb141074d2a23d801",
-          "uuid": "7e1258eb-c2d2-4833-aefb-a3a94def001b"
+          "uuid": "957173be-3584-45a3-88e3-538395bee51c"
         }
       ],
       "sid": "FF316eb41901b8fde8e30afafe4a58b844"
@@ -167,7 +167,7 @@
           "x": -160,
           "y": 790
         },
-        "timeout": 5,
+        "timeout": "5",
         "finish_on_key": "#",
         "stop_gather": true,
         "number_of_digits": null,
@@ -175,29 +175,29 @@
         "say": "{{flow.variables.text}}",
         "play": null,
         "voice": "default",
-        "language": "ro-RO",
+        "language": "en-US",
         "loop": 1,
         "hints": null,
-        "gather_language": "ro-RO"
+        "gather_language": "en-US"
       },
       "transitions": [
         {
           "event": "keypress",
           "conditions": [],
           "next": null,
-          "uuid": "ccfd8162-ead8-4b05-b503-e5c95128ee24"
+          "uuid": "3368d62e-dd19-4865-a6f4-bbde31a79376"
         },
         {
           "event": "speech",
           "conditions": [],
           "next": "FF316eb41901b8fde8e30afafe4a58b844",
-          "uuid": "65bf2dfd-c1a0-4c49-beb5-35596d8b3927"
+          "uuid": "deb305cc-7562-4a0f-9280-aa2e128829c8"
         },
         {
           "event": "timeout",
           "conditions": [],
           "next": null,
-          "uuid": "6ac1654e-9e6b-4432-8a17-5f39f1a87714"
+          "uuid": "7203427b-0b77-4fa4-92e9-2f796c55c811"
         }
       ],
       "sid": "FFf20583370e2e39b6e68aad8e7c6f5603"
@@ -213,8 +213,8 @@
         "variables": [
           {
             "key": "text",
-            "value": "Salut {{flow.data.userName}}, cu ce te pot ajuta?",
-            "index": "0"
+            "value": "Hello {{flow.data.userName}} how may I help you?",
+            "index": 0
           }
         ]
       },
@@ -223,7 +223,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "3366f862-ebc9-406b-b697-7a23149d3804"
+          "uuid": "07873a67-c11d-4d3d-8120-990af72812f1"
         }
       ],
       "sid": "FF2ca954a1316666b8999a895f1327eeb5"
@@ -249,7 +249,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "029b07ed-8c8e-42f1-a47e-47ea9e0d4c93"
+          "uuid": "6fc398d7-4bbd-449e-a6ca-0469a247a05b"
         }
       ],
       "sid": "FF960b7c9c9df8ead6695adfb2ab5308ef"
@@ -265,7 +265,7 @@
         "say": "{{widgets.post_text_to_firebase_functions.parsed.say}}",
         "play": null,
         "voice": "default",
-        "language": "ro-RO",
+        "language": "en-US",
         "loop": 1
       },
       "transitions": [
@@ -273,7 +273,7 @@
           "event": "audioComplete",
           "conditions": [],
           "next": null,
-          "uuid": "62c6574b-fadb-48eb-80d4-6ef0258724cf"
+          "uuid": "045e745b-e1e6-48a3-bd33-5bebdaf34173"
         }
       ],
       "sid": "FF95bf66416b5585cbb141074d2a23d801"
