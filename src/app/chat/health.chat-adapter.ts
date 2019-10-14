@@ -50,8 +50,8 @@ export class HealthChatAdapter extends ChatAdapter {
   receiveMessage(say: string) {
     const replyMessage = {
       dateSent: new Date(),
-      fromId: 1,
-      toId: 999,
+      fromId: 999,
+      toId: 1,
       message: say
     };
     this.chatHistory.push(replyMessage);

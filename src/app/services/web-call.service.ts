@@ -14,6 +14,7 @@ export class WebCallService {
     w.SpeechRecognition = w.webkitSpeechRecognition || w.SpeechRecognition;
     this.speechRecognition = new w.SpeechRecognition();
     this.speechRecognition.interimResults = false;
+    this.speechRecognition.continuous = true;
   }
 
   startCall(): Observable<string> {
