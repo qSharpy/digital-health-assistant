@@ -44,6 +44,16 @@ export class WebCallService {
   speak(message: string) {
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = 'en-US';
+    utterance.onstart = () => {
+      if (this.isInCall) {
+        this.speechRecognition.stop();
+      }
+    };
+    utterance.onend = () => {
+      if (this.isInCall) {
+        this.speechRecognition.start();
+      }
+    };
     this.speechSynthesis.speak(utterance);
   }
 }
