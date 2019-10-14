@@ -11,6 +11,7 @@ branches:
 install:
   - npm install
   - cd functions && npm install
+  - cd ../
 script:
   - npm run ng build -- --prod
 cache: npm
