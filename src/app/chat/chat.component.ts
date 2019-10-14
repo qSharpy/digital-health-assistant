@@ -40,9 +40,13 @@ export class ChatComponent implements OnInit {
     if (this.wcs.isInCall) {
       // hangup
       this.wcs.hangup();
+      this.phoneColor = this.buttonColor;
     } else {
       // call
-      this.wcs.startCall();
+      this.wcs.startCall().subscribe(newMessage => {
+        this.adapter.sendStringMessage(newMessage);
+      });
+      this.phoneColor = 'warn';
     }
   }
 }

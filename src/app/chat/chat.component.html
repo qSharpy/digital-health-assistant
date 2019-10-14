@@ -3,7 +3,8 @@
   [historyPageSize]="1000" [persistWindowsState]="false" [isViewportOnMobileEnabled]="true">
 </ng-chat>
 <div class="chat-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-  <mat-icon (click)="startOrEndWebCall()" color="{{phoneColor}}" class="clickable">{{wcs.isInCall ? 'hangup' : 'call'}}
+  <mat-icon (click)="startOrEndWebCall()" color="{{phoneColor}}" class="clickable">
+    {{wcs.isInCall ? 'call_end' : 'call'}}
   </mat-icon>
   <mat-slide-toggle color="{{buttonColor}}" (change)="onThemeChanged($event)"></mat-slide-toggle>
 </div>

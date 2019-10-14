@@ -58,4 +58,13 @@ export class HealthChatAdapter extends ChatAdapter {
     this.onMessageReceived(this.botParticipant, replyMessage);
   }
 
+  sendStringMessage(messageText: string) {
+    this.sendMessage({
+      dateSent: new Date(),
+      fromId: 999,
+      toId: 1,
+      message: messageText
+    });
+  }
+
 }
