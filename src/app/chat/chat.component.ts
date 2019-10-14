@@ -4,6 +4,7 @@ import { HealthChatAdapter } from './health.chat-adapter';
 import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { WebCallService } from '../services/web-call.service';
 
 
 @Component({
@@ -16,9 +17,10 @@ export class ChatComponent implements OnInit {
   adapter: HealthChatAdapter;
   chatTheme = 'light-theme';
   buttonColor = 'primary';
+  phoneColor = 'primary';
   @ViewChild('chat', { static: true, read: ElementRef }) chat: ElementRef<HTMLElement>;
 
-  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService, private elRef: ElementRef) {
+  constructor(fctService: FunctionsService, private wps: WordProcessorService, private cs: ChatService, private wcs: WebCallService) {
     this.adapter = new HealthChatAdapter(fctService, wps, cs);
   }
 
@@ -31,5 +33,16 @@ export class ChatComponent implements OnInit {
   onThemeChanged(event: MatSlideToggleChange) {
     this.chatTheme = event.checked ? 'dark-theme' : 'light-theme';
     this.buttonColor = event.checked ? 'accent' : 'primary';
+    this.phoneColor = this.wcs.isInCall ? 'warn' : (event.checked ? 'accent' : 'primary');
+  }
+
+  startOrEndWebCall() {
+    if (this.wcs.isInCall) {
+      // hangup
+      this.wcs.hangup();
+    } else {
+      // call
+      this.wcs.startCall();
+    }
   }
 }

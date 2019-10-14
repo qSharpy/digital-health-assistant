@@ -15,3 +15,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-top: -40vh;
   margin-left: -40vw;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+input.chat-window-input {
+  width: 75% !important;
+}
