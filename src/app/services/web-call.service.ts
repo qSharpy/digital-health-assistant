@@ -13,9 +13,8 @@ export class WebCallService {
   constructor() {
     const w = window as any;
     w.SpeechRecognition = w.webkitSpeechRecognition || w.SpeechRecognition;
-    w.SpeechSynthesis = w.webkitSpeechSynthesis || w.SpeechSynthesis;
+    this.speechSynthesis = w.webkitSpeechSynthesis || w.speechSynthesis;
     this.speechRecognition = new w.SpeechRecognition();
-    this.speechSynthesis = new w.SpeechSynthesis();
     this.speechRecognition.interimResults = false;
     this.speechRecognition.continuous = true;
     this.speechRecognition.lang = 'en-US';
@@ -44,6 +43,7 @@ export class WebCallService {
 
   speak(message: string) {
     const utterance = new SpeechSynthesisUtterance(message);
+    utterance.lang = 'en-US';
     this.speechSynthesis.speak(utterance);
   }
 }
