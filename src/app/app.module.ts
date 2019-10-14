@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {AngularFireModule} from '@angular/fire';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,6 +11,9 @@ import { FooterComponent } from './footer/footer.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ChatComponent } from './chat/chat.component';
 import { NgChatModule } from 'ng-chat';
+import { environment } from 'src/environments/environment';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { NgChatModule } from 'ng-chat';
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatToolbarModule,
-    NgChatModule
+    NgChatModule,
+    AngularFireModule.initializeApp(environment.firebase, 'Digital Health Assistant'),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
