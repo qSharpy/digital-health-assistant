@@ -8,13 +8,13 @@ export const process = functions.https.onRequest((request, response) => {
   /*const phoneNo: string = request.body.phoneNo;
   const email: string = request.body.email;*/
   if (request.body.text == null || request.body.text.length === 0) {
-    response.send({ say: 'Nu am inteles. Repeta.' });
+    response.send({ say: 'Didn\'t get that. Please repeat.' });
     return;
   }
   if (request.body.text.toLowerCase() === 'stop') {
     response.status(400);
-    response.send({ say: 'Pa pa. Esti prost.' });
+    response.send({ say: 'Bye!' });
     return;
   }
-  response.send({ say: `Am auzit ${request.body.text}` });
+  response.send({ say: `You said: ${request.body.text}` });
 });
