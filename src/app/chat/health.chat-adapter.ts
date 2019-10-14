@@ -4,6 +4,7 @@ import { FunctionsService } from '../services/functions.service';
 import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
 import { switchMap } from 'rxjs/operators';
+import { WebCallService } from '../services/web-call.service';
 
 export class HealthChatAdapter extends ChatAdapter {
   private chatHistory: Message[] = [];
@@ -15,7 +16,8 @@ export class HealthChatAdapter extends ChatAdapter {
     status: ChatParticipantStatus.Online
   };
 
-  constructor(private fctService: FunctionsService, private wordProcessorService: WordProcessorService, private chatService: ChatService) {
+  constructor(private fctService: FunctionsService,
+    private wordProcessorService: WordProcessorService, private chatService: ChatService, private callService: WebCallService) {
     super();
 
     this.chatService.onChatCleared.subscribe(() => {
@@ -71,6 +73,7 @@ export class HealthChatAdapter extends ChatAdapter {
     this.wordProcessorService.process(lowerMessage).pipe(
       switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage))
     ).subscribe(x => {
+      this.callService.speak(x);
       this.receiveMessage(x);
     });
   }

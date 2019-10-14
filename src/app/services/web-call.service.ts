@@ -7,12 +7,15 @@ import { Observable, Subject } from 'rxjs';
 export class WebCallService {
   isInCall: boolean;
   private speechRecognition: SpeechRecognition;
+  private speechSynthesis: SpeechSynthesis;
   private sttSubject = new Subject<string>();
 
   constructor() {
     const w = window as any;
     w.SpeechRecognition = w.webkitSpeechRecognition || w.SpeechRecognition;
+    w.SpeechSynthesis = w.webkitSpeechSynthesis || w.SpeechSynthesis;
     this.speechRecognition = new w.SpeechRecognition();
+    this.speechSynthesis = new w.SpeechSynthesis();
     this.speechRecognition.interimResults = false;
     this.speechRecognition.continuous = true;
     this.speechRecognition.lang = 'en-US';
@@ -37,5 +40,10 @@ export class WebCallService {
   hangup(): void {
     this.speechRecognition.stop();
     this.isInCall = false;
+  }
+
+  speak(message: string) {
+    const utterance = new SpeechSynthesisUtterance(message);
+    this.speechSynthesis.speak(utterance);
   }
 }
