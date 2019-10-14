@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
 
   constructor(fctService: FunctionsService, private wps: WordProcessorService,
     private cs: ChatService,
-    private wcs: WebCallService,
+    public wcs: WebCallService,
     private zone: NgZone) {
     this.adapter = new HealthChatAdapter(fctService, wps, cs, wcs);
   }
