@@ -20,6 +20,11 @@ export class WebCallService {
     this.speechRecognition.onresult = e => {
       this.sttSubject.next(e.results[0][0].transcript);
     };
+    this.speechRecognition.onerror = e => {
+      this.sttSubject.error(e);
+      this.sttSubject.complete();
+      this.hangup();
+    };
     this.speechRecognition.start();
     this.isInCall = true;
     return this.sttSubject.asObservable();
