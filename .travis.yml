@@ -10,15 +10,14 @@ branches:
     - /^release-.*$/
 install:
   - npm install
+  - cd functions && npm install
 script:
   - npm run ng build -- --prod
-cache:
-  directories:
-    - ./node_modules
-    - ./functions/node_modules
+cache: npm
 deploy:
   skip_cleanup: true
   provider: firebase
+  project: digital-health-assistant
   token:
     secure: "1/SHOTfvw2RAQ_KDdwERnQWBQc_kIE-eBHhtY-yJP4T7A"
 
