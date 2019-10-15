@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+import { TensorFlowService } from './tensorflow.service';
 
 
 export const process = functions.https.onRequest((request, response) => {
@@ -11,10 +12,15 @@ export const process = functions.https.onRequest((request, response) => {
     response.send({ say: 'Didn\'t get that. Please repeat.' });
     return;
   }
-  if (request.body.text.toLowerCase() === 'stop') {
+  const messageLower = request.body.text.toLowerCase();
+  if (messageLower === 'stop') {
     response.status(400);
     response.send({ say: 'Bye!' });
     return;
   }
+
+  // tensorflow
+  const service = new TensorFlowService();
+  const message = service.process(messageLower);
   response.send({ say: `You said: ${request.body.text}` });
 });
