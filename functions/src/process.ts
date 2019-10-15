@@ -7,7 +7,7 @@ export const process = functions.https.onRequest((request, response) => {
   response.setHeader("Access-Control-Allow-Headers", "*");
   /*const phoneNo: string = request.body.phoneNo;
   const email: string = request.body.email;*/
-  if (request.body.text == null || request.body.text.length === 0) {
+  if (!request.body.text || request.body.text.length === 0) {
     response.send({ say: 'Did not understand.' });
     return;
   }
