@@ -53,13 +53,9 @@ export class ChatComponent implements OnInit {
       this.phoneColor = this.buttonColor;
     } else {
       // call
-      this.wcs.speak(this.cs.initialMessage).subscribe(() => {
+      this.sub = this.wcs.startCall().subscribe(newMessage => {
         this.zone.run(() => {
-          this.sub = this.wcs.startCall().subscribe(newMessage => {
-            this.zone.run(() => {
-              this.adapter.sendMessageFromAudio(newMessage);
-            });
-          });
+          this.adapter.sendMessageFromAudio(newMessage);
         });
       });
       this.phoneColor = 'warn';

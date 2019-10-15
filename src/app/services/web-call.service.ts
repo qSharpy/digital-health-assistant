@@ -20,7 +20,8 @@ export class WebCallService {
     this.speechRecognition.lang = 'en-US';
   }
 
-  startCall(): Observable<string> {
+  startCall(initialMessage: string = 'Hi'): Observable<string> {
+    this.isInCall = true;
     this.speechRecognition.onresult = e => {
       if (e.results[e.results.length - 1].isFinal) {
         this.sttSubject.next(e.results[e.results.length - 1][0].transcript);
@@ -33,8 +34,9 @@ export class WebCallService {
         this.hangup();
       }
     };
-    this.speechRecognition.start();
-    this.isInCall = true;
+    this.speak(initialMessage).subscribe(() => {
+      this.speechRecognition.start();
+    });
     return this.sttSubject.asObservable();
   }
 
