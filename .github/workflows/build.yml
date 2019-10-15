@@ -1,0 +1,27 @@
+name: digital-health-assistant
+
+on:
+  push:
+    branches:
+    - develop
+    - master
+    - release/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Angular npm install
+      run: npm install
+    - name: Functions npm install
+      run: |
+        cd functions
+        npm install
+    - name: Angular build
+      run: npm run ng build -- --prod
