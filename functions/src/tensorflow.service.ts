@@ -1,13 +1,11 @@
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 
 export class TensorFlowService {
 
-  constructor() {
-
-  }
+  constructor() {}
 
   process(message: string): Observable<string> {
-
+    return of('test');
   }
 }
