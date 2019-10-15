@@ -15,9 +15,5 @@ import { FooterComponent } from './footer/footer.component';
     CommonModule,
     PublicRoutingModule,
     SharedModule
-  ],
-  exports: [
-    PublicRoutingModule
-  ]
-})
+  ]})
 export class PublicModule { }

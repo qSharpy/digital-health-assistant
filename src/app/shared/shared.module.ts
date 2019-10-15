@@ -6,6 +6,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatCardModule,
+} from '@angular/material'
 
 
 @NgModule({
@@ -17,7 +26,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSlideToggleModule,
     MatIconModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule
   ],
   exports: [
     AngularFireAuthModule,
@@ -26,7 +42,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSlideToggleModule,
     MatIconModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }
