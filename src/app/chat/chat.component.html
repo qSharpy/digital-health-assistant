@@ -7,5 +7,5 @@
   <mat-icon (click)="startOrEndWebCall()" color="{{phoneColor}}" class="clickable">
     {{wcs.isInCall ? 'call_end' : 'call'}}
   </mat-icon>
-  <mat-slide-toggle color="{{buttonColor}}" (change)="onThemeChanged($event)"></mat-slide-toggle>
+  <mat-icon class="clickable" color="{{buttonColor}}" (click)="onThemeChanged()">nights_stay</mat-icon>
 </div>

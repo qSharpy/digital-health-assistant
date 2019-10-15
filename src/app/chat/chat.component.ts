@@ -3,7 +3,6 @@ import { FunctionsService } from '../services/functions.service';
 import { HealthChatAdapter } from './health.chat-adapter';
 import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { WebCallService } from '../services/web-call.service';
 import { Subscription } from 'rxjs';
 import { NgChat } from 'ng-chat/ng-chat/ng-chat.component';
@@ -17,6 +16,7 @@ import { NgChat } from 'ng-chat/ng-chat/ng-chat.component';
 export class ChatComponent implements OnInit {
   userId = 999;
   adapter: HealthChatAdapter;
+  private darkTheme: boolean;
   chatTheme = 'light-theme';
   buttonColor = 'primary';
   phoneColor = 'primary';
@@ -36,10 +36,11 @@ export class ChatComponent implements OnInit {
     }, 1000);
   }
 
-  onThemeChanged(event: MatSlideToggleChange) {
-    this.chatTheme = event.checked ? 'dark-theme' : 'light-theme';
-    this.buttonColor = event.checked ? 'accent' : 'primary';
-    this.phoneColor = this.wcs.isInCall ? 'warn' : (event.checked ? 'accent' : 'primary');
+  onThemeChanged() {
+    this.darkTheme = !this.darkTheme;
+    this.chatTheme = this.darkTheme ? 'dark-theme' : 'light-theme';
+    this.buttonColor = this.darkTheme ? 'accent' : 'primary';
+    this.phoneColor = this.wcs.isInCall ? 'warn' : (this.darkTheme ? 'accent' : 'primary');
   }
 
   startOrEndWebCall() {
