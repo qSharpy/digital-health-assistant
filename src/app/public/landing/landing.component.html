@@ -1,0 +1,257 @@
+<header class="h-100" id="home">
+    <div class="h-100 panel">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+
+            <button class="navbar-toggler text-light" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-light"></span>
+            </button>
+
+            <div class="collapse navbar-collapse w-100" fxLayout="row" fxLayoutAlign="center center"
+                id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item nav-active ml-2 mr-2 pl-1 pr-1">
+                        <a class="nav-link text-light" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item ml-2 mr-2 pl-1 pr-1">
+                        <a class="nav-link text-light" href="#">Digital Assistant</a>
+                    </li>
+                    <li class="nav-item ml-2 mr-2 pl-1 pr-1">
+                        <a class="nav-link text-light" href="#">Products</a>
+                    </li>
+                    <li class="nav-item ml-2 mr-2 pl-1 pr-1">
+                        <a class="nav-link text-light" href="#">Best Services</a>
+                    </li>
+                    <li class="nav-item ml-2 mr-2 pl-1 pr-1">
+                        <a class="nav-link text-light" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="p-2 wrapper">
+            <div class="col col-12" fxLayout="row" fxLayoutAlign="center center">
+                <div class="p-2 text-light">
+                    <div class="p-2 head text-light">
+                        Lorem ipsum dolor sit amet consectetur adipiscing elit
+                    </div>
+                    <div class="p-2" fxLayout="row wrap" fxLayoutAlign="center center">
+                        <button class="btn text-light mr-md-2 bg-main">Authentication</button>
+                        <button
+                            class="btn text-light border mt-4 mt-sm-0 btn-registration border-light">Registration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="background-nav" fxLayout="row" fxLayoutAlign="center center">
+            <button type="button" class="btn-nav mr-1 border border-light bg-transparent"></button>
+            <button type="button" class="btn-nav btn-nav-active mr-1 border border-light bg-transparent"></button>
+            <button type="button" class="btn-nav mr-1 border border-light bg-transparent"></button>
+        </div>
+
+    </div>
+</header>
+
+<main>
+    <div class="p-2 mt-5">
+        <div class="p-2 head dig-assistant text-center">
+            Digital Assistant
+        </div>
+        <div class="p-2 row m-0 mt-4">
+            <div
+                class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'phone', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+            </div>
+            <div
+                class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'perm_phone_msg', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+            </div>
+            <div
+                class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'textsms', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+            </div>
+            <div
+                class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'chat', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-0 mt-5 mb-3 insurence-plans">
+
+        <div class="col col-12 col-sm-6 col-md-4 p-0">
+            <div class="head p-3 pr-5 d-flex justify-content-end mr-5">
+                Products
+            </div>
+            <div class="products mt-3 d-flex justify-content-end">
+                <ul>
+                    <li class="product-active pl-4 pr-3 pt-3 pb-3 border-bottom">
+                        <button class="btn btn-link">
+                            Platinum Insurence
+                        </button>
+                    </li>
+                    <li class="pl-4 pr-3 pt-3 pb-3 border-bottom">
+                        <button class="btn btn-link">
+                            Gold Insurence
+                        </button>
+                    </li>
+                    <li class="pl-4 pr-3 pt-3 pb-3 border-bottom">
+                        <button class="btn btn-link">
+                            Silver Insurence
+                        </button>
+                    </li>
+                    <li class="pl-4 pr-3 pt-3 pb-3 border-bottom">
+                        <button class="btn btn-link">
+                            Bronze Insurence
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col col-12 col-sm-6 col-md-4 product-detail">
+            <div class="w-100">
+                <div
+                    class="position-relative text-light product-badge d-flex justify-content-center align-items-center">
+                    <mat-icon>favorite</mat-icon>
+                </div>
+                <div class="p-2 font-weight-bold text-dark text-center" style="font-size: 18px;">
+                    Platinum Insurence
+                </div>
+                <div class="p-2 text-muted">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p> Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+                <div class="p-2  text-muted d-flex justify-content-start align-items-center">
+                    <span style="font-size: 25px;">
+                        &#9743;
+                    </span>
+                    <span class="ml-3">
+                        +40750418902
+                    </span>
+                </div>
+                <div class="p-4 d-flex justify-content-center align-items-center">
+                    <button type="button" class="text-light btn-buy">Buy now</button>
+                </div>
+            </div>
+        </div>
+        <div class="col col-0 col-md-4 p-0">
+            <img src="https://i.ibb.co/j6C9WWN/beach-dawn-hd-wallpaper-292442.jpg" class="w-100 h-100">
+        </div>
+    </div>
+
+
+    <div class="m-0 mt-5 mb-5" style="min-height: 500px;">
+        <div class="p-2 head dig-assistant text-center">
+            Best Services
+        </div>
+
+        <div class=" mt-3 w-100 d-flex justify-content-center align-items-center flex-column">
+            <div class="pl-3 pr-3 pt-3 pb-1 d-flex justify-content-center align-items-center flex-wrap">
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'alarm', 
+                    title: '24x7 Support', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'system_update_alt', 
+                    title: 'Easy Claim System', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'verified_user', 
+                    title: 'Get Started With Us', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'sync', 
+                    title: 'Easy Installments', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+            </div>
+
+            <div class="pl-3 pr-3 pt-1 pb-1 d-flex justify-content-center align-items-center flex-wrap">
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'policy', 
+                    title: 'Multi-policy Discount', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'supervisor_account', 
+                    title: 'Online Account', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'lock', 
+                    title: 'Strongly Secure', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+                <div class="d-inline-block p-2 service-container m-1">
+                    <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'menu_book', 
+                    title: 'Understandable Terms', 
+                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</main>
+
+
+<app-footer></app-footer>
+
+<ng-template #infoContainerTemplate let-icon="icon" let-content="content">
+    <div class="info-container rounded">
+        <div class="p-2 header" fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="text-light">{{icon}}</mat-icon>
+        </div>
+        <div class="p-2 content text-light">
+            <p>{{content}} </p>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #serviceContainerTemplate let-icon="icon" let-title="title" let-content="content">
+    <div style="font-size: 25px;" class="color-main">
+        <mat-icon>{{icon}}</mat-icon>
+    </div>
+    <div class="p-1 service-title">{{title}} </div>
+    <div class="p-1 text-muted"> {{content}} </div>
+
+</ng-template>

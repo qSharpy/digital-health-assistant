@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { PublicModule } from './public/public.module';
 
 @NgModule({
   declarations: [
@@ -19,16 +25,23 @@ import { NotFoundComponent } from './not-found/not-found.component';
     NavbarComponent,
     FooterComponent,
     ChatComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
+    PublicModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgChatModule,
     AngularFireModule.initializeApp(environment.firebase, 'Digital Health Assistant'),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    SharedModule
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

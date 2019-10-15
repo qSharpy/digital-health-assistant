@@ -23,3 +23,99 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 input.chat-window-input {
   width: 75% !important;
 }
+
+
+/* Forms */
+label.mat-form-field-label {
+  font-size: 0.875rem !important;
+}
+
+.small-form-container {
+  margin: 24px auto;
+  max-width: 400px;
+}
+.small-form-container .mat-card {
+  color: #54646c;
+  background-color: #fff;
+  box-shadow: 5px 5px 10px 0 rgba(0,0,0,.1);
+  border-radius: 3px;
+}
+.small-form-container .mat-card .card-title {
+  font-size: 1.375rem;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5rem;
+  padding: 0;
+  margin: 0 0 24px;
+  display: block;
+}
+.small-form-container .mat-card .title-back .card-title {
+  text-align: left;
+  margin-bottom: 0;
+}
+.small-form .mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.small-form .mat-form-field .mat-hint {
+  margin-top: 3px;
+}
+.small-form .mat-form-field button {
+  background: none;
+  border: none
+}
+.small-form .mat-icon-button .mat-icon.password-icon {
+  font-size: 1.25rem !important;
+  color: #8f999e;
+  width: 1em;
+  height: 1.125em;
+  line-height: 1.125em;
+}
+.small-form .remember-container {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.form-action-container {
+  margin: 1.25em 0 0;
+}
+.form-action-container button {
+  width: 100%;
+}
+.hint {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #54646c;
+  margin: 7px auto;
+}
+.hint .text {
+  text-align: left;
+}
+@media only screen and (min-width: 768px) {
+  .hint .text {
+      float: left;
+  }
+}
+
+/* ##################  Scrollbar Style  ############################ */
+
+/* width */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
