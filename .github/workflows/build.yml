@@ -20,17 +20,13 @@ jobs:
         node-version: 10.x
     - name: Angular npm install
       run: npm install
-    #- name: Functions npm install
-    #  run: |
-    #    cd functions
-    #    npm install
     - name: Angular build
       run: npm run ng build -- --prod
-    - name: Archive Production Artifact
+    - name: Publish artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
         name: dist
-        path: dist/dha
+        path: dist
 
   deploy:
     name: Deploy
@@ -39,6 +35,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v1
+      - name: Functions npm install
+        run: |
+          cd functions
+          npm install
       - name: Download Artifact
         uses: actions/download-artifact@v1.0.0
         with:
@@ -46,6 +46,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.1.0
         with:
-          args: deploy --only hosting
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
