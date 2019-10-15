@@ -11,7 +11,7 @@ export class HealthChatAdapter extends ChatAdapter {
   private botParticipant: IChatParticipant = {
     participantType: ChatParticipantType.User,
     id: 1,
-    displayName: 'Bot',
+    displayName: 'Digital Assistant',
     avatar: '/assets/images/bot.png',
     status: ChatParticipantStatus.Online
   };
