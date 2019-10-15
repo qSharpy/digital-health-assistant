@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { LandingComponent } from './public/landing/landing.component';
 
 
 const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-  {path: '**', pathMatch: 'full', component: NotFoundComponent}
+  {path: '', component: LandingComponent}
 ];
 
 @NgModule({
