@@ -15,15 +15,6 @@ import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import {
-  MatTableModule,
-  MatSortModule,
-  MatPaginatorModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule,
-  MatCardModule,
-} from '@angular/material'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -49,13 +40,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
