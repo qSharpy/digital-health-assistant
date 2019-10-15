@@ -15,20 +15,20 @@
         {
           "event": "incomingMessage",
           "conditions": [],
-          "next": null,
-          "uuid": "cfb22788-2b1e-4511-9493-70b033896923"
+          "next": "FFe186cfddc7dea39d298daa658f0c2b54",
+          "uuid": "591c576b-5638-4e8f-ae60-ad25219690b1"
         },
         {
           "event": "incomingCall",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "14f95fde-d6c5-4ccf-9ec2-3970cba0d038"
+          "uuid": "33215c93-43cb-4121-a964-6ffd72dc489b"
         },
         {
           "event": "incomingRequest",
           "conditions": [],
           "next": "FF80f29906ad6fc8a4fb6333ef3ee4fa85",
-          "uuid": "eb79abd2-c497-4cb9-8c76-d5b0a48ebda8"
+          "uuid": "f839dfe2-0e7d-44e9-89ae-00ef643902d3"
         }
       ],
       "sid": "FF32cd37ba8de2a838f4f8fc9143d7adab"
@@ -38,8 +38,8 @@
       "name": "call_user",
       "properties": {
         "offset": {
-          "x": 220,
-          "y": 220
+          "x": 240,
+          "y": 180
         },
         "from": "{{flow.channel.address}}",
         "to": "{{contact.channel.address}}",
@@ -63,25 +63,25 @@
           "event": "answered",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "d7e0c37b-0e29-459d-9334-e08758774c6e"
+          "uuid": "dc88c8e2-d54e-401f-937e-0d6fb266fbd3"
         },
         {
           "event": "busy",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "d4682247-c053-482a-99f5-0a245d51369d"
+          "uuid": "59ae1c4c-bbdf-4486-b446-01eaadfec45a"
         },
         {
           "event": "noAnswer",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "6ae75eab-50d2-4a3c-acc9-f461c45cefb9"
+          "uuid": "1a8fa337-274b-4945-9543-258ff2e05aa0"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "fb93d55f-e89e-40e2-88f9-796217d3b66f"
+          "uuid": "ba24b1d1-4552-4ac7-bb99-f0f830e796dd"
         }
       ],
       "sid": "FF80f29906ad6fc8a4fb6333ef3ee4fa85"
@@ -107,13 +107,13 @@
           "event": "sent",
           "conditions": [],
           "next": null,
-          "uuid": "5e1b6b90-d56d-46a1-93d0-784dca018119"
+          "uuid": "2665e606-e7e9-46a6-8879-63b9028f3d7f"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "c60c8b61-cb66-456f-b903-3e59196b1603"
+          "uuid": "11f572b2-208a-4b56-8b31-4471103bca60"
         }
       ],
       "sid": "FF6575e2b4e25a6798bb677a16bf7be576"
@@ -148,13 +148,13 @@
           "event": "success",
           "conditions": [],
           "next": "FF960b7c9c9df8ead6695adfb2ab5308ef",
-          "uuid": "3acbb0e8-3c73-4e24-ab56-de51bcba4ecf"
+          "uuid": "a4167759-f5c0-4723-a20d-daa5f1267fcb"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": "FF95bf66416b5585cbb141074d2a23d801",
-          "uuid": "957173be-3584-45a3-88e3-538395bee51c"
+          "uuid": "25a06a85-700c-462f-983d-e9bba332ff85"
         }
       ],
       "sid": "FF316eb41901b8fde8e30afafe4a58b844"
@@ -167,7 +167,7 @@
           "x": -160,
           "y": 790
         },
-        "timeout": "5",
+        "timeout": 5,
         "finish_on_key": "#",
         "stop_gather": true,
         "number_of_digits": null,
@@ -185,19 +185,19 @@
           "event": "keypress",
           "conditions": [],
           "next": null,
-          "uuid": "3368d62e-dd19-4865-a6f4-bbde31a79376"
+          "uuid": "0301281b-b01b-4638-9480-2e92cab2e844"
         },
         {
           "event": "speech",
           "conditions": [],
           "next": "FF316eb41901b8fde8e30afafe4a58b844",
-          "uuid": "deb305cc-7562-4a0f-9280-aa2e128829c8"
+          "uuid": "73e18e47-e07f-46b3-a02f-5f9430c746e1"
         },
         {
           "event": "timeout",
           "conditions": [],
           "next": null,
-          "uuid": "7203427b-0b77-4fa4-92e9-2f796c55c811"
+          "uuid": "f013dbf3-64ea-4e08-87f2-f56a7edc93d4"
         }
       ],
       "sid": "FFf20583370e2e39b6e68aad8e7c6f5603"
@@ -207,14 +207,14 @@
       "name": "set_text_var_init",
       "properties": {
         "offset": {
-          "x": 0,
-          "y": 550
+          "x": -10,
+          "y": 510
         },
         "variables": [
           {
             "key": "text",
             "value": "Hello {{flow.data.userName}} how may I help you?",
-            "index": 0
+            "index": "0"
           }
         ]
       },
@@ -223,7 +223,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "07873a67-c11d-4d3d-8120-990af72812f1"
+          "uuid": "ebff315e-0634-4b1f-bb30-dde6f5e94f51"
         }
       ],
       "sid": "FF2ca954a1316666b8999a895f1327eeb5"
@@ -249,7 +249,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "6fc398d7-4bbd-449e-a6ca-0469a247a05b"
+          "uuid": "74da44bb-102b-43fb-842a-98665a6b6396"
         }
       ],
       "sid": "FF960b7c9c9df8ead6695adfb2ab5308ef"
@@ -273,10 +273,84 @@
           "event": "audioComplete",
           "conditions": [],
           "next": null,
-          "uuid": "045e745b-e1e6-48a3-bd33-5bebdaf34173"
+          "uuid": "62450286-27f8-40d5-8309-78cb07268058"
         }
       ],
       "sid": "FF95bf66416b5585cbb141074d2a23d801"
+    },
+    {
+      "type": "Webhook",
+      "name": "sms_of_post_text_to_firebase_functions",
+      "properties": {
+        "offset": {
+          "x": -440,
+          "y": 250
+        },
+        "method": "POST",
+        "url": "https://us-central1-digital-health-assistant.cloudfunctions.net/process",
+        "body": null,
+        "timeout": null,
+        "parameters": [
+          {
+            "key": "text",
+            "value": "{{trigger.message.Body}}",
+            "index": 0
+          },
+          {
+            "key": "phoneNo",
+            "value": "{{contact.channel.address}}"
+          }
+        ],
+        "save_response_as": null,
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      "transitions": [
+        {
+          "event": "success",
+          "conditions": [],
+          "next": "FFc185e8447a8afd0963be3920abdd2729",
+          "uuid": "e61498a7-8e98-430b-8dae-a10f66cd971a"
+        },
+        {
+          "event": "failed",
+          "conditions": [],
+          "next": "FFc185e8447a8afd0963be3920abdd2729",
+          "uuid": "3725cc77-4e0b-4cc0-8be5-0b437a05537d"
+        }
+      ],
+      "sid": "FFe186cfddc7dea39d298daa658f0c2b54"
+    },
+    {
+      "sid": "FFc185e8447a8afd0963be3920abdd2729",
+      "name": "send_message_2",
+      "type": "Message",
+      "properties": {
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "service": "{{trigger.message.InstanceSid}}",
+        "offset": {
+          "x": -760,
+          "y": 490
+        },
+        "body": "{{widgets.sms_post_text_to_firebase_functions.parsed.say}}"
+      },
+      "transitions": [
+        {
+          "widgetId": "FFc185e8447a8afd0963be3920abdd2729",
+          "uuid": "a388f158-fdfb-4550-bddc-d00b76986b92",
+          "event": "sent",
+          "conditions": [],
+          "next": null
+        },
+        {
+          "widgetId": "FFc185e8447a8afd0963be3920abdd2729",
+          "uuid": "dcbb67f0-11f1-4f73-b21d-10ced5c692e4",
+          "event": "failed",
+          "conditions": [],
+          "next": null
+        }
+      ]
     }
   ]
 }
