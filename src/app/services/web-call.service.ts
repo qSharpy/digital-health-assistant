@@ -27,9 +27,11 @@ export class WebCallService {
       }
     };
     this.speechRecognition.onerror = e => {
-      this.sttSubject.error(e);
-      this.sttSubject.complete();
-      this.hangup();
+      if (e.error !== 'no-speech') {
+        this.sttSubject.error(e);
+        this.sttSubject.complete();
+        this.hangup();
+      }
     };
     this.speechRecognition.start();
     this.isInCall = true;
@@ -41,19 +43,27 @@ export class WebCallService {
     this.isInCall = false;
   }
 
-  speak(message: string) {
+  speak(message: string): Observable<string> {
+    const ttsSubject = new Subject<string>();
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = 'en-US';
-    /*utterance.onstart = () => {
+    utterance.onstart = () => {
       if (this.isInCall) {
         this.speechRecognition.stop();
       }
+    };
+    utterance.onerror = e => {
+      ttsSubject.error(e);
+      ttsSubject.complete();
     };
     utterance.onend = () => {
       if (this.isInCall) {
         this.speechRecognition.start();
       }
-    };*/
+      ttsSubject.next(message);
+      ttsSubject.complete();
+    };
     this.speechSynthesis.speak(utterance);
+    return ttsSubject.asObservable();
   }
 }

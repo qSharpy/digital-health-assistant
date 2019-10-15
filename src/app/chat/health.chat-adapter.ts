@@ -73,7 +73,7 @@ export class HealthChatAdapter extends ChatAdapter {
     this.wordProcessorService.process(lowerMessage).pipe(
       switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage))
     ).subscribe(x => {
-      this.callService.speak(x);
+      this.callService.speak(x).subscribe(() => {});
       this.receiveMessage(x);
     });
   }

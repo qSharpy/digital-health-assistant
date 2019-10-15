@@ -52,12 +52,15 @@ export class ChatComponent implements OnInit {
       this.phoneColor = this.buttonColor;
     } else {
       // call
-      this.sub = this.wcs.startCall().subscribe(newMessage => {
+      this.wcs.speak(this.cs.initialMessage).subscribe(() => {
         this.zone.run(() => {
-          this.adapter.sendMessageFromAudio(newMessage);
+          this.sub = this.wcs.startCall().subscribe(newMessage => {
+            this.zone.run(() => {
+              this.adapter.sendMessageFromAudio(newMessage);
+            });
+          });
         });
       });
-
       this.phoneColor = 'warn';
     }
   }
