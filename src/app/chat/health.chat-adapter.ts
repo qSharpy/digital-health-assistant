@@ -12,7 +12,7 @@ export class HealthChatAdapter extends ChatAdapter {
     participantType: ChatParticipantType.User,
     id: 1,
     displayName: 'Bot',
-    avatar: 'https://66.media.tumblr.com/avatar_9dd9bb497b75_128.png',
+    avatar: '/assets/images/bot.png',
     status: ChatParticipantStatus.Online
   };
 
