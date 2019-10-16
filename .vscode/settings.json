@@ -1,7 +1,17 @@
 {
-    "files.exclude": {
-        ".firebase": true,
-        "**/dist": true,
-        "**/node_modules": true
-    }
+  "files.exclude": {
+    ".firebase": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "dist": true,
+    "env": true,
+    "e2e": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/env/*/**": true
+  },
+  "python.pythonPath": "env/bin/python"
 }

@@ -1,19 +1,21 @@
 # things we need for NLP
+import json
+import random
+import pickle
+import pandas as pd
+from keras.optimizers import SGD
+from keras.layers import Dense, Activation, Dropout
+from keras.models import Sequential
+import numpy as np
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
 
 # things we need for Tensorflow
-import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Dropout
-from keras.optimizers import SGD
-import pandas as pd
-import pickle
-import random
-
 # import our chat-bot intents file
-import json
+
+nltk.download('punkt')
+
 with open('data/intents.json') as json_data:
     intents = json.load(json_data)
 
@@ -42,11 +44,11 @@ words = sorted(list(set(words)))
 classes = sorted(list(set(classes)))
 
 # documents = combination between patterns and intents
-print (len(documents), "documents")
+print(len(documents), "documents")
 # classes = intents
-print (len(classes), "classes", classes)
+print(len(classes), "classes", classes)
 # words = all words, vocabulary
-print (len(words), "unique stemmed words", words)
+print(len(words), "unique stemmed words", words)
 # create our training data
 training = []
 # create an empty array for our output
@@ -75,8 +77,8 @@ random.shuffle(training)
 training = np.array(training)
 
 # create train and test lists. X - patterns, Y - intents
-train_x = list(training[:,0])
-train_y = list(training[:,1])
+train_x = list(training[:, 0])
+train_y = list(training[:, 1])
 
 
 # Create model - 3 layers. First layer 128 neurons, second layer 64 neurons and 3rd output layer contains number of neurons
@@ -89,9 +91,12 @@ model.add(Dropout(0.5))
 model.add(Dense(len(train_y[0]), activation='softmax'))
 # Compile model. Stochastic gradient descent with Nesterov accelerated gradient gives good results for this model
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',
+              optimizer=sgd, metrics=['accuracy'])
 # Fit the model
-model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
+model.fit(np.array(train_x), np.array(train_y),
+          epochs=200, batch_size=5, verbose=1)
+
 
 def clean_up_sentence(sentence):
     # tokenize the pattern - split words into array
@@ -101,28 +106,32 @@ def clean_up_sentence(sentence):
     return sentence_words
 
 # return bag of words array: 0 or 1 for each word in the bag that exists in the sentence
+
+
 def bow(sentence, words, show_details=True):
     # tokenize the pattern
     sentence_words = clean_up_sentence(sentence)
     # bag of words - matrix of N words, vocabulary matrix
     bag = [0]*len(words)
     for s in sentence_words:
-        for i,w in enumerate(words):
+        for i, w in enumerate(words):
             if w == s:
                 # assign 1 if current word is in the vocabulary position
                 bag[i] = 1
                 if show_details:
-                    print ("found in bag: %s" % w)
+                    print("found in bag: %s" % w)
 
     return(np.array(bag))
 
+
 p = bow("Load blood pessure for patient", words)
-print (p)
-print (classes)
+print(p)
+print(classes)
 inputvar = pd.DataFrame([p], dtype=float, index=['input'])
 print(model.predict(inputvar))
 # save model to file
 pickle.dump(model, open("data/assistant-model.pkl", "wb"))
 # save all of our data structures
-pickle.dump( {'words':words, 'classes':classes, 'train_x':train_x, 'train_y':train_y}, open( "data/assistant-data.pkl", "wb" ) )
+pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
+             'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
 model.save('data/assistant-keras-model.h5')
