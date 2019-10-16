@@ -1,6 +1,59 @@
+$main-color: #405870;
+
+* {
+	font-family: 'Cairo';
+}
+
 :host {
-    footer {
-      height: 400px;
-    }
-  }
-  
+	footer {
+		ul {
+			.list-group-item {
+				background-color: transparent !important;
+				border: 0 !important;
+
+				a {
+					text-decoration: none;
+				}
+			}
+		}
+
+		min-height: 400px;
+		.menu-container {
+			.header {
+				font-size: 20px;
+			}
+		}
+	}
+
+	.news-letter-container {
+		.news-letter-input {
+			padding: .5rem .7rem;
+			min-width: 250px;
+			border: 1px solid gray;
+			background-color: gray;
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius: 0 !important;
+			outline: none;
+
+			&::placeholder {
+				color: #ffffff;
+			}
+		}
+
+		.news-letter-button {
+			padding: .5rem .7rem;
+			outline: none;
+			border: 1px solid $main-color;
+			background-color: $main-color;
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius: 0 !important;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		.news-letter-input {
+			min-width: 120px !important;
+			width: 120px;
+		}
+	}
+}

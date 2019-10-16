@@ -90,7 +90,7 @@ $head-color: #304254;
 		cursor: pointer;
 
 		&:hover {
-			transform: scale(1.1);
+			transform: scale(1.05);
 		}
 
 		.header {
@@ -102,6 +102,18 @@ $head-color: #304254;
 			overflow: auto;
 			height: 320px;
 			text-indent: 10px;
+		}
+
+		.info-icon {
+			width: 60px;
+			height: 60px;
+			border: 1px solid #ffffff;
+			transition: background-color .3s ease-out, color .3s ease-out;
+
+			&:hover {
+				background-color: #ffffff;
+				color: $main-color !important;
+			}
 		}
 	}
 
@@ -173,6 +185,12 @@ $head-color: #304254;
 
 		.service-title {
 			font-family: 'Open Sans';
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		.insurence-plans .head , .products{
+			justify-content: center !important;
 		}
 	}
 }

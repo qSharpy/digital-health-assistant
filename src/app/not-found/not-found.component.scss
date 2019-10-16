@@ -1,0 +1,33 @@
+$main-color: #00b2ce;
+
+:host {
+	* {
+		font-family: 'Cairo';
+	}
+	.head {
+		font-size: 16rem;
+		color: $main-color;
+	}
+
+	.bg-main {
+		background-color: $main-color !important;
+	}
+
+	button {
+		width: 160px;
+		min-height: 50px;
+		border-radius: 50px;
+		border-width: 0px;
+		border-style: solid;
+		background: rgb(0, 178, 206);
+		color: rgb(255, 255, 255);
+		top: auto;
+		outline: none;
+		box-shadow: rgb(0, 153, 177) 0px 4px;
+
+		&:focus,
+		&:active {
+			outline: none;
+		}
+	}
+}
