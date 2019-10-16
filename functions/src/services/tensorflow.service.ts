@@ -11,11 +11,19 @@ export class TensorFlowService {
     return this.loadWordsFromStorage().pipe(
       switchMap(words => {
         const array = this.convertSentenceToTensor(message, words);
-        const tensor = tf.tensor([array]);
+        const tensor = tf.tensor([array], null, "float32");
         console.log(tensor);
         return this.loadModel().pipe(
-          map(model => {
-            return model.predict(tensor);
+          switchMap(model => {
+            return from(
+              (model.predict(tensor, {
+                verbose: true
+              }) as any).data()
+            );
+          }),
+          map(data => {
+            const arr: number[] = Object.values(data);
+            return arr;
           })
         );
       })
