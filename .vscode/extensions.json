@@ -7,7 +7,6 @@
     "ms-vscode.vscode-typescript-tslint-plugin",
     "vscode-icons-team.vscode-icons",
     "github.vscode-pull-request-github",
-    "formulahendry.github-actions",
-    "ms-python.python"
+    "formulahendry.github-actions"
   ]
 }

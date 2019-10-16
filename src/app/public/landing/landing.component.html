@@ -1,44 +1,38 @@
 <header class="h-100" id="home">
     <div class="h-100 panel">
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-
-            <button class="navbar-toggler text-light" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon text-light"></span>
-            </button>
-
-            <div class="collapse navbar-collapse w-100" fxLayout="row" fxLayoutAlign="center center"
-                id="navbarSupportedContent">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent mb-4 mb-sm-0">
+            <div class="collapse navbar-collapse w-100"
+                fxLayout="row" fxLayoutAlign="center center" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item nav-active ml-2 mr-2 pl-1 pr-1">
                         <a class="nav-link text-light" href="#home">Home</a>
                     </li>
                     <li class="nav-item ml-2 mr-2 pl-1 pr-1">
-                        <a class="nav-link text-light" href="#">Digital Assistant</a>
+                        <a class="nav-link text-light" href="#digitalAssistant">Digital Assistant</a>
                     </li>
                     <li class="nav-item ml-2 mr-2 pl-1 pr-1">
-                        <a class="nav-link text-light" href="#">Products</a>
+                        <a class="nav-link text-light" href="#products">Products</a>
                     </li>
                     <li class="nav-item ml-2 mr-2 pl-1 pr-1">
-                        <a class="nav-link text-light" href="#">Best Services</a>
+                        <a class="nav-link text-light" href="#bestServices">Best Services</a>
                     </li>
                     <li class="nav-item ml-2 mr-2 pl-1 pr-1">
-                        <a class="nav-link text-light" href="#">Contact</a>
+                        <a class="nav-link text-light" href="#contact">Contact</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <div class="p-2 wrapper">
+        <div class="p-2 wrapper pt-sm-4 mt-sm-3">
             <div class="col col-12" fxLayout="row" fxLayoutAlign="center center">
                 <div class="p-2 text-light">
-                    <div class="p-2 head text-light">
+                    <div class="p-2 head text-light text-center">
                         Lorem ipsum dolor sit amet consectetur adipiscing elit
                     </div>
                     <div class="p-2" fxLayout="row wrap" fxLayoutAlign="center center">
-                        <button class="btn text-light mr-md-2 bg-main">Authentication</button>
-                        <button
+                        <button [routerLink]="[ '/signin']"
+                            class="btn text-light mr-md-2 bg-main">Authentication</button>
+                        <button [routerLink]="[ '/signup']"
                             class="btn text-light border mt-4 mt-sm-0 btn-registration border-light">Registration</button>
                     </div>
                 </div>
@@ -55,7 +49,7 @@
 </header>
 
 <main>
-    <div class="p-2 mt-5">
+    <div class="p-2 mt-5" id="digitalAssistant">
         <div class="p-2 head dig-assistant text-center">
             Digital Assistant
         </div>
@@ -104,76 +98,65 @@
         </div>
     </div>
 
-    <div class="row m-0 mt-5 mb-3 insurence-plans">
+    <div class="row m-0 mt-5 mb-3 insurence-plans" id="products">
 
         <div class="col col-12 col-sm-6 col-md-4 p-0">
-            <div class="head p-3 pr-5 d-flex justify-content-end mr-5">
+            <div class="head p-3 pr-5 mr-md-5" fxLayout="row" fxLayoutAlign="end start">
                 Products
             </div>
-            <div class="products mt-3 d-flex justify-content-end">
+            <div class="products mt-3" fxLayout="row" fxLayoutAlign="end start">
                 <ul>
-                    <li class="product-active pl-4 pr-3 pt-3 pb-3 border-bottom">
-                        <button class="btn btn-link">
-                            Platinum Insurence
-                        </button>
-                    </li>
-                    <li class="pl-4 pr-3 pt-3 pb-3 border-bottom">
-                        <button class="btn btn-link">
-                            Gold Insurence
-                        </button>
-                    </li>
-                    <li class="pl-4 pr-3 pt-3 pb-3 border-bottom">
-                        <button class="btn btn-link">
-                            Silver Insurence
-                        </button>
-                    </li>
-                    <li class="pl-4 pr-3 pt-3 pb-3 border-bottom">
-                        <button class="btn btn-link">
-                            Bronze Insurence
-                        </button>
-                    </li>
+                    <ng-container *ngFor="let plan of insurencePlans">
+                        <li class="pl-4 pr-3 pt-3 pb-3 border-bottom"
+                            [ngClass]="{'product-active': plan.id === (currentInsurencePlan$ | async)?.id}">
+                            <button (click)="changeInsurencePlan(plan)" class="btn btn-link">
+                                {{plan.name}}
+                            </button>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
         </div>
         <div class="col col-12 col-sm-6 col-md-4 product-detail">
-            <div class="w-100">
-                <div
-                    class="position-relative text-light product-badge d-flex justify-content-center align-items-center">
-                    <mat-icon>favorite</mat-icon>
+
+            <ng-container *ngIf="currentInsurencePlan$ | async as insurence; else productDetailNotFountTemplate">
+
+                <div class="w-100">
+                    <div
+                        class="position-relative text-light product-badge d-flex justify-content-center align-items-center">
+                        <mat-icon>favorite</mat-icon>
+                    </div>
+                    <div class="p-2 font-weight-bold text-dark text-center" style="font-size: 18px;">
+                        {{insurence?.name}}
+                    </div>
+                    <div class="p-2 text-muted">
+                        <p>
+                            {{insurence?.description}}
+                        </p>
+                    </div>
+                    <div class="p-2  text-muted d-flex justify-content-start align-items-center">
+                        <span style="font-size: 25px;">
+                            &#9743;
+                        </span>
+                        <span class="ml-3">
+                            +40750418902
+                        </span>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="text-light btn-buy">Buy now</button>
+                    </div>
                 </div>
-                <div class="p-2 font-weight-bold text-dark text-center" style="font-size: 18px;">
-                    Platinum Insurence
-                </div>
-                <div class="p-2 text-muted">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <p> Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="p-2  text-muted d-flex justify-content-start align-items-center">
-                    <span style="font-size: 25px;">
-                        &#9743;
-                    </span>
-                    <span class="ml-3">
-                        +40750418902
-                    </span>
-                </div>
-                <div class="p-4 d-flex justify-content-center align-items-center">
-                    <button type="button" class="text-light btn-buy">Buy now</button>
-                </div>
-            </div>
+
+
+            </ng-container>
+
         </div>
         <div class="col col-0 col-md-4 p-0">
             <img src="https://i.ibb.co/j6C9WWN/beach-dawn-hd-wallpaper-292442.jpg" class="w-100 h-100">
         </div>
     </div>
 
-
-    <div class="m-0 mt-5 mb-5" style="min-height: 500px;">
+    <div class="m-0 mt-5 mb-5" style="min-height: 500px;" id="bestServices">
         <div class="p-2 head dig-assistant text-center">
             Best Services
         </div>
@@ -224,22 +207,17 @@
                     content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
                 </div>
             </div>
-
         </div>
-
     </div>
-
-
-
 </main>
 
-
-<app-public-footer></app-public-footer>
+<app-public-footer id="contact"></app-public-footer>
 
 <ng-template #infoContainerTemplate let-icon="icon" let-content="content">
     <div class="info-container rounded">
         <div class="p-2 header" fxLayout="column" fxLayoutAlign="center center">
-            <mat-icon class="text-light">{{icon}}</mat-icon>
+            <mat-icon class="info-icon text-light rounded-circle" fxLayout="row" fxLayoutAlign="center center">{{icon}}
+            </mat-icon>
         </div>
         <div class="p-2 content text-light">
             <p>{{content}} </p>
@@ -254,4 +232,8 @@
     <div class="p-1 service-title">{{title}} </div>
     <div class="p-1 text-muted"> {{content}} </div>
 
+</ng-template>
+
+<ng-template #productDetailNotFountTemplate>
+    Insurence plan not found
 </ng-template>
