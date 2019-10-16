@@ -467,3 +467,7 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/code,linux,windows,firebase,notepadpp,visualstudio,visualstudiocode
+
+
+ai/**/*.h5
+ai/**/*.pkl
