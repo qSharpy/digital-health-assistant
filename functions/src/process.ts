@@ -19,6 +19,7 @@ export const process = functions.https.onRequest((request, response) => {
   }
   new TensorFlowService().process(request.body.text).subscribe(
     message => {
+      console.log(message);
       response.send({ say: message });
     },
     e => {

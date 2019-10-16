@@ -4,14 +4,17 @@ import { map, switchMap } from "rxjs/operators";
 import { tokenize } from "string-punctuation-tokenizer";
 import * as stemmer from "lancaster-stemmer";
 import * as request from "request";
+import { StorageIoHandler } from "./storage.iohandler";
 
 export class TensorFlowService {
   process(message: string): Observable<any> {
     return this.loadWordsFromStorage().pipe(
       switchMap(words => {
-        const tensor = this.convertSentenceToTensor(message, words);
+        const array = this.convertSentenceToTensor(message, words);
         return this.loadModel().pipe(
-          map(model => model.predict(tf.tensor1d(tensor, "float32")).toString())
+          map(model => {
+            return model.predict(tf.tensor(array));
+          })
         );
       })
     );
@@ -58,10 +61,6 @@ export class TensorFlowService {
   }
 
   private loadModel(): Observable<tf.LayersModel> {
-    return from(
-      tf.loadLayersModel(
-        "https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/tensorflow%2Fmodel.json?alt=media&token=9680ead9-59f6-4742-99c3-28b4369e87cc"
-      )
-    );
+    return from(tf.loadLayersModel(new StorageIoHandler()));
   }
 }
