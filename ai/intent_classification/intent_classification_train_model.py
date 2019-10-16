@@ -10,7 +10,7 @@ import nltk
 import json
 from nltk.stem.lancaster import LancasterStemmer
 nltk.download('punkt')
-with open('data/intents.json') as json_data:
+with open('intents.json') as json_data:
     intents = json.load(json_data)
 stemmer = LancasterStemmer()
 words = []

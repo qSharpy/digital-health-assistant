@@ -11,6 +11,7 @@ export class TensorFlowService {
     return this.loadWordsFromStorage().pipe(
       switchMap(words => {
         const array = this.convertSentenceToTensor(message, words);
+        console.log(array);
         return this.loadModel().pipe(
           map(model => {
             return model.predict(tf.tensor(array));
