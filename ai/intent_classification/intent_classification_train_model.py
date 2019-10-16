@@ -7,6 +7,7 @@ from keras.layers import Dense, Activation, Dropout
 from keras.models import Sequential
 import numpy as np
 import nltk
+import json
 from nltk.stem.lancaster import LancasterStemmer
 nltk.download('punkt')
 with open('data/intents.json') as json_data:
@@ -85,3 +86,7 @@ pickle.dump(model, open("data/assistant-model.pkl", "wb"))
 pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
              'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
 model.save('data/assistant-keras-model.h5')
+with open('data/words.json', 'w') as words_json:
+    jsonFileContent = json.dumps(words)
+    words_json.write(jsonFileContent)
+    words_json.close()
