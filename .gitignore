@@ -469,4 +469,4 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/code,linux,windows,firebase,notepadpp,visualstudio,visualstudiocode
 
-ai/data
+ai/intent_classification/data/*

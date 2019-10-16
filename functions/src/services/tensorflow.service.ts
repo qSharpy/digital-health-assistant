@@ -11,10 +11,11 @@ export class TensorFlowService {
     return this.loadWordsFromStorage().pipe(
       switchMap(words => {
         const array = this.convertSentenceToTensor(message, words);
-        console.log(array);
+        const tensor = tf.tensor([array]);
+        console.log(tensor);
         return this.loadModel().pipe(
           map(model => {
-            return model.predict(tf.tensor(array));
+            return model.predict(tensor);
           })
         );
       })
@@ -45,7 +46,7 @@ export class TensorFlowService {
         }
       }
     }
-    return [bag];
+    return bag;
   }
 
   private loadWordsFromStorage(): Observable<string[]> {

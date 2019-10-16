@@ -27,9 +27,6 @@ for intent in intents['intents']:
 words = [stemmer.stem(w.lower()) for w in words if w not in ignore_words]
 words = sorted(list(set(words)))
 classes = sorted(list(set(classes)))
-print(len(documents), "documents")
-print(len(classes), "classes", classes)
-print(len(words), "unique stemmed words", words)
 training = []
 output_empty = [0] * len(classes)
 for doc in documents:
@@ -55,7 +52,7 @@ sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',
               optimizer=sgd, metrics=['accuracy'])
 model.fit(np.array(train_x), np.array(train_y),
-          epochs=200, batch_size=5, verbose=1)
+          epochs=200, batch_size=5, verbose=0)
 
 
 def clean_up_sentence(sentence):
@@ -71,17 +68,13 @@ def bow(sentence, words, show_details=True):
         for i, w in enumerate(words):
             if w == s:
                 bag[i] = 1
-                if show_details:
-                    print("found in bag: %s" % w)
-
     return(np.array(bag))
 
 
 p = bow("Load blood pessure for patient", words)
-print(p)
-print(classes)
 inputvar = pd.DataFrame([p], dtype=float, index=['input'])
-print(model.predict(inputvar))
+print(inputvar.as_matrix())
+# print(model.predict(inputvar))
 pickle.dump(model, open("data/assistant-model.pkl", "wb"))
 pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
              'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
