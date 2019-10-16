@@ -15,7 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { PublicModule } from './public/public.module';
 
@@ -43,7 +43,14 @@ import { PublicModule } from './public/public.module';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: FirestoreSettingsToken, useValue: environment.firebase.firestoreEmulator ? {
+          host: 'localhost:8081',
+          ssl: false
+      } : undefined
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

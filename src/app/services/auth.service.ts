@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Account } from '../models/account';
@@ -25,6 +24,6 @@ export class AuthService {
 
   addAccount(account: Account) {
     let accountObject = RequestUtil.cloneObjectBeforeSave(account);
-    return this.angularFirestore.collection("accounts").doc(account.id).set(accountObject);  
+    return this.angularFirestore.collection("accounts").doc(account.id).set(accountObject);
   }
 }

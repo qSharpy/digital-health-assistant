@@ -11,6 +11,13 @@ if (environment.production) {
   enableProdMode();
 }
 
+if (environment.firebase.functionsEmulator) {
+  Object.keys(environment.firebase).filter(x => x.startsWith('fct_')).forEach(k => {
+    environment.firebase[k] = environment.firebase[k].replace('https://us-central1-digital-health-assistant.cloudfunctions.net/',
+     'http://localhost:5001/digital-health-assistant/us-central1/');
+  });
+}
+
 const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule);
 
 if (!environment.production) {
