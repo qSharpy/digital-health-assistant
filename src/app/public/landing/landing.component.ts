@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { filter, map, tap, defaultIfEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -11,15 +13,30 @@ export class LandingComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   private _currentInsurencePlan$: BehaviorSubject<InsurencePlan>;
 
+  // tslint:disable-next-line: variable-name
+  private _currentPopup$: Observable<string>;
+
   insurencePlans: InsurencePlan[] = [];
 
   get currentInsurencePlan$(): Observable<InsurencePlan> {
     return this._currentInsurencePlan$.asObservable();
   }
 
-  constructor() { }
+  get currentPopup$(): Observable<string> {
+    return this._currentPopup$;
+  }
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this._currentPopup$ = this.route.queryParams.pipe(
+      filter(params => params.popup),
+      map(param => param.popup as string),
+      defaultIfEmpty('none'),
+      tap(val => console.log(val))
+    );
+
     this.buildInsurencePlans();
 
     this._currentInsurencePlan$ = new BehaviorSubject<InsurencePlan>(this.insurencePlans[0]);
@@ -41,6 +58,7 @@ export class LandingComponent implements OnInit {
   }
 
   changeInsurencePlan = (plan: InsurencePlan) => this._currentInsurencePlan$.next(plan);
+
 }
 
 class InsurencePlan {
@@ -49,3 +67,4 @@ class InsurencePlan {
     public name: string,
     public description: string) { }
 }
+

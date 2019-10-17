@@ -1,8 +1,8 @@
 <header class="h-100" id="home">
     <div class="h-100 panel">
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent mb-4 mb-sm-0">
-            <div class="collapse navbar-collapse w-100"
-                fxLayout="row" fxLayoutAlign="center center" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse w-100" fxLayout="row" fxLayoutAlign="center center"
+                id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item nav-active ml-2 mr-2 pl-1 pr-1">
                         <a class="nav-link text-light" href="#home">Home</a>
@@ -30,10 +30,10 @@
                         Lorem ipsum dolor sit amet consectetur adipiscing elit
                     </div>
                     <div class="p-2" fxLayout="row wrap" fxLayoutAlign="center center">
-                        <button [routerLink]="[ '/signin']"
-                            class="btn text-light mr-md-2 bg-main">Authentication</button>
-                        <button [routerLink]="[ '/signup']"
-                            class="btn text-light border mt-4 mt-sm-0 btn-registration border-light">Registration</button>
+                        <button [routerLink]="[ '/']" [queryParams]="{ popup: 'sign-in'}"
+                            class="btn text-light mr-md-2 bg-main">Sign in</button>
+                        <button [routerLink]="[ '/']" [queryParams]="{ popup: 'sign-up'}"
+                            class="btn text-light border mt-4 mt-sm-0 btn-registration border-light">Sign up</button>
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                         </span>
                     </div>
                     <div class="p-4 d-flex justify-content-center align-items-center">
-                        <button type="button" class="text-light btn-buy">Buy now</button>
+                        <button type="button" class="text-light btn-custom">Buy now</button>
                     </div>
                 </div>
 
@@ -237,3 +237,6 @@
 <ng-template #productDetailNotFountTemplate>
     Insurence plan not found
 </ng-template>
+
+<app-signin *ngIf="(currentPopup$ | async) === 'sign-in'"></app-signin>
+<app-signup *ngIf="(currentPopup$ | async) === 'sign-up'"></app-signup>

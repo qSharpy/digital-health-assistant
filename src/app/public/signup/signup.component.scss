@@ -1,0 +1,36 @@
+:host {
+	.cairo {
+		font-family: 'Cairo';
+	}
+
+	.head {
+		font-family: 'Open Sans' !important;
+		font-size: 1.3rem;
+	}
+
+	.page-container {
+		left: 0;
+		top: 0;
+		z-index: 1000000;
+		background-color: rgba(0, 0, 0, .6);
+	}
+
+	.panel {
+		min-width: 400px;
+		max-width: 500px;
+        min-height: 200px;
+        border-radius: .75rem!important;
+	}
+
+	.btn-login {
+		max-width: 250px;
+	}
+
+	.btn-close:hover, .btn-close:focus {
+		text-decoration: none;
+    }
+    
+    mat-form-field{
+        max-width: 350px;
+    }
+}
