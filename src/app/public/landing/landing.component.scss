@@ -162,24 +162,6 @@ $head-color: #304254;
 			text-indent: 15px;
 		}
 	}
-
-	.btn-buy {
-		width: 160px;
-		min-height: 50px;
-		border-radius: 50px;
-		border-width: 0px;
-		border-style: solid;
-		background: rgb(0, 178, 206);
-		color: rgb(255, 255, 255);
-		top: auto;
-		outline: none;
-		box-shadow: rgb(0, 153, 177) 0px 4px;
-
-		&:focus,
-		&:active {
-			outline: none;
-		}
-	}
 	.service-container {
 		width: 240px;
 
