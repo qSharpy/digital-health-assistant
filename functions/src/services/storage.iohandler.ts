@@ -14,9 +14,9 @@ export class StorageIoHandler implements tf.io.IOHandler {
           request(
             "https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/tensorflow%2Fgroup1-shard1of1.bin?alt=media&token=63ff5fa5-6b03-415a-a0a7-52de2fde62cc",
             { encoding: null },
-            (err, res, body) => {
-              if (err) reject(err);
-              const bufferBody: Buffer = body;
+            (err2, res2, body2) => {
+              if (err2) reject(err2);
+              const bufferBody: Buffer = body2;
               result.weightData = new Uint8Array(bufferBody).buffer;
               resolve(result);
             }
