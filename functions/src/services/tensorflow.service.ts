@@ -4,6 +4,7 @@ import { map, switchMap } from "rxjs/operators";
 import { tokenize } from "string-punctuation-tokenizer";
 import * as stemmer from "lancaster-stemmer";
 import { TokensService } from "./tokens.service";
+import { ChatMessage } from '../models/chat-message';
 
 export interface Result {
   theClass: string;
@@ -18,10 +19,10 @@ export interface Tokens {
 export class TensorFlowService {
   private errorThreshold = 0.25;
 
-  process(message: string): Observable<Result[]> {
+  process(message: ChatMessage): Observable<Result[]> {
     return new TokensService().loadClassesAndWordsFromStorage<Tokens>().pipe(
       switchMap(tokens => {
-        const array = this.convertSentenceToTensor(message, tokens.words);
+        const array = this.convertSentenceToTensor(message.text, tokens.words);
         const tensor = tf.tensor([array], null, "float32");
         return this.loadModel().pipe(
           switchMap(model => {

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ProcessResponse } from '../models/process-response';
+import { ChatMessage } from '../models/chat-message';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,7 @@ export class FunctionsService {
 
   constructor(private http: HttpClient) { }
 
-  process(message: string) {
-    return this.http.post<ProcessResponse>(environment.firebase.fct_processUrl, { text: message }).pipe(map(x => x.say));
+  process(message: ChatMessage) {
+    return this.http.post<ProcessResponse>(environment.firebase.fct_processUrl, message);
   }
-}
-
-interface ProcessResponse {
-  say: string;
 }

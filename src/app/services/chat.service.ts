@@ -6,11 +6,14 @@ import { Subject } from 'rxjs';
 })
 export class ChatService {
   allUserSentences: string[] = [];
+  lastContext: string;
   private clearSubject = new Subject<boolean>();
 
   constructor() { }
 
   clearChat() {
+    this.lastContext = null;
+    this.allUserSentences = [];
     this.clearSubject.next(true);
   }
 
@@ -21,4 +24,5 @@ export class ChatService {
   get initialMessage() {
     return 'Hi! You can even say "call *phone no*"!';
   }
+
 }

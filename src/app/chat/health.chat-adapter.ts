@@ -5,6 +5,8 @@ import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
 import { switchMap, catchError } from 'rxjs/operators';
 import { WebCallService } from '../services/web-call.service';
+import { ProcessResponse } from '../models/process-response';
+import { ChatMessage } from '../models/chat-message';
 
 export class HealthChatAdapter extends ChatAdapter {
   private chatHistory: Message[] = [];
@@ -17,14 +19,15 @@ export class HealthChatAdapter extends ChatAdapter {
   };
 
   constructor(private fctService: FunctionsService,
-    private wordProcessorService: WordProcessorService, private chatService: ChatService, private callService: WebCallService) {
+    private wordProcessorService: WordProcessorService,
+    private chatService: ChatService,
+    private callService: WebCallService) {
     super();
 
     this.chatService.onChatCleared.subscribe(() => {
       this.chatHistory = [];
     });
   }
-
 
   listFriends(): Observable<ParticipantResponse[]> {
     return of([
@@ -34,6 +37,7 @@ export class HealthChatAdapter extends ChatAdapter {
       } as ParticipantResponse
     ]);
   }
+
   getMessageHistory(destinataryId: any): Observable<Message[]> {
     return of(this.chatHistory);
   }
@@ -42,13 +46,15 @@ export class HealthChatAdapter extends ChatAdapter {
     const lowerMessage = message.message.toLowerCase();
     this.chatService.allUserSentences.push(lowerMessage);
     this.chatHistory.push(message);
-    this.wordProcessorService.process(lowerMessage).pipe(
-      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage)),
+    const obj = {text: lowerMessage, context: this.chatService.lastContext} as ChatMessage;
+    this.wordProcessorService.process(obj).pipe(
+      switchMap(x => x != null ? of(x) : this.fctService.process(obj)),
       catchError(e => {
-        return of(e.error.say);
+        return of(e.error.say as ProcessResponse);
       })
     ).subscribe(say => {
-      this.receiveMessage(say);
+      this.chatService.lastContext = say.context;
+      this.receiveMessage(say.say);
     });
   }
 
@@ -73,14 +79,16 @@ export class HealthChatAdapter extends ChatAdapter {
     this.chatHistory.push(msg);
     this.onMessageReceived(this.botParticipant, msg);
     const lowerMessage = msg.message.toLowerCase();
-    this.wordProcessorService.process(lowerMessage).pipe(
-      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage)),
+    const obj = {text: lowerMessage, context: this.chatService.lastContext} as ChatMessage;
+    this.wordProcessorService.process(obj).pipe(
+      switchMap(x => x != null ? of(x) : this.fctService.process(obj)),
       catchError(e => {
-        return of(e.error.say);
+        return of(e.error.say as ProcessResponse);
       })
     ).subscribe(x => {
-      this.callService.speak(x).subscribe(() => {});
-      this.receiveMessage(x);
+      this.chatService.lastContext = x.context;
+      this.callService.speak(x.say).subscribe(() => {});
+      this.receiveMessage(x.say);
     });
   }
 }

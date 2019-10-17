@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import { TensorFlowService } from "./services/tensorflow.service";
 import { TokensService } from "./services/tokens.service";
+import { ChatMessage } from './models/chat-message';
 
 export const process = functions.https.onRequest((request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -19,7 +20,7 @@ export const process = functions.https.onRequest((request, response) => {
     return;
   }
 
-  new TensorFlowService().process(request.body.text).subscribe(
+  new TensorFlowService().process(request.body as ChatMessage).subscribe(
     results => {
       if (results == null || results.length === 0) {
         response.send({ say: "Did not recognize."});
