@@ -52,7 +52,7 @@ sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',
               optimizer=sgd, metrics=['accuracy'])
 model.fit(np.array(train_x), np.array(train_y),
-          epochs=200, batch_size=5, verbose=0)
+          epochs=200, batch_size=5, verbose=1)
 
 
 def clean_up_sentence(sentence):
@@ -70,10 +70,11 @@ def bow(sentence, words, show_details=True):
                 bag[i] = 1
     return(np.array(bag))
 
-pickle.dump(model, open("data/assistant-model.pkl", "wb"))
-pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
-             'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
+#pickle.dump(model, open("data/assistant-model.pkl", "wb"))
+#pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
+#             'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
 model.save('data/assistant-keras-model.h5')
+
 with open('data/words.json', 'w') as words_json:
     jsonFileContent = json.dumps(words)
     words_json.write(jsonFileContent)
