@@ -85,9 +85,7 @@ function giveResponse(tag: string, intentsModel: IntentsModel, currentContext: s
     return of(response);
   }
   const randomResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
-  // WE HAVE THE NEXT (FUTURE ANSWER) CONTEXT
   const context = foundResponse.context != null && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
-  // TODO ALL LOGIC HERE - DATABASE STUFF ETC
   response.say = randomResponse;
   response.context = context;
   return of(response);
