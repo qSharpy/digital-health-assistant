@@ -6,10 +6,12 @@ import * as stemmer from "lancaster-stemmer";
 import * as request from "request";
 import { StorageIoHandler } from "./storage.iohandler";
 import { Tokens } from "./tokens";
+import { Result } from "./result";
 
 export class TensorFlowService {
+  private errorThreshold = 0.25;
 
-  process(message: string): Observable<any> {
+  process(message: string): Observable<Result[]> {
     return this.loadTokensFromStorage().pipe(
       switchMap(tokens => {
         const array = this.convertSentenceToTensor(message, tokens.words);
@@ -25,6 +27,31 @@ export class TensorFlowService {
           map(data => {
             const arr: number[] = Object.values(data);
             return arr;
+          }),
+          map(result => {
+            const filteredWithIndices: number[][] = [];
+            result.forEach((r, i) => {
+              if (r > this.errorThreshold) {
+                filteredWithIndices.push([i, r]);
+              }
+            });
+            return filteredWithIndices.sort((a, b) => {
+              const aVal = a[1];
+              const bVal = b[1];
+              if (aVal === bVal) {
+                return 0;
+              }
+              if (aVal < bVal) {
+                return -1;
+              }
+              return 1;
+            }).reverse()
+            .map(x => {
+              return {
+                confidence: x[1],
+                theClass: tokens.classes[x[0]]
+              } as Result;
+            });
           })
         );
       })

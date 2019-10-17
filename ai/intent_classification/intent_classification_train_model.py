@@ -70,11 +70,6 @@ def bow(sentence, words, show_details=True):
                 bag[i] = 1
     return(np.array(bag))
 
-
-p = bow("Load blood pessure for patient", words)
-inputvar = pd.DataFrame([p], dtype=float, index=['input'])
-print(inputvar.as_matrix())
-# print(model.predict(inputvar))
 pickle.dump(model, open("data/assistant-model.pkl", "wb"))
 pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
              'train_y': train_y}, open("data/assistant-data.pkl", "wb"))

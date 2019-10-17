@@ -8,7 +8,7 @@ export const process = functions.https.onRequest((request, response) => {
   /*const phoneNo: string = request.body.phoneNo;
   const email: string = request.body.email;*/
   if (!request.body.text || request.body.text.length === 0) {
-    response.send({ say: "Did not understand." });
+    response.send({ say: "You didn't say anything." });
     return;
   }
   const messageLower = request.body.text.toLowerCase();
@@ -18,13 +18,16 @@ export const process = functions.https.onRequest((request, response) => {
     return;
   }
   new TensorFlowService().process(request.body.text).subscribe(
-    message => {
-      console.log(message);
-      response.send({ say: message });
+    results => {
+      if (results == null || results.length === 0) {
+        response.send({ say: "Did not recognize."});
+        return;
+      }
+      response.send({say: results[0].theClass});
     },
     e => {
       console.error(e);
-      response.send({ say: "Did not understand.", e: e });
+      response.send({ say: "An error occurred.", e: e });
     }
   );
 });
