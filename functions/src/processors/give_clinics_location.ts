@@ -1,7 +1,7 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
 import { Observable, of } from "rxjs";
 
-export class GiveClinicsLocationProcessor extends Processor {
+export default class GiveClinicsLocationProcessor extends Processor {
 
   constructor(context: ProcessorContext) {
     super(context);

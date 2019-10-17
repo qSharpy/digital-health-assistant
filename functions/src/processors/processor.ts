@@ -24,7 +24,11 @@ export interface ProcessorContext {
 }
 
 export function tryLoadProcessorByTagName(tag: string, processorContext: ProcessorContext): Observable<Processor> {
-  return from(import(`${__dirname}/${tag}.js`)).pipe(map(x => new x(processorContext) as Processor)).pipe(catchError(e => {
+  return from(import(`${__dirname}/${tag}.js`)).pipe(map(x => {
+    const newInstance = Object.create(x.prototype);
+    newInstance.constructor.apply(processorContext);
+    return newInstance as Processor;
+  })).pipe(catchError(e => {
     console.error(e);
     return of(null);
   }));
