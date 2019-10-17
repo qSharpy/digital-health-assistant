@@ -96,7 +96,7 @@ function giveResponse(tag: string, messageLower: string, intentsModel: IntentsMo
   console.log(phoneNo, email);
   // OR WE CAN LET THE AI DECIDE
   if (processor == null) {
-    textResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
+    textResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)].replace('*', '');
   } else {
     // positive or negative - respect, execute processor
     const processorResult = processor.execute();
