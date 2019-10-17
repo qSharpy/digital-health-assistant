@@ -5,10 +5,6 @@ import { ChatMessage } from './models/chat-message';
 import { ProcessResponse } from "./models/process-response";
 
 export const process = functions.https.onRequest((request, response) => {
-  if (request.method.toUpperCase() !== 'POST') {
-    response.status(400).send('Error.');
-    return;
-}
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Methods", "*");
   response.setHeader("Access-Control-Allow-Headers", "*");
