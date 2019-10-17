@@ -1,8 +1,9 @@
 import * as functions from "firebase-functions";
 import { TensorFlowService } from "./services/tensorflow.service";
-import { TokensService } from "./services/tokens.service";
+import { TokensService, IntentsModel } from "./services/tokens.service";
 import { ChatMessage } from './models/chat-message';
 import { ProcessResponse } from "./models/process-response";
+import { Observable, of } from 'rxjs';
 
 export const process = functions.https.onRequest((request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -23,50 +24,44 @@ export const process = functions.https.onRequest((request, response) => {
     return;
   }
 
-  // CONTEXT
+  // We have previous user messages (10)
+  let previousUserMessages: string[] = [];
+  if (chatMessage.previousUserMessages != null) {
+    previousUserMessages = chatMessage.previousUserMessages.split('^');
+  }
+
+  // WE HAVE A CONTEXT
   if (chatMessage.context != null && chatMessage.context.length > 0) {
     new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
-      const intentForContext = intentsModel.intents.find(x => x.tag === chatMessage.context);
-      if (intentForContext == null) {
-        response.send({ say: "Did not recognize."} as ProcessResponse);
-        return;
-      }
-      const randomResponse = intentForContext.responses[Math.floor(Math.random() * intentForContext.responses.length)];
-      const context = intentForContext.context != null && intentForContext.context.length > 0 ? intentForContext.context[0] : null;
-      response.send({ say: randomResponse, context: context} as ProcessResponse);
+      giveResponse(chatMessage.context, intentsModel, null, previousUserMessages).subscribe(x => {
+          if (x.e) {
+            response.status(400);
+          }
+          response.send(x);
+      });
     });
     return;
   }
 
-  // NO CONTEXT, GO TO TENSORFLOW AI
+  // ELSE : NO CONTEXT, GO TO TENSORFLOW AI
   new TensorFlowService().process(chatMessage).subscribe(
     results => {
       if (results == null || results.length === 0) {
-        response.send({ say: "Did not recognize."} as ProcessResponse);
+        response.send({ say: "Did not recognize." } as ProcessResponse);
         return;
       }
       // WE HAVE THE TAG, THE ACTION ID
       const tag = results[0].theClass;
       new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
-        const foundResponse = intentsModel.intents.find(x => x.tag === tag);
-        if (foundResponse == null) {
-          response.send({ say: "Did not recognize."} as ProcessResponse);
-          return;
-        }
-        // WE HAVE A RANDOM RESPONSE
-        const randomResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
-
-        // WE HAVE THE NEXT (FUTURE ANSWER) CONTEXT
-        const context = foundResponse.context != null && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
-
-        // TODO ALL LOGIC HERE - DATABASE STUFF ETC
-        // WE ALSO HAVE THIS:
-        console.log(chatMessage.previousUserMessages);
-
-        response.send({say: randomResponse, context: context} as ProcessResponse);
+        giveResponse(tag, intentsModel, chatMessage.context, previousUserMessages).subscribe(x => {
+          if (x.e) {
+            response.status(400);
+          }
+          response.send(x);
+        });
       }, e => {
         console.error(e);
-      response.send({ say: "An error occurred.", e: e } as ProcessResponse);
+        response.send({ say: "An error occurred.", e: e } as ProcessResponse);
       });
     },
     e => {
@@ -75,3 +70,25 @@ export const process = functions.https.onRequest((request, response) => {
     }
   );
 });
+
+function giveResponse(tag: string, intentsModel: IntentsModel, currentContext: string, previousUserMessages: string[]): Observable<ProcessResponse> {
+  const response: ProcessResponse = { say: 'Did not recognize.' };
+  console.log(currentContext);
+  console.log(previousUserMessages);
+  // TODO LOGIC HERE - DATABASE AND STUFF - GIVE CUSTOM RESPONSE OR CONTEXT
+
+
+  // OR WE CAN LET THE AI DECIDE
+  const foundResponse = intentsModel.intents.find(x => x.tag === tag);
+  if (foundResponse == null) {
+    response.e = true;
+    return of(response);
+  }
+  const randomResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
+  // WE HAVE THE NEXT (FUTURE ANSWER) CONTEXT
+  const context = foundResponse.context != null && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
+  // TODO ALL LOGIC HERE - DATABASE STUFF ETC
+  response.say = randomResponse;
+  response.context = context;
+  return of(response);
+}

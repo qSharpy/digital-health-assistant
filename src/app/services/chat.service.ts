@@ -25,4 +25,10 @@ export class ChatService {
     return 'Hi! You can even say "call *phone no*"!';
   }
 
+  get allUserSentencesAsString() {
+    let result = ['start'];
+    result = result.concat(this.allUserSentences);
+    return result.join('^');
+  }
+
 }
