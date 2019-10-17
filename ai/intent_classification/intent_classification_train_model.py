@@ -9,6 +9,11 @@ import numpy as np
 import nltk
 import json
 from nltk.stem.lancaster import LancasterStemmer
+import tensorflowjs as tfjs
+import tensorflow as tf
+
+tf.compat.v1.disable_eager_execution()
+
 nltk.download('punkt')
 with open('data/intents.json') as json_data:
     intents = json.load(json_data)
@@ -73,7 +78,8 @@ def bow(sentence, words, show_details=True):
 #pickle.dump(model, open("data/assistant-model.pkl", "wb"))
 #pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
 #             'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
-model.save('data/assistant-keras-model.h5')
+#model.save('data/assistant-keras-model.h5')
+tfjs.converters.save_keras_model(model, 'data')
 
 with open('data/words.json', 'w') as words_json:
     jsonFileContent = json.dumps(words)
