@@ -44,7 +44,6 @@ export class AuthService {
   get loggedInUserAccount() {
     return this.angularFireAuth.authState.pipe(
       switchMap(user => {
-        console.log('USER', user.uid);
         if (user == null) {
           return of<Account>(null);
         }

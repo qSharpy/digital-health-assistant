@@ -4,6 +4,9 @@ import { TokensService, IntentsModel } from "./services/tokens.service";
 import { ChatMessage } from './models/chat-message';
 import { ProcessResponse } from "./models/process-response";
 import { Observable, of } from 'rxjs';
+import { Processor } from "./processors/processor";
+import { ClinicsLocationProcessor } from "./processors/clinics-location-processor";
+import { getAnswer } from "./services/helpers";
 
 export const process = functions.https.onRequest((request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,7 +31,7 @@ export const process = functions.https.onRequest((request, response) => {
   // WE HAVE A CONTEXT
   if (chatMessage.context != null && chatMessage.context.length > 0) {
     new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
-      giveResponse(chatMessage.context, messageLower, intentsModel, null, previousUserMessages, phoneNo, email).subscribe(x => {
+      giveResponse(chatMessage.context, messageLower, intentsModel, chatMessage.context, previousUserMessages, phoneNo, email).subscribe(x => {
         if (x.e) {
           response.status(400);
         }
@@ -72,17 +75,36 @@ function giveResponse(tag: string, messageLower: string, intentsModel: IntentsMo
   console.log(currentContext);
   console.log(previousUserMessages);
   // TODO LOGIC HERE - DATABASE AND STUFF - GIVE CUSTOM RESPONSE OR CONTEXT
-  console.log(phoneNo, email);
 
-  // OR WE CAN LET THE AI DECIDE
   const foundResponse = intentsModel.intents.find(x => x.tag === tag);
   if (foundResponse == null) {
     response.e = true;
     return of(response);
   }
-  const randomResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
-  const context = foundResponse.context != null && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
-  response.say = randomResponse;
-  response.context = context;
+  const futureContext = foundResponse.context != null && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
+
+  let textResponse = 'Did not understand.';
+  let processor: Processor = null;
+
+  switch (currentContext) {
+
+    case 'give_clinics_location':
+      processor = new ClinicsLocationProcessor(messageLower, currentContext, previousUserMessages, phoneNo, email);
+      break;
+  }
+
+  console.log(phoneNo, email);
+  // OR WE CAN LET THE AI DECIDE
+  if (processor == null) {
+    textResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
+  } else {
+    // positive or negative - respect, execute processor
+    const processorResult = processor.execute();
+    textResponse = getAnswer(foundResponse.responses, processorResult.isPositiveAnswer, processorResult.dataForReplacing);
+  }
+  response.say = textResponse.length === 0 ? 'Did not understand' : textResponse;
+  response.context = futureContext;
   return of(response);
 }
+
+

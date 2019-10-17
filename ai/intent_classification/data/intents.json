@@ -1,6 +1,31 @@
 {
   "intents": [
     {
+      "tag": "clinics",
+      "patterns": [
+        "Show me the clinics",
+        "What are the clinics",
+        "Clinics",
+        "My clinics"
+      ],
+      "responses": [
+        "What is your location?",
+        "Location, please",
+        "Tell me where you are"
+      ],
+      "context": [
+        "give_clinics_location"
+      ]
+    },
+    {
+      "tag": "give_clinics_location",
+      "patterns": [],
+      "responses": [
+        "*Can't find you",
+        "Thanks for the location. Here are the clinics: {0}"
+      ]
+    },
+    {
       "tag": "greeting",
       "patterns": [
         "Hi there",
@@ -14,7 +39,9 @@
         "Good to see you again",
         "Hi there, how can I help?"
       ],
-      "context": [""]
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "goodbye",
@@ -30,7 +57,9 @@
         "Have a nice day",
         "Bye! Come back again soon."
       ],
-      "context": [""]
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "thanks",
@@ -41,8 +70,14 @@
         "Awesome, thanks",
         "Thanks for helping me"
       ],
-      "responses": ["Happy to help!", "Any time!", "My pleasure"],
-      "context": [""]
+      "responses": [
+        "Happy to help!",
+        "Any time!",
+        "My pleasure"
+      ],
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "noanswer",
@@ -52,7 +87,9 @@
         "Please give me more info",
         "Not sure I understand"
       ],
-      "context": [""]
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "options",
@@ -67,7 +104,9 @@
         "I can guide you through Adverse drug reaction list, Blood pressure tracking, Hospitals and Pharmacies",
         "Offering support for Adverse drug reaction, Blood pressure, Hospitals and Pharmacies"
       ],
-      "context": [""]
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "adverse_drug",
@@ -78,8 +117,12 @@
         "List all drugs suitable for patient with adverse reaction",
         "Which drugs dont have adverse reaction?"
       ],
-      "responses": ["Navigating to Adverse drug reaction module"],
-      "context": [""]
+      "responses": [
+        "Navigating to Adverse drug reaction module"
+      ],
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "blood_pressure",
@@ -90,8 +133,12 @@
         "I want to log blood pressure results",
         "Blood pressure data management"
       ],
-      "responses": ["Navigating to Blood Pressure module"],
-      "context": [""]
+      "responses": [
+        "Navigating to Blood Pressure module"
+      ],
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "blood_pressure_search",
@@ -102,14 +149,23 @@
         "Show blood pressure results for patient",
         "Find blood pressure results by ID"
       ],
-      "responses": ["Please provide Patient ID", "Patient ID?"],
-      "context": ["search_blood_pressure_by_patient_id"]
+      "responses": [
+        "Please provide Patient ID",
+        "Patient ID?"
+      ],
+      "context": [
+        "search_blood_pressure_by_patient_id"
+      ]
     },
     {
       "tag": "search_blood_pressure_by_patient_id",
       "patterns": [],
-      "responses": ["Loading Blood pressure result for Patient"],
-      "context": [""]
+      "responses": [
+        "Loading Blood pressure result for Patient"
+      ],
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "pharmacy_search",
@@ -120,14 +176,22 @@
         "Locate pharmacy",
         "Search pharmacy"
       ],
-      "responses": ["Please provide pharmacy name"],
-      "context": ["search_pharmacy_by_name"]
+      "responses": [
+        "Please provide pharmacy name"
+      ],
+      "context": [
+        "search_pharmacy_by_name"
+      ]
     },
     {
       "tag": "search_pharmacy_by_name",
       "patterns": [],
-      "responses": ["Loading pharmacy details"],
-      "context": [""]
+      "responses": [
+        "Loading pharmacy details"
+      ],
+      "context": [
+        ""
+      ]
     },
     {
       "tag": "hospital_search",
@@ -138,20 +202,32 @@
         "Hospital lookup for patient",
         "Looking up hospital details"
       ],
-      "responses": ["Please provide hospital name or location"],
-      "context": ["search_hospital_by_params"]
+      "responses": [
+        "Please provide hospital name or location"
+      ],
+      "context": [
+        "search_hospital_by_params"
+      ]
     },
     {
       "tag": "search_hospital_by_params",
       "patterns": [],
-      "responses": ["Please provide hospital type"],
-      "context": ["search_hospital_by_type"]
+      "responses": [
+        "Please provide hospital type"
+      ],
+      "context": [
+        "search_hospital_by_type"
+      ]
     },
     {
       "tag": "search_hospital_by_type",
       "patterns": [],
-      "responses": ["Loading hospital details"],
-      "context": [""]
+      "responses": [
+        "Loading hospital details"
+      ],
+      "context": [
+        ""
+      ]
     }
   ]
 }
