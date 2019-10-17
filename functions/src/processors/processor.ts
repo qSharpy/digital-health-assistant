@@ -1,5 +1,4 @@
-import { Observable, from, of } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+import { Observable, of } from "rxjs";
 
 export abstract class Processor {
 
@@ -24,12 +23,10 @@ export interface ProcessorContext {
 }
 
 export function tryLoadProcessorByTagName(tag: string, processorContext: ProcessorContext): Observable<Processor> {
-  return from(import(`${__dirname}/${tag}.js`)).pipe(map(x => {
-    const newInstance = Object.create(x.prototype);
-    newInstance.constructor.apply(processorContext);
-    return newInstance as Processor;
-  })).pipe(catchError(e => {
-    console.error(e);
+  try {
+    const clazz = require(`${__dirname}/${tag}.js`);
+    return of(new clazz(processorContext) as Processor);
+  } catch (err) {
     return of(null);
-  }));
+  }
 }
