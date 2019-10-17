@@ -3,7 +3,6 @@ import * as tf from "@tensorflow/tfjs";
 import { map, switchMap } from "rxjs/operators";
 import { tokenize } from "string-punctuation-tokenizer";
 import * as stemmer from "lancaster-stemmer";
-import { StorageIoHandler } from "./storage.iohandler";
 import { TokensService } from "./tokens.service";
 
 export interface Result {
@@ -94,6 +93,7 @@ export class TensorFlowService {
   }
 
   private loadModel(): Observable<tf.LayersModel> {
-    return from(tf.loadLayersModel(new StorageIoHandler()));
+    return from(tf.loadLayersModel(tf.io.http('https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/tensorflow%2Fmodel.json?alt=media', {
+    })));
   }
 }
