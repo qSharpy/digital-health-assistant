@@ -68,6 +68,7 @@ export const process = functions.https.onRequest((request, response) => {
 
 function giveResponse(tag: string, messageLower: string, intentsModel: IntentsModel, currentContext: string, previousUserMessages: string[], phoneNo: string, email: string): Observable<ProcessResponse> {
   const response: ProcessResponse = { say: 'Did not recognize.' };
+  console.log(messageLower);
   console.log(currentContext);
   console.log(previousUserMessages);
   // TODO LOGIC HERE - DATABASE AND STUFF - GIVE CUSTOM RESPONSE OR CONTEXT
