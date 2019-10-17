@@ -83,3 +83,7 @@ with open('data/words.json', 'w') as words_json:
     jsonFileContent = json.dumps(words)
     words_json.write(jsonFileContent)
     words_json.close()
+with open('data/classes.json', 'w') as classes_json:
+    jsonClassesFileContent = json.dumps(classes)
+    classes_json.write(jsonClassesFileContent)
+    classes_json.close()
