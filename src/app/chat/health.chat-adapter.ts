@@ -1,4 +1,11 @@
-import { ChatAdapter, Message, ParticipantResponse, ChatParticipantType, ChatParticipantStatus, IChatParticipant } from 'ng-chat';
+import {
+  ChatAdapter,
+  Message,
+  ParticipantResponse,
+  ChatParticipantType,
+  ChatParticipantStatus,
+  IChatParticipant
+} from 'ng-chat';
 import { Observable, of } from 'rxjs';
 import { FunctionsService } from '../services/functions.service';
 import { WordProcessorService } from '../services/word-processor.service';
@@ -7,9 +14,12 @@ import { switchMap, catchError } from 'rxjs/operators';
 import { WebCallService } from '../services/web-call.service';
 import { ProcessResponse } from '../models/process-response';
 import { ChatMessage } from '../models/chat-message';
+import { AuthService } from '../services/auth.service';
+import { Account } from '../models/account';
 
 export class HealthChatAdapter extends ChatAdapter {
   private chatHistory: Message[] = [];
+  private user: Account;
   private botParticipant: IChatParticipant = {
     participantType: ChatParticipantType.User,
     id: 1,
@@ -18,14 +28,22 @@ export class HealthChatAdapter extends ChatAdapter {
     status: ChatParticipantStatus.Online
   };
 
-  constructor(private fctService: FunctionsService,
+  constructor(
+    private fctService: FunctionsService,
     private wordProcessorService: WordProcessorService,
     private chatService: ChatService,
-    private callService: WebCallService) {
+    private callService: WebCallService,
+    private auth: AuthService
+  ) {
     super();
 
     this.chatService.onChatCleared.subscribe(() => {
       this.chatHistory = [];
+    });
+
+    this.auth.loggedInUserAccount.subscribe(account => {
+      console.log(account);
+      this.user = account;
     });
   }
 
@@ -45,18 +63,26 @@ export class HealthChatAdapter extends ChatAdapter {
   sendMessage(message: Message): void {
     const lowerMessage = message.message.toLowerCase();
     this.chatHistory.push(message);
-    const obj = {text: lowerMessage, context: this.chatService.lastContext,
-      previousUserMessages: this.chatService.allUserSentencesAsString} as ChatMessage;
+    const obj = {
+      text: lowerMessage,
+      context: this.chatService.lastContext,
+      previousUserMessages: this.chatService.allUserSentencesAsString,
+      email: this.user != null ? this.user.email : null,
+      phoneNo: this.user != null ? this.user.phoneNumber : null
+    } as ChatMessage;
     this.chatService.allUserSentences.push(lowerMessage);
-    this.wordProcessorService.process(obj).pipe(
-      switchMap(x => x != null ? of(x) : this.fctService.process(obj)),
-      catchError(e => {
-        return of(e.error.say as ProcessResponse);
-      })
-    ).subscribe(say => {
-      this.chatService.lastContext = say.context;
-      this.receiveMessage(say.say);
-    });
+    this.wordProcessorService
+      .process(obj)
+      .pipe(
+        switchMap(x => (x != null ? of(x) : this.fctService.process(obj))),
+        catchError(e => {
+          return of(e.error.say as ProcessResponse);
+        })
+      )
+      .subscribe(say => {
+        this.chatService.lastContext = say.context;
+        this.receiveMessage(say.say);
+      });
   }
 
   receiveMessage(say: string) {
@@ -80,18 +106,26 @@ export class HealthChatAdapter extends ChatAdapter {
     this.chatHistory.push(msg);
     this.onMessageReceived(this.botParticipant, msg);
     const lowerMessage = msg.message.toLowerCase();
-    const obj = {text: lowerMessage, context: this.chatService.lastContext,
-      previousUserMessages: this.chatService.allUserSentencesAsString} as ChatMessage;
+    const obj = {
+      text: lowerMessage,
+      context: this.chatService.lastContext,
+      previousUserMessages: this.chatService.allUserSentencesAsString,
+      email: this.user != null ? this.user.email : null,
+      phoneNo: this.user != null ? this.user.phoneNumber : null
+    } as ChatMessage;
     this.chatService.allUserSentences.push(say);
-    this.wordProcessorService.process(obj).pipe(
-      switchMap(x => x != null ? of(x) : this.fctService.process(obj)),
-      catchError(e => {
-        return of(e.error.say as ProcessResponse);
-      })
-    ).subscribe(x => {
-      this.chatService.lastContext = x.context;
-      this.callService.speak(x.say).subscribe(() => {});
-      this.receiveMessage(x.say);
-    });
+    this.wordProcessorService
+      .process(obj)
+      .pipe(
+        switchMap(x => (x != null ? of(x) : this.fctService.process(obj))),
+        catchError(e => {
+          return of(e.error.say as ProcessResponse);
+        })
+      )
+      .subscribe(x => {
+        this.chatService.lastContext = x.context;
+        this.callService.speak(x.say).subscribe(() => { });
+        this.receiveMessage(x.say);
+      });
   }
 }

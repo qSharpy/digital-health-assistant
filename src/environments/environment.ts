@@ -9,7 +9,7 @@ export const environment = {
   },
   firebase: {
     functionsEmulator: true,
-    firestoreEmulator: true,
+    firestoreEmulator: false,
     fct_processUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/process',
     apiKey: 'AIzaSyCpMy4UwL5LALmp2KGBaRFWjlvJ9ha3n6w',
     authDomain: 'digital-health-assistant.firebaseapp.com',

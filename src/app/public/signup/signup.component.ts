@@ -41,22 +41,27 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.authService.signUp(this.registerForm.value).then(
       data => {
-        let account = new Account();
-        account.id = data.user.uid;
-        account.firstName = this.firstName.value;
-        account.lastName = this.lastName.value;
-        account.email = this.email.value;
-        account.phoneNumber = this.phoneNumber.value;
-        account.createdDate = new Date();
-
+        const account: Account = {
+          id: data.user.uid,
+          firstName: this.firstName.value,
+          lastName: this.lastName.value,
+          createdDate: new Date(),
+          email: this.email.value,
+          phoneNumber: this.phoneNumber.value
+        };
         this.authService.addAccount(account).then(
-          _ => this.router.navigate(['/home'])
+          _ => {
+            console.log(_);
+            this.router.navigate(['/']);
+          }
         ).catch(
-          error => this.errorMessage = error
+
+          error => { this.errorMessage = error; console.error(error); }
         );
       }
     ).catch(
       error => {
+        console.error(error);
         this.errorMessage = error;
       }
     )

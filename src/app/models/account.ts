@@ -1,10 +1,8 @@
-export class Account {
-    public id: string; // uid
-    public firstName: string;
-    public lastName: string;
-    public email: string;
-    public phoneNumber: string;
-    public createdDate: Date;
-
-    constructor() {}
+export interface Account {
+  id: string; // uid
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber?: string;
+  createdDate: Date;
 }

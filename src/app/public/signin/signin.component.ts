@@ -35,9 +35,15 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     this.authService.signIn(this.loginForm.value).then(
-      _ => this.router.navigate(['/home'])
+      _ => {
+        console.log(_);
+        this.router.navigate(['/']);
+      }
     ).catch(
-      error => this.errorMessage = error
+      error => {
+        this.errorMessage = error;
+        console.error(error);
+      }
     );
   }
 
