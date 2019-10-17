@@ -1,13 +1,31 @@
+import { Observable, from, of } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+
 export abstract class Processor {
 
-  constructor(protected messageLower: string, protected currentContext: string, protected previousUserMessages: string[], protected phoneNo: string, protected email: string) {
+  constructor(protected context: ProcessorContext) {
 
   }
 
-  abstract execute(): ExecutionResult;
+  abstract execute(): Observable<ExecutionResult>;
 }
 
 export interface ExecutionResult {
   isPositiveAnswer: boolean;
   dataForReplacing?: string[];
+}
+
+export interface ProcessorContext {
+  messageLower: string;
+  currentContext: string;
+  previousUserMessages?: string[];
+  phoneNo?: string;
+  email?: string;
+}
+
+export function tryLoadProcessorByTagName(tag: string, processorContext: ProcessorContext): Observable<Processor> {
+  return from(import(`${__dirname}/${tag}.js`)).pipe(map(x => new x(processorContext) as Processor)).pipe(catchError(e => {
+    console.error(e);
+    return of(null);
+  }));
 }
