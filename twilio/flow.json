@@ -16,19 +16,19 @@
           "event": "incomingMessage",
           "conditions": [],
           "next": "FFe186cfddc7dea39d298daa658f0c2b54",
-          "uuid": "591c576b-5638-4e8f-ae60-ad25219690b1"
+          "uuid": "8de0d39f-a126-4abd-bd2c-c60097c5a269"
         },
         {
           "event": "incomingCall",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "33215c93-43cb-4121-a964-6ffd72dc489b"
+          "uuid": "0a81d6da-c27f-4646-8f0c-96c520824cee"
         },
         {
           "event": "incomingRequest",
           "conditions": [],
           "next": "FF80f29906ad6fc8a4fb6333ef3ee4fa85",
-          "uuid": "f839dfe2-0e7d-44e9-89ae-00ef643902d3"
+          "uuid": "c3b406fd-e900-425a-a9ba-e09265be7b2b"
         }
       ],
       "sid": "FF32cd37ba8de2a838f4f8fc9143d7adab"
@@ -63,25 +63,25 @@
           "event": "answered",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "dc88c8e2-d54e-401f-937e-0d6fb266fbd3"
+          "uuid": "dd19083d-1150-46d2-9a33-639e4f0d3109"
         },
         {
           "event": "busy",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "59ae1c4c-bbdf-4486-b446-01eaadfec45a"
+          "uuid": "1f297e2c-8e37-48d2-931a-44e8f22afb53"
         },
         {
           "event": "noAnswer",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "1a8fa337-274b-4945-9543-258ff2e05aa0"
+          "uuid": "a48e6794-eac0-47d5-8d6b-71de12419d58"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "ba24b1d1-4552-4ac7-bb99-f0f830e796dd"
+          "uuid": "354ccaeb-ad37-40d9-9894-8a1e17ffbd9e"
         }
       ],
       "sid": "FF80f29906ad6fc8a4fb6333ef3ee4fa85"
@@ -107,13 +107,13 @@
           "event": "sent",
           "conditions": [],
           "next": null,
-          "uuid": "2665e606-e7e9-46a6-8879-63b9028f3d7f"
+          "uuid": "36e97cda-c6bc-4246-b237-4cadfd938fdc"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "11f572b2-208a-4b56-8b31-4471103bca60"
+          "uuid": "8d3626e3-33c3-4055-94ed-84aa421bd603"
         }
       ],
       "sid": "FF6575e2b4e25a6798bb677a16bf7be576"
@@ -138,6 +138,10 @@
           {
             "key": "phoneNo",
             "value": "{{contact.channel.address}}"
+          },
+          {
+            "key": "context",
+            "value": "{{flow.variables.context}}"
           }
         ],
         "save_response_as": null,
@@ -148,13 +152,13 @@
           "event": "success",
           "conditions": [],
           "next": "FF960b7c9c9df8ead6695adfb2ab5308ef",
-          "uuid": "a4167759-f5c0-4723-a20d-daa5f1267fcb"
+          "uuid": "4323d5c5-b3c8-436f-b320-ec9fb1129116"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": "FF95bf66416b5585cbb141074d2a23d801",
-          "uuid": "25a06a85-700c-462f-983d-e9bba332ff85"
+          "uuid": "2d4ca2bd-ebb9-4342-9b04-717d2196e941"
         }
       ],
       "sid": "FF316eb41901b8fde8e30afafe4a58b844"
@@ -185,19 +189,19 @@
           "event": "keypress",
           "conditions": [],
           "next": null,
-          "uuid": "0301281b-b01b-4638-9480-2e92cab2e844"
+          "uuid": "754cec1e-bb4f-4684-99df-10048b4cb92c"
         },
         {
           "event": "speech",
           "conditions": [],
           "next": "FF316eb41901b8fde8e30afafe4a58b844",
-          "uuid": "73e18e47-e07f-46b3-a02f-5f9430c746e1"
+          "uuid": "91a7c117-8584-4379-8dee-8c0125cb8ee9"
         },
         {
           "event": "timeout",
           "conditions": [],
           "next": null,
-          "uuid": "f013dbf3-64ea-4e08-87f2-f56a7edc93d4"
+          "uuid": "16d9fd45-bfc6-470d-985d-0af60f59048f"
         }
       ],
       "sid": "FFf20583370e2e39b6e68aad8e7c6f5603"
@@ -223,7 +227,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "ebff315e-0634-4b1f-bb30-dde6f5e94f51"
+          "uuid": "d76fe4a9-1171-444b-b462-0380b4c77197"
         }
       ],
       "sid": "FF2ca954a1316666b8999a895f1327eeb5"
@@ -241,6 +245,10 @@
             "key": "text",
             "value": "{{widgets.post_text_to_firebase_functions.parsed.say}}",
             "index": "0"
+          },
+          {
+            "key": "context",
+            "value": "{{widgets.post_text_to_firebase_functions.parsed.context}}"
           }
         ]
       },
@@ -249,7 +257,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "74da44bb-102b-43fb-842a-98665a6b6396"
+          "uuid": "0ce58ab0-594b-4cb5-8e6a-9ef22b0e733e"
         }
       ],
       "sid": "FF960b7c9c9df8ead6695adfb2ab5308ef"
@@ -273,7 +281,7 @@
           "event": "audioComplete",
           "conditions": [],
           "next": null,
-          "uuid": "62450286-27f8-40d5-8309-78cb07268058"
+          "uuid": "a5514dc2-89a1-487a-aaac-ec0c9af895f2"
         }
       ],
       "sid": "FF95bf66416b5585cbb141074d2a23d801"
@@ -293,8 +301,7 @@
         "parameters": [
           {
             "key": "text",
-            "value": "{{trigger.message.Body}}",
-            "index": 0
+            "value": "{{trigger.message.Body}}"
           },
           {
             "key": "phoneNo",
@@ -309,48 +316,48 @@
           "event": "success",
           "conditions": [],
           "next": "FFc185e8447a8afd0963be3920abdd2729",
-          "uuid": "e61498a7-8e98-430b-8dae-a10f66cd971a"
+          "uuid": "ed6ad3d4-700d-4d2c-8c12-185aec6eea56"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": "FFc185e8447a8afd0963be3920abdd2729",
-          "uuid": "3725cc77-4e0b-4cc0-8be5-0b437a05537d"
+          "uuid": "b601dfd7-2f2d-4e66-a69f-9e5a675ef19d"
         }
       ],
       "sid": "FFe186cfddc7dea39d298daa658f0c2b54"
     },
     {
-      "sid": "FFc185e8447a8afd0963be3920abdd2729",
-      "name": "send_message_2",
       "type": "Message",
+      "name": "send_message_2",
       "properties": {
-        "from": "{{flow.channel.address}}",
-        "to": "{{contact.channel.address}}",
-        "channel": "{{trigger.message.ChannelSid}}",
-        "service": "{{trigger.message.InstanceSid}}",
         "offset": {
           "x": -760,
           "y": 490
         },
-        "body": "{{widgets.sms_post_text_to_firebase_functions.parsed.say}}"
+        "body": "{{widgets.sms_post_text_to_firebase_functions.parsed.say}}",
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "media_url": null,
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "attributes": null
       },
       "transitions": [
         {
-          "widgetId": "FFc185e8447a8afd0963be3920abdd2729",
-          "uuid": "a388f158-fdfb-4550-bddc-d00b76986b92",
           "event": "sent",
           "conditions": [],
-          "next": null
+          "next": null,
+          "uuid": "eeb6be35-b03b-4d24-9b4a-ed5c29cc07e0"
         },
         {
-          "widgetId": "FFc185e8447a8afd0963be3920abdd2729",
-          "uuid": "dcbb67f0-11f1-4f73-b21d-10ced5c692e4",
           "event": "failed",
           "conditions": [],
-          "next": null
+          "next": null,
+          "uuid": "1e371b56-785f-418b-85b3-9da7491fc79a"
         }
-      ]
+      ],
+      "sid": "FFc185e8447a8afd0963be3920abdd2729"
     }
   ]
 }
