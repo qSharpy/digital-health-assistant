@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { FunctionsService } from '../services/functions.service';
 import { WordProcessorService } from '../services/word-processor.service';
 import { ChatService } from '../services/chat.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { WebCallService } from '../services/web-call.service';
 
 export class HealthChatAdapter extends ChatAdapter {
@@ -43,7 +43,10 @@ export class HealthChatAdapter extends ChatAdapter {
     this.chatService.allUserSentences.push(lowerMessage);
     this.chatHistory.push(message);
     this.wordProcessorService.process(lowerMessage).pipe(
-      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage))
+      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage)),
+      catchError(e => {
+        return of(e.error.say);
+      })
     ).subscribe(say => {
       this.receiveMessage(say);
     });
@@ -71,7 +74,10 @@ export class HealthChatAdapter extends ChatAdapter {
     this.onMessageReceived(this.botParticipant, msg);
     const lowerMessage = msg.message.toLowerCase();
     this.wordProcessorService.process(lowerMessage).pipe(
-      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage))
+      switchMap(x => x != null ? of(x) : this.fctService.process(lowerMessage)),
+      catchError(e => {
+        return of(e.error.say);
+      })
     ).subscribe(x => {
       this.callService.speak(x).subscribe(() => {});
       this.receiveMessage(x);
