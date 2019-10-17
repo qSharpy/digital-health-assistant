@@ -7,9 +7,11 @@ export class ClinicsLocationProcessor extends Processor {
   }
 
   execute(): ExecutionResult {
+    const rand = Math.random();
+    const isPositive = rand < 0.5;
     return {
-      dataForReplacing: ['clinic one', 'clinic two'],
-      isPositiveAnswer: true
+      dataForReplacing: isPositive ? ['clinic one, clinic two'] : [],
+      isPositiveAnswer: isPositive
     };
   }
 
