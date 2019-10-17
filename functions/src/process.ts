@@ -24,7 +24,7 @@ export const process = functions.https.onRequest((request, response) => {
   }
 
   // CONTEXT
-  if (chatMessage.context != null) {
+  if (chatMessage.context != null && chatMessage.context.length > 0) {
     new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
       const intentForContext = intentsModel.intents.find(x => x.tag === chatMessage.context);
       if (intentForContext == null) {
