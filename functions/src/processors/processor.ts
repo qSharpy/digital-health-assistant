@@ -25,7 +25,8 @@ export interface ProcessorContext {
 export function tryLoadProcessorByTagName(tag: string, processorContext: ProcessorContext): Observable<Processor> {
   try {
     const clazz = require(`${__dirname}/${tag}.js`);
-    return of(new clazz(processorContext) as Processor);
+    const fct = clazz[Object.keys(clazz)[0]];
+    return of(new fct(processorContext) as Processor);
   } catch (err) {
     return of(null);
   }
