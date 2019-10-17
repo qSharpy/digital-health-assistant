@@ -18,11 +18,6 @@ export const process = functions.https.onRequest((request, response) => {
     return;
   }
   const messageLower = chatMessage.text.toLowerCase();
-  if (messageLower === "stop") {
-    response.status(400);
-    response.send({ say: "Bye!" } as ProcessResponse);
-    return;
-  }
 
   // We have previous user messages (10)
   let previousUserMessages: string[] = [];
@@ -33,11 +28,11 @@ export const process = functions.https.onRequest((request, response) => {
   // WE HAVE A CONTEXT
   if (chatMessage.context != null && chatMessage.context.length > 0) {
     new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
-      giveResponse(chatMessage.context, intentsModel, null, previousUserMessages).subscribe(x => {
-          if (x.e) {
-            response.status(400);
-          }
-          response.send(x);
+      giveResponse(chatMessage.context, messageLower, intentsModel, null, previousUserMessages, phoneNo, email).subscribe(x => {
+        if (x.e) {
+          response.status(400);
+        }
+        response.send(x);
       });
     });
     return;
@@ -53,7 +48,7 @@ export const process = functions.https.onRequest((request, response) => {
       // WE HAVE THE TAG, THE ACTION ID
       const tag = results[0].theClass;
       new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
-        giveResponse(tag, intentsModel, chatMessage.context, previousUserMessages).subscribe(x => {
+        giveResponse(tag, messageLower, intentsModel, chatMessage.context, previousUserMessages, phoneNo, email).subscribe(x => {
           if (x.e) {
             response.status(400);
           }
@@ -71,12 +66,12 @@ export const process = functions.https.onRequest((request, response) => {
   );
 });
 
-function giveResponse(tag: string, intentsModel: IntentsModel, currentContext: string, previousUserMessages: string[]): Observable<ProcessResponse> {
+function giveResponse(tag: string, messageLower: string, intentsModel: IntentsModel, currentContext: string, previousUserMessages: string[], phoneNo: string, email: string): Observable<ProcessResponse> {
   const response: ProcessResponse = { say: 'Did not recognize.' };
   console.log(currentContext);
   console.log(previousUserMessages);
   // TODO LOGIC HERE - DATABASE AND STUFF - GIVE CUSTOM RESPONSE OR CONTEXT
-
+  console.log(phoneNo, email);
 
   // OR WE CAN LET THE AI DECIDE
   const foundResponse = intentsModel.intents.find(x => x.tag === tag);
