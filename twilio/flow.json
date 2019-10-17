@@ -16,19 +16,19 @@
           "event": "incomingMessage",
           "conditions": [],
           "next": "FFe186cfddc7dea39d298daa658f0c2b54",
-          "uuid": "5d691190-c840-4cb0-80f1-63663fdd9e43"
+          "uuid": "ca1da49f-cc36-471f-abbe-8952cfd645dc"
         },
         {
           "event": "incomingCall",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "87f28a8e-1cfb-4625-b73e-46d1a4be0ae3"
+          "uuid": "e80cf001-5069-4ecb-9077-10544d79881b"
         },
         {
           "event": "incomingRequest",
           "conditions": [],
           "next": "FF80f29906ad6fc8a4fb6333ef3ee4fa85",
-          "uuid": "0d9c4a91-d479-4bc3-99c1-e05cc1342e3a"
+          "uuid": "e246646c-ecc8-4924-a202-f826585751f1"
         }
       ],
       "sid": "FF32cd37ba8de2a838f4f8fc9143d7adab"
@@ -63,25 +63,25 @@
           "event": "answered",
           "conditions": [],
           "next": "FF2ca954a1316666b8999a895f1327eeb5",
-          "uuid": "db37202f-29c1-4fc2-878a-65d2b5748ac0"
+          "uuid": "a554ac26-53ea-43f5-8f99-a7410180a65f"
         },
         {
           "event": "busy",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "95ed6fd8-8d61-4057-b872-ac0fe5b37c0c"
+          "uuid": "301ca8f3-5167-43d4-95de-9a2924fdfd4c"
         },
         {
           "event": "noAnswer",
           "conditions": [],
           "next": "FF6575e2b4e25a6798bb677a16bf7be576",
-          "uuid": "8f5191c3-eee9-4cb9-841a-86db0af23c17"
+          "uuid": "20d9a566-0afb-4848-96da-b9fe4340ff13"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "f8afafdc-e236-4657-8516-4972a42a8bc0"
+          "uuid": "579e5075-f2c2-41ff-b461-3461a17ecb69"
         }
       ],
       "sid": "FF80f29906ad6fc8a4fb6333ef3ee4fa85"
@@ -107,13 +107,13 @@
           "event": "sent",
           "conditions": [],
           "next": null,
-          "uuid": "0e24994e-14d6-4c9a-a73c-b1edee1224fe"
+          "uuid": "00cec77e-2e79-40df-a014-4138097cc3e0"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "2fa9a67c-b2ec-413a-ab62-1f8b8d6b472c"
+          "uuid": "214a300a-50e4-4df1-a247-87fa1ba6d6b9"
         }
       ],
       "sid": "FF6575e2b4e25a6798bb677a16bf7be576"
@@ -123,8 +123,8 @@
       "name": "post_text_to_firebase_functions",
       "properties": {
         "offset": {
-          "x": -170,
-          "y": 1120
+          "x": -210,
+          "y": 1050
         },
         "method": "POST",
         "url": "https://us-central1-digital-health-assistant.cloudfunctions.net/process",
@@ -142,6 +142,10 @@
           {
             "key": "context",
             "value": "{{flow.variables.context}}"
+          },
+          {
+            "key": "previousUserMessages",
+            "value": "{{flow.variables.previousUserMessages}}"
           }
         ],
         "save_response_as": null,
@@ -152,13 +156,13 @@
           "event": "success",
           "conditions": [],
           "next": "FF960b7c9c9df8ead6695adfb2ab5308ef",
-          "uuid": "7029d010-14d1-4056-b430-b8e42b05af6a"
+          "uuid": "84e69271-f426-4d65-b7af-527d428a8501"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": "FF95bf66416b5585cbb141074d2a23d801",
-          "uuid": "ac45370f-6e6e-4a04-998a-ffe86fafa91d"
+          "uuid": "cc7b0520-2e01-44a4-95b9-d1b48d987c83"
         }
       ],
       "sid": "FF316eb41901b8fde8e30afafe4a58b844"
@@ -168,8 +172,8 @@
       "name": "gather",
       "properties": {
         "offset": {
-          "x": -160,
-          "y": 790
+          "x": -170,
+          "y": 760
         },
         "timeout": 5,
         "finish_on_key": "#",
@@ -189,19 +193,19 @@
           "event": "keypress",
           "conditions": [],
           "next": null,
-          "uuid": "a965c038-9532-4e78-af64-87c8ec3c2459"
+          "uuid": "c6cc612a-5e12-4609-9ad8-f81e8c5d8ac9"
         },
         {
           "event": "speech",
           "conditions": [],
           "next": "FF316eb41901b8fde8e30afafe4a58b844",
-          "uuid": "91f7e99e-3360-4994-8132-7b23e73f4d28"
+          "uuid": "37a3c5c8-85ff-403e-8e7b-ede0fa4d72ea"
         },
         {
           "event": "timeout",
           "conditions": [],
           "next": null,
-          "uuid": "f76548e3-db36-4875-9f6a-ad4aa04b1076"
+          "uuid": "c6343d09-2624-4a1b-b7f6-29081c1e2ead"
         }
       ],
       "sid": "FFf20583370e2e39b6e68aad8e7c6f5603"
@@ -219,6 +223,10 @@
             "key": "text",
             "value": "Hello {{flow.data.userName}} how may I help you?",
             "index": "0"
+          },
+          {
+            "key": "previousUserMessages",
+            "value": "start"
           }
         ]
       },
@@ -227,7 +235,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "3b9ad656-a356-49e7-a74b-ce1c29e51b24"
+          "uuid": "3406e37c-f550-4427-8dfb-fd39f4b2a023"
         }
       ],
       "sid": "FF2ca954a1316666b8999a895f1327eeb5"
@@ -237,8 +245,8 @@
       "name": "set_text_var",
       "properties": {
         "offset": {
-          "x": -680,
-          "y": 1390
+          "x": -860,
+          "y": 1310
         },
         "variables": [
           {
@@ -249,6 +257,10 @@
           {
             "key": "context",
             "value": "{{widgets.post_text_to_firebase_functions.parsed.context}}"
+          },
+          {
+            "key": "previousUserMessages",
+            "value": "{{ flow.variables.previousUserMessages | append: '^' | append: widgets.gather.SpeechResult}}"
           }
         ]
       },
@@ -257,7 +269,7 @@
           "event": "next",
           "conditions": [],
           "next": "FFf20583370e2e39b6e68aad8e7c6f5603",
-          "uuid": "06b5dd2d-743e-487c-846f-ba8afc0713ab"
+          "uuid": "e2053171-828b-4787-a79c-74e46eea0630"
         }
       ],
       "sid": "FF960b7c9c9df8ead6695adfb2ab5308ef"
@@ -281,7 +293,7 @@
           "event": "audioComplete",
           "conditions": [],
           "next": null,
-          "uuid": "79af38eb-c64a-4ae6-96d6-1e10d7e782e1"
+          "uuid": "d0149fa1-470a-4b88-8c59-1ed5f12d6c65"
         }
       ],
       "sid": "FF95bf66416b5585cbb141074d2a23d801"
@@ -316,13 +328,13 @@
           "event": "success",
           "conditions": [],
           "next": "FFc185e8447a8afd0963be3920abdd2729",
-          "uuid": "354f6cf9-f2f3-4d0a-89d9-4e37f552898c"
+          "uuid": "ba20b8c3-d174-43e3-8cf2-2a4eb83e98b5"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": "FFc185e8447a8afd0963be3920abdd2729",
-          "uuid": "7536d7e1-c8b7-4f76-913d-bf071e03690a"
+          "uuid": "659dbcf9-faf1-4241-b3f1-f4b32fac1f79"
         }
       ],
       "sid": "FFe186cfddc7dea39d298daa658f0c2b54"
@@ -348,13 +360,13 @@
           "event": "sent",
           "conditions": [],
           "next": null,
-          "uuid": "e89364c1-d245-419d-b0d6-47d89ebd8d41"
+          "uuid": "513553ba-ac7b-443e-ad88-465c26a24087"
         },
         {
           "event": "failed",
           "conditions": [],
           "next": null,
-          "uuid": "7b59215a-db6a-4196-b5ca-6a365594e689"
+          "uuid": "e380e798-d36b-4ad9-bee2-f4944f56c208"
         }
       ],
       "sid": "FFc185e8447a8afd0963be3920abdd2729"
