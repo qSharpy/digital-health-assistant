@@ -8,10 +8,10 @@ export const process = functions.https.onRequest((request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Methods", "*");
   response.setHeader("Access-Control-Allow-Headers", "*");
-  const phoneNo: string = request.body.phoneNo;
-  const email: string = request.body.email;
-  console.log(phoneNo, email);
   const chatMessage = request.body as ChatMessage;
+  const phoneNo: string = chatMessage.phoneNo;
+  const email: string = chatMessage.email;
+  console.log(phoneNo, email);
   if (!chatMessage.text || chatMessage.text.length === 0) {
     response.send({ say: "You didn't say anything." } as ProcessResponse);
     return;
@@ -45,6 +45,7 @@ export const process = functions.https.onRequest((request, response) => {
         response.send({ say: "Did not recognize."} as ProcessResponse);
         return;
       }
+      // WE HAVE THE TAG, THE ACTION ID
       const tag = results[0].theClass;
       new TokensService().loadIntentsFromStorage().subscribe(intentsModel => {
         const foundResponse = intentsModel.intents.find(x => x.tag === tag);
@@ -52,8 +53,16 @@ export const process = functions.https.onRequest((request, response) => {
           response.send({ say: "Did not recognize."} as ProcessResponse);
           return;
         }
+        // WE HAVE A RANDOM RESPONSE
         const randomResponse = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)];
+
+        // WE HAVE THE NEXT (FUTURE ANSWER) CONTEXT
         const context = foundResponse.context != null && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
+
+        // TODO ALL LOGIC HERE - DATABASE STUFF ETC
+        // WE ALSO HAVE THIS:
+        console.log(chatMessage.previousUserMessages);
+
         response.send({say: randomResponse, context: context} as ProcessResponse);
       }, e => {
         console.error(e);

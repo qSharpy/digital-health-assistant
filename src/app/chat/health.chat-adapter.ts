@@ -44,9 +44,10 @@ export class HealthChatAdapter extends ChatAdapter {
 
   sendMessage(message: Message): void {
     const lowerMessage = message.message.toLowerCase();
-    this.chatService.allUserSentences.push(lowerMessage);
     this.chatHistory.push(message);
-    const obj = {text: lowerMessage, context: this.chatService.lastContext} as ChatMessage;
+    const obj = {text: lowerMessage, context: this.chatService.lastContext,
+      previousUserMessages: this.chatService.allUserSentences} as ChatMessage;
+    this.chatService.allUserSentences.push(lowerMessage);
     this.wordProcessorService.process(obj).pipe(
       switchMap(x => x != null ? of(x) : this.fctService.process(obj)),
       catchError(e => {
@@ -79,7 +80,9 @@ export class HealthChatAdapter extends ChatAdapter {
     this.chatHistory.push(msg);
     this.onMessageReceived(this.botParticipant, msg);
     const lowerMessage = msg.message.toLowerCase();
-    const obj = {text: lowerMessage, context: this.chatService.lastContext} as ChatMessage;
+    const obj = {text: lowerMessage, context: this.chatService.lastContext,
+      previousUserMessages: this.chatService.allUserSentences} as ChatMessage;
+    this.chatService.allUserSentences.push(say);
     this.wordProcessorService.process(obj).pipe(
       switchMap(x => x != null ? of(x) : this.fctService.process(obj)),
       catchError(e => {
