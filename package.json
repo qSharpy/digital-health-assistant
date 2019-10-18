@@ -8,7 +8,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "firebase": "firebase"
+    "firebase": "firebase",
+    "deploy-functions": "firebase deploy --only functions -f --token \"1/13a3ZFx7Mq1iUAU7s8R91LES-b-V0s8LzydetEP6zv0\"",
+    "deploy-firestore": "firebase deploy --only firestore --token \"1/13a3ZFx7Mq1iUAU7s8R91LES-b-V0s8LzydetEP6zv0\"",
+    "deploy-hosting": "firebase deploy --only hosting --token \"1/13a3ZFx7Mq1iUAU7s8R91LES-b-V0s8LzydetEP6zv0\"",
+    "deploy-storage": "firebase deploy --only storage --token \"1/13a3ZFx7Mq1iUAU7s8R91LES-b-V0s8LzydetEP6zv0\""
   },
   "private": true,
   "dependencies": {
