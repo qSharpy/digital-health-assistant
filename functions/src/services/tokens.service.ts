@@ -13,15 +13,15 @@ export class TokensService {
   }
 
   loadClassesFromStorage(): Observable<string[]> {
-    return loadFile<string[]>("https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/tensorflow%2Fclasses.json?alt=media");
+    return loadFile<string[]>("https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fclasses.json?alt=media");
   }
 
   loadWordsFromStorage(): Observable<string[]> {
-    return loadFile<string[]>("https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/tensorflow%2Fwords.json?alt=media");
+    return loadFile<string[]>("https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fwords.json?alt=media");
   }
 
   loadIntentsFromStorage(): Observable<IntentsModel> {
-    return loadFile<IntentsModel>("https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/tensorflow%2Fintents.json?alt=media");
+    return loadFile<IntentsModel>("https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fintents.json?alt=media");
   }
 }
 

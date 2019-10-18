@@ -1,5 +1,4 @@
 import * as functions from "firebase-functions";
-import { TensorFlowService } from "./services/tensorflow.service";
 import { TokensService } from "./services/tokens.service";
 import { ChatMessage } from './models/chat-message';
 import { ProcessResponse } from "./models/process-response";
@@ -9,6 +8,7 @@ import { setCorsHeaders } from "./services/http.service";
 import { switchMap, map } from "rxjs/operators";
 import { IntentsModelWithTag } from "./models/intents-model-with-tag";
 import { getAnswer } from "./services/helpers";
+import { IntentClassificationService } from "./services/intent-classification.service";
 
 export const process = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
@@ -42,7 +42,7 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
   return new TokensService().loadIntentsFromStorage().pipe(
     switchMap(intentsModel => {
       if (!chatMessage.context) {
-        return new TensorFlowService().process(chatMessage).pipe(map(results => {
+        return new IntentClassificationService('https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fmodel.json?alt=media').process(chatMessage).pipe(map(results => {
           if (!results || results.length === 0) {
             return { intentsModel, tag: null } as IntentsModelWithTag;
           }

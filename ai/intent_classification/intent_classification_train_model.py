@@ -88,7 +88,7 @@ with open('data/model.json', 'r') as model_json:
     modelData = json.load(model_json)
     for weightManifest in modelData['weightsManifest']:
         for i, k in enumerate(weightManifest['paths']):
-            weightManifest['paths'][i] = "tensorflow%2F" + \
+            weightManifest['paths'][i] = "intentclassification%2F" + \
                 weightManifest['paths'][i]
     model_json.close()
     with open('data/model.json', 'w') as model_json_write:
@@ -108,4 +108,4 @@ storage = firebase.storage()
 
 for r,d,files in os.walk("./data"):
   for f in files:
-    storage.child("tensorflow/" + f).put("data/" + f)
+    storage.child("intentclassification/" + f).put("data/" + f)
