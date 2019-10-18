@@ -3,49 +3,61 @@
     <header class="row m-0 p-2 border-bottom">
       <div class="col col-10 head" fxLayout="row" fxLayoutAlign="start center">Sign up</div>
       <div class="col col-2">
-        <button [routerLink]="['/']" [queryParams]="{ popup: 'none'}" class="btn btn-link btn-close text-dark"
-          fxLayout="row" fxLayoutAlign="center center">
+        <button [routerLink]="['/']" class="btn btn-link btn-close text-dark" fxLayout="row"
+          fxLayoutAlign="center center">
           <mat-icon>close</mat-icon>
         </button>
       </div>
     </header>
 
     <main class="p-2">
-      <form class="small-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column"
-        fxLayoutAlign="center center">
-        <mat-form-field>
-          <input matInput type="text" placeholder="First name" formControlName="firstName" required>
-          <mat-error *ngIf="firstName.invalid">{{ firstNameErrorMessage }}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" placeholder="Last name" formControlName="lastName" required>
-          <mat-error *ngIf="lastName.invalid">{{ lastNameErrorMessage }}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="email" placeholder="Email" formControlName="email" required>
-          <mat-error *ngIf="email.invalid">{{ emailErrorMessage }}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="tel" placeholder="Phone number" formControlName="phoneNumber" required>
-          <mat-error *ngIf="phoneNumber.invalid">{{ phoneNumberErrorMessage }}</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
-            required>
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide" type="button">
-            <mat-icon class="password-icon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-error *ngIf="password.invalid">{{ passwordErrorMessage }}</mat-error>
-        </mat-form-field>
-        <div class="form-action-container">
+
+      <div *ngIf="errorMessage" class="alert alert-danger text-danger text-center">
+        {{errorMessage}}
+      </div>
+
+      <form class="small-form row m-0" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <div class="col col-12 col-md-6">
+          <mat-form-field>
+            <input matInput type="text" placeholder="First name" formControlName="firstName" required>
+            <mat-error *ngIf="firstName.invalid">{{ firstNameErrorMessage }}</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Last name" formControlName="lastName" required>
+            <mat-error *ngIf="lastName.invalid">{{ lastNameErrorMessage }}</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="email" placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="email.invalid">{{ emailErrorMessage }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div class="col col-12 col-md-6">
+          <mat-form-field>
+            <input matInput type="tel" placeholder="Phone number" formControlName="phoneNumber" required>
+            <mat-error *ngIf="phoneNumber.invalid">{{ phoneNumberErrorMessage }}</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password"
+              required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide" type="button">
+              <mat-icon class="password-icon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.invalid">{{ passwordErrorMessage }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="w-100 form-action-container" fxLayout="row" fxLayoutAlign="center center">
           <button class="btn-custom" [disabled]="!registerForm.valid">
             Sign up
           </button>
         </div>
       </form>
 
-      <div class="mt-4 cairo" fxLayout="column" fxLayoutAlign="center center">
+      <div class="mt-2 mt-md-4 cairo" fxLayout="column" fxLayoutAlign="center center">
         <div>
           You already have an account? <a class="ml-1" routerLink="/" [queryParams]="{ popup: 'sign-in'}">Sign in</a>
         </div>

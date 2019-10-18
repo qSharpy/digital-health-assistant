@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Messages } from '../../util/messages';
 import { Account } from '../../models/account';
+import { AuthenticationCredential } from 'src/app/models/authentication';
+import { switchMap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-signup',
@@ -15,58 +19,83 @@ export class SignupComponent implements OnInit {
   errorMessage: string;
   registerForm: FormGroup;
   hide = true;
-  firstName = new FormControl('', [Validators.required]);
-  lastName = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
-  phoneNumber = new FormControl('', [Validators.required]);
+  latitude: number;
+  longitude: number;
 
   constructor(
-    public formBuilder: FormBuilder,
-    public authService: AuthService,
-    public router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
-    this.errorMessage = "";
-    this.registerForm = this.formBuilder.group({
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      password: this.password,
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.longitude = position.coords.longitude;
+        this.latitude = position.coords.latitude;
+      }, error => console.error('Denied location access', error));
+    } else {
+      console.log('No support for geolocation');
+    }
+
+    this.registerForm = this.fb.group({
+      firstName: this.fb.control('', [Validators.required]),
+      lastName: this.fb.control('', [Validators.required]),
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      phoneNumber: this.fb.control('', [Validators.required]),
+      password: this.fb.control('', [Validators.required]),
     });
   }
 
   onSubmit() {
-    this.authService.signUp(this.registerForm.value).then(
-      data => {
-        const account: Account = {
-          id: data.user.uid,
-          firstName: this.firstName.value,
-          lastName: this.lastName.value,
-          createdDate: new Date(),
-          email: this.email.value,
-          phoneNumber: this.phoneNumber.value
-        };
-        this.authService.addAccount(account).then(
-          _ => {
-            console.log(_);
-            this.router.navigate(['/']);
-          }
-        ).catch(
-
-          error => { this.errorMessage = error; console.error(error); }
-        );
-      }
-    ).catch(
-      error => {
-        console.error(error);
-        this.errorMessage = error;
-      }
-    )
+    this.authService.signUp(this.createAuthenticationCredential()).pipe(
+      switchMap(userCredenttial =>
+        this.authService.addAccount(this.createAccount(), userCredenttial.user.uid))
+    ).subscribe(() => {
+      this.toastr.success('Account created');
+      this.router.navigate(['/']);
+    }, error => {
+      this.errorMessage = error;
+      console.error(error);
+    });
   }
 
+  private createAuthenticationCredential(): AuthenticationCredential {
+    return {
+      email: this.email.value,
+      password: this.password.value,
+    };
+  }
+
+  private createAccount: () => Account = () => ({
+    email: this.email.value,
+    firstName: this.firstName.value,
+    lastName: this.lastName.value,
+    createdDate: new Date(),
+    phoneNumber: this.phoneNumber.value,
+    geoPoint: new firebase.firestore.GeoPoint(this.latitude, this.longitude)
+  })
+
+  get firstName(): AbstractControl {
+    return this.registerForm.controls.firstName;
+  }
+
+  get lastName(): AbstractControl {
+    return this.registerForm.controls.lastName;
+  }
+
+  get email(): AbstractControl {
+    return this.registerForm.controls.email;
+  }
+
+  get password(): AbstractControl {
+    return this.registerForm.controls.password;
+  }
+
+  get phoneNumber(): AbstractControl {
+    return this.registerForm.controls.phoneNumber;
+  }
 
   get firstNameErrorMessage() {
     return this.firstName.hasError('required') ? Messages.INPUT_REQUIRED : '';

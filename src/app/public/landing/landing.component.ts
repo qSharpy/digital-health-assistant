@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { filter, map, tap, defaultIfEmpty } from 'rxjs/operators';
 
 @Component({
@@ -31,10 +31,8 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
 
     this._currentPopup$ = this.route.queryParams.pipe(
-      filter(params => params.popup),
+      defaultIfEmpty({ popup: 'none' }),
       map(param => param.popup as string),
-      defaultIfEmpty('none'),
-      tap(val => console.log(val))
     );
 
     this.buildInsurencePlans();

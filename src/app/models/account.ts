@@ -1,8 +1,10 @@
+import * as firebase from 'firebase/app';
+
 export interface Account {
-  id: string; // uid
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber?: string;
   createdDate: Date;
+  phoneNumber?: string;
+  geoPoint?: firebase.firestore.GeoPoint;
 }
