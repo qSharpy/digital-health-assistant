@@ -70,7 +70,10 @@ If building the app in production mode, all URLs will point to PROD, else they w
 
 Install https://www.python.org/ftp/python/3.6.5/python-3.6.5-amd64.exe  
 python -m pip install --upgrade pip  
-pip install tensorflow keras nltk numpy pandas OR from requirements.txt (if using venv)  
+pip install tensorflow keras nltk numpy pandas OR from requirements.txt  
+All Python scripts will upload models to Firebase Storage  
 
-After training, upload everyting in the ai/intent_classification/data folder to Firebase Storage  
-A first version of the models is already uploaded to Firebase Storage.  
+## Use Docker for training  
+### Intent classification:  
+* Build image: cd ai/intent_classification && docker build -t imageclassification .
+* Run: docker run --rm --name intent_classification --mount type=bind,source=./path/to/json/file.json,target=/app/data/intents.json intent_classification

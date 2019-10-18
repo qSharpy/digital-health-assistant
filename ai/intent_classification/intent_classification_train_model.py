@@ -15,7 +15,10 @@ import os
 
 tf.compat.v1.disable_eager_execution()
 nltk.download('punkt')
-with open('data/intents.json') as json_data:
+
+intentsFile = 'data/intents.json'
+
+with open(intentsFile) as json_data:
     intents = json.load(json_data)
 stemmer = LancasterStemmer()
 words = []
