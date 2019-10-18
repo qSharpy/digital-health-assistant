@@ -127,6 +127,29 @@ label.mat-form-field-label {
 	}
 }
 
+.open-sans {
+	font-family: 'Open Sans';
+}
+
+.cairo {
+	font-family: 'Cairo';
+}
+
+.box-shadow-none{
+	box-shadow: none !important;
+	
+	&:focus{
+		box-shadow: none !important;
+	}
+}
+
+.outline-none {
+	outline: none;
+	&:focus {
+		outline: none;
+	}
+}
+
 /* ##################  Scrollbar Style  ############################ */
 
 /* width */

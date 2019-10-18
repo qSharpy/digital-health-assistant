@@ -15,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { PublicModule } from './public/public.module';
+import { SecureModule } from './secure/secure.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PublicModule } from './public/public.module';
   imports: [
     BrowserModule,
     PublicModule,
+    SecureModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgChatModule,
@@ -34,7 +36,7 @@ import { PublicModule } from './public/public.module';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
   ],

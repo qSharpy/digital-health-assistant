@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-not-found',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
   }
 
+  doAction() {
+    this.authService.firebaseLoggedInAccount.pipe(first())
+    .subscribe(user => this.router.navigate([user == null ? '/' : '/secure/home']));
+  }
 }

@@ -50,4 +50,8 @@ export class AuthService {
       })
     );
   }
+
+  signOut(): Observable<void> {
+    return from(this.angularFireAuth.auth.signOut());
+  }
 }
