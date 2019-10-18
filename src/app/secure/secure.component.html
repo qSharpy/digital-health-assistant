@@ -1,6 +1,6 @@
 <div class="nav-container h-100 d-inline-block float-left"
     [ngClass]="{'nav-container-extend': extendNavbar, 'nav-container-compress': !extendNavbar}">
-    <app-secure-navbar [extendNavbar]="extendNavbar" (toggleNavbarEmiter)="toggleNavbar($event)"></app-secure-navbar>
+    <app-secure-navbar [extendNavbar]="extendNavbar" (toggleNavbarEmiter)="toggleNavbar()"></app-secure-navbar>
 </div>
 <div class="h-100 d-inline-block float-left content"
     [ngClass]="{'content-compress': extendNavbar, 'content-extend': !extendNavbar}">
