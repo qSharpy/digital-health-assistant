@@ -6,8 +6,12 @@
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy-functions": "firebase deploy --only functions",
+    "deploy-firestore": "firebase deploy --only firestore",
+    "deploy-hosting": "firebase deploy --only hosting",
+    "deploy-storage": "firebase deploy --only storage",
     "logs": "firebase functions:log",
+    "firebase": "firebase",
     "tsc": "tsc"
   },
   "engines": {
