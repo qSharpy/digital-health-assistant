@@ -121,8 +121,8 @@ label.mat-form-field-label {
 	}
 
 	&:disabled {
-		background: rgb(0, 178, 206, .5);
-		box-shadow: rgb(0, 153, 177, .5) 0px 4px;
+		background: rgba(0, 178, 206, .5);
+		box-shadow: rgba(0, 153, 177, .5) 0px 4px;
 		cursor: not-allowed;
 	}
 }
