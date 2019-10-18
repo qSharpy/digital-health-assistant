@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { map, distinctUntilChanged } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class WebCallService {
   isInCall: boolean;
   private speechRecognition: SpeechRecognition;
   private speechSynthesis: SpeechSynthesis;
-  private sttSubject = new Subject<string>();
+  private sttSubject = new Subject<SttResultWithDate>();
 
   constructor() {
     const w = window as any;
@@ -24,7 +25,7 @@ export class WebCallService {
     this.isInCall = true;
     this.speechRecognition.onresult = e => {
       if (e.results[e.results.length - 1].isFinal) {
-        this.sttSubject.next(e.results[e.results.length - 1][0].transcript);
+        this.sttSubject.next({transcript: e.results[e.results.length - 1][0].transcript, ts: new Date().getTime()});
       }
     };
     this.speechRecognition.onerror = e => {
@@ -37,7 +38,12 @@ export class WebCallService {
     this.speak(initialMessage).subscribe(() => {
       this.speechRecognition.start();
     });
-    return this.sttSubject.asObservable();
+    return this.sttSubject.asObservable().pipe(
+      distinctUntilChanged((x, y) => {
+        return x.transcript === y.transcript && Math.abs(x.ts - y.ts) < 1000;
+      }),
+      map(x => x.transcript)
+    );
   }
 
   hangup(): void {
@@ -68,4 +74,9 @@ export class WebCallService {
     this.speechSynthesis.speak(utterance);
     return ttsSubject.asObservable();
   }
+}
+
+interface SttResultWithDate {
+  transcript: string;
+  ts: number;
 }
