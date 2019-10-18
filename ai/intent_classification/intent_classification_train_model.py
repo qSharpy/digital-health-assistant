@@ -7,13 +7,13 @@ from keras.layers import Dense, Activation, Dropout
 from keras.models import Sequential
 import numpy as np
 import nltk
-import json
 from nltk.stem.lancaster import LancasterStemmer
 import tensorflowjs as tfjs
 import tensorflow as tf
+import pyrebase
+import os
 
 tf.compat.v1.disable_eager_execution()
-
 nltk.download('punkt')
 with open('data/intents.json') as json_data:
     intents = json.load(json_data)
@@ -75,17 +75,37 @@ def bow(sentence, words, show_details=True):
                 bag[i] = 1
     return(np.array(bag))
 
-#pickle.dump(model, open("data/assistant-model.pkl", "wb"))
-#pickle.dump({'words': words, 'classes': classes, 'train_x': train_x,
-#             'train_y': train_y}, open("data/assistant-data.pkl", "wb"))
-#model.save('data/assistant-keras-model.h5')
+
 tfjs.converters.save_keras_model(model, 'data')
 
 with open('data/words.json', 'w') as words_json:
-    jsonFileContent = json.dumps(words)
-    words_json.write(jsonFileContent)
+    words_json.write(json.dumps(words))
     words_json.close()
 with open('data/classes.json', 'w') as classes_json:
-    jsonClassesFileContent = json.dumps(classes)
-    classes_json.write(jsonClassesFileContent)
+    classes_json.write(json.dumps(classes))
     classes_json.close()
+with open('data/model.json', 'r') as model_json:
+    modelData = json.load(model_json)
+    for weightManifest in modelData['weightsManifest']:
+        for i, k in enumerate(weightManifest['paths']):
+            weightManifest['paths'][i] = "tensorflow%2F" + \
+                weightManifest['paths'][i]
+    model_json.close()
+    with open('data/model.json', 'w') as model_json_write:
+        model_json_write.write(json.dumps(modelData))
+        model_json_write.close()
+
+# Firebase upload
+firebaseConfig = {
+    "apiKey": 'AIzaSyCpMy4UwL5LALmp2KGBaRFWjlvJ9ha3n6w',
+    "authDomain": 'digital-health-assistant.firebaseapp.com',
+    "databaseURL": 'https://digital-health-assistant.firebaseio.com',
+    "storageBucket": 'digital-health-assistant.appspot.com',
+    "serviceAccount": "firebaseServiceAccountKey.json"
+}
+firebase = pyrebase.initialize_app(firebaseConfig)
+storage = firebase.storage()
+
+for r,d,files in os.walk("./data"):
+  for f in files:
+    storage.child("tensorflow/" + f).put("data/" + f)
