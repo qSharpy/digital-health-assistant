@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Messages } from '../../util/messages';
+import { AuthenticationCredential } from 'src/app/models/authentication';
 
 @Component({
   selector: 'app-signin',
@@ -11,41 +12,45 @@ import { Messages } from '../../util/messages';
 })
 export class SigninComponent implements OnInit {
 
-  errorMessage = "";
+  errorMessage: string;
   loginForm: FormGroup;
   hide = true;
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
-  rememberMe = false;
 
   constructor(
-    public formBuilder: FormBuilder,
+    public fb: FormBuilder,
     public authService: AuthService,
     public router: Router,
   ) { }
 
   ngOnInit() {
-    this.errorMessage = "";
-    this.loginForm = this.formBuilder.group({
-      email: this.email,
-      password: this.password,
-      rememberMe: this.rememberMe
+    this.errorMessage = '';
+    this.loginForm = this.fb.group({
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      password: this.fb.control('', [Validators.required])
     });
   }
 
-  onSubmit() {
-    this.authService.signIn(this.loginForm.value).then(
-      _ => {
-        console.log(_);
-        this.router.navigate(['/']);
-      }
-    ).catch(
-      error => {
-        this.errorMessage = error;
-        console.error(error);
-      }
-    );
+  get email(): AbstractControl {
+    return this.loginForm.controls.email;
   }
+
+  get password(): AbstractControl {
+    return this.loginForm.controls.password;
+  }
+
+  onSubmit() {
+    this.authService.signIn(this.createAuthenticationCredential())
+      .subscribe(() => this.router.navigate(['/secure/home']),
+        error => {
+          this.errorMessage = 'Invalid credentials';
+          console.log(error);
+        });
+  }
+
+  private createAuthenticationCredential: () => AuthenticationCredential = () => ({
+    email: this.email.value,
+    password: this.password.value
+  })
 
   get emailErrorMessage() {
     return this.email.hasError('required') ? Messages.INPUT_REQUIRED :

@@ -15,22 +15,32 @@
 		background-color: rgba(0, 0, 0, .6);
 	}
 
-	.panel {
-		min-width: 400px;
-		max-width: 500px;
-        min-height: 200px;
-        border-radius: .75rem!important;
+	@media screen and (min-width: 500px) {
+		.panel {
+			min-width: 400px;
+			max-width: 500px;
+			min-height: 200px;
+			border-radius: .75rem !important;
+		}
+	}
+
+	@media screen and (max-width: 499px) {
+		.panel {
+			width: 100%;
+			height: 100%;
+		}
 	}
 
 	.btn-login {
 		max-width: 250px;
 	}
 
-	.btn-close:hover, .btn-close:focus {
+	.btn-close:hover,
+	.btn-close:focus {
 		text-decoration: none;
-    }
-    
-    mat-form-field{
-        max-width: 350px;
-    }
+	}
+
+	mat-form-field {
+		max-width: 350px;
+	}
 }

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Account } from '../models/account';
-import { of } from 'rxjs';
+import { of, Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { RequestUtil } from '../util/request.util';
+import { AuthenticationCredential } from '../models/authentication';
 
 @Injectable({
   providedIn: 'root'
@@ -15,26 +16,24 @@ export class AuthService {
     public angularFirestore: AngularFirestore
   ) { }
 
-  signIn(credentials) {
-    return this.angularFireAuth.auth.signInWithEmailAndPassword(
+  signIn(credentials: AuthenticationCredential): Observable<firebase.auth.UserCredential> {
+    return from(this.angularFireAuth.auth.signInWithEmailAndPassword(
       credentials.email,
-      credentials.password
-    );
+      credentials.password));
   }
 
-  signUp(values) {
-    return this.angularFireAuth.auth.createUserWithEmailAndPassword(
-      values.email,
-      values.password
-    );
+  signUp(authenticationCredential: AuthenticationCredential): Observable<firebase.auth.UserCredential> {
+    return from(this.angularFireAuth.auth.createUserWithEmailAndPassword(
+      authenticationCredential.email,
+      authenticationCredential.password
+    ));
   }
 
-  addAccount(account: Account) {
-    const clone = RequestUtil.cloneObjectBeforeSave(account);
+  addAccount(account: Account, uid: string) {
     return this.angularFirestore
       .collection<Account>('accounts')
-      .doc(account.id)
-      .set(clone);
+      .doc(uid)
+      .set(account);
   }
 
   get firebaseLoggedInAccount() {

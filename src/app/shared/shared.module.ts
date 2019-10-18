@@ -14,8 +14,9 @@ import {
   MatInputModule,
   MatButtonModule,
   MatCardModule,
-} from '@angular/material'
-
+} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,11 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+    })
   ],
   exports: [
     AngularFireAuthModule,
