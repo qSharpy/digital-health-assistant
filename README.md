@@ -70,7 +70,7 @@ If building the app in production mode, all URLs will point to PROD, else they w
 
 Install https://www.python.org/ftp/python/3.6.5/python-3.6.5-amd64.exe  
 python -m pip install --upgrade pip  
-pip install tensorflow keras nltk numpy pandas OR from requirements.txt  
+pip install -r requirements.txt  
 All Python scripts will upload models to Firebase Storage  
 
 ## Use Docker for training  

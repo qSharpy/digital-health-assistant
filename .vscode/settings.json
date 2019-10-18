@@ -12,5 +12,6 @@
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true,
     "**/env/*/**": true
-  }
+  },
+  "python.pythonPath": "env\\Scripts\\python.exe"
 }
