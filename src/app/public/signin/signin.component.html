@@ -1,5 +1,5 @@
 <div class="position-fixed page-container h-100 w-100" fxLayout="row" fxLayoutAlign="center center">
-  <div class="panel p-3 bg-light">
+  <div class="panel p-2 bg-light">
     <header class="row m-0 p-2 border-bottom">
       <div class="col col-10 head" fxLayout="row" fxLayoutAlign="start center">Sign in</div>
       <div class="col col-2">
@@ -16,7 +16,7 @@
         {{errorMessage}}
       </div>
 
-      <form class="small-form p-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form class="small-form p-3" fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
           <input matInput placeholder="Email" formControlName="email" required>
           <mat-error *ngIf="email.invalid">{{ emailErrorMessage }}</mat-error>
