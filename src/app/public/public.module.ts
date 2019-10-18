@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PublicRoutingModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ]})
+    SharedModule
+  ]
+})
 export class PublicModule { }

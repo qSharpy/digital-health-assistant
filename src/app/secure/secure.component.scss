@@ -1,0 +1,19 @@
+.nav-container-extend {
+	width: 250px;
+}
+
+.nav-container-compress {
+	width: 50px;
+}
+
+.content {
+    overflow: auto;
+}
+
+.content-extend {
+    width: calc(100% - 50px);
+}
+
+.content-compress {
+    width: calc(100% - 250px);
+}

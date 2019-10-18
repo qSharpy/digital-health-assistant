@@ -2,7 +2,7 @@
     <div class="head"> Oops!</div>
     <div class="p-3" fxLayout="column" fxLayoutAlign="center center">
         <p>The page that you are trying to reach doesn't exists or is temporarily unavailable.</p>
-        <button type="button" [routerLink]="[ '/' ]" class="mt-3 btn btn-default bg-main text-light">Go to
+        <button type="button" (click)="doAction()" class="mt-3 btn btn-default bg-main text-light">Go to
             homepage</button>
     </div>
 </div>
