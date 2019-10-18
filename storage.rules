@@ -1,6 +1,6 @@
 service firebase.storage {
   match /b/{bucket}/o {
-    match /tensorflow/{allPaths=**} {
+    match /intentclassification/{allPaths=**} {
       allow read: if true;
     }
     match /{allPaths=**} {
