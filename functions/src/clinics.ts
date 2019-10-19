@@ -1,12 +1,9 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { creds } from "./firebaseServiceAccountKey";
-
-admin.initializeApp({
-  credential: admin.credential.cert(creds)
-});
+import { setCorsHeaders } from "./services/http.service";
 
 export const getClinics = functions.https.onRequest((req, res) => {
+    setCorsHeaders(res);
     let clinics = [];
     const firestore = admin.firestore();
     firestore.collection("clinics").get().then(snapshot => {
