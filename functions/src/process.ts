@@ -1,7 +1,3 @@
-if (global.process.env.FUNCTIONS_EMULATOR) {
-  global.process.env.GOOGLE_APPLICATION_CREDENTIALS = './firebaseServiceAccountKey.json';
-}
-
 import * as functions from "firebase-functions";
 import { TokensService } from "./services/tokens.service";
 import { ChatMessage } from './models/chat-message';
@@ -13,6 +9,7 @@ import { switchMap, map } from "rxjs/operators";
 import { IntentsModelWithTag } from "./models/intents-model-with-tag";
 import { getAnswer } from "./services/helpers";
 import { IntentClassificationService } from "./services/intent-classification.service";
+
 
 export const process = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
