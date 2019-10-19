@@ -10,6 +10,7 @@ export class WebCallService {
   private speechRecognition: SpeechRecognition;
   private speechSynthesis: SpeechSynthesis;
   private sttSubject = new Subject<SttResultWithDate>();
+  private firstTime = true;
 
   constructor() {
     const w = window as any;
@@ -21,7 +22,7 @@ export class WebCallService {
     this.speechRecognition.lang = 'en-US';
   }
 
-  startCall(initialMessage: string = 'Hi'): Observable<string> {
+  startCall(initialMessage: string = 'Hello!'): Observable<string> {
     this.isInCall = true;
     this.speechRecognition.onresult = e => {
       if (e.results[e.results.length - 1].isFinal) {
@@ -36,7 +37,7 @@ export class WebCallService {
       }
     };
     this.speak(initialMessage).subscribe(() => {
-      this.speechRecognition.start();
+      // this.speechRecognition.start();
     });
     return this.sttSubject.asObservable().pipe(
       distinctUntilChanged((x, y) => {
@@ -66,7 +67,9 @@ export class WebCallService {
     };
     utterance.onend = () => {
       if (this.isInCall) {
-        this.speechRecognition.start();
+        setTimeout(() => {
+          this.speechRecognition.start();
+        }, 100);
       }
       ttsSubject.next(message);
       ttsSubject.complete();
