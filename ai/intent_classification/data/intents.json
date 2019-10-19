@@ -1,11 +1,65 @@
 {
   "symptomsMap": [
-     {
+      {
+      "type": "headache",
+      "dept": "neurology",
+      "description": "When was the last time you went to an ophthalmologist? I think you should make an appointment to one right now.",
+      "tests": ["Neurological examination", "Genetic testing", "CT scan"]
+      },
+      {
+      "type": "toothache",
+      "dept": "dentistry",
+      "description": "If your teeth hurt, please go to a dentist. I can make an appointment for you.",
+      "tests": ["3D Dental Scan", " CT Scan"]
+      },
+      {
       "type": "nausea",
-      "dept": "gastro",
-      "description": "if you vomit gfy",
-      "tests": ["simple blood test", "ct scan"]
-      }
+      "dept": "gastroenterology",
+      "description": "If you have an unpleasant, diffuse sensation of unease and discomfort, often perceived as an urge to vomit; please go see a doctor.",
+      "tests": ["Simple blood test", " CT Scan"]
+      },
+      {
+      "type": "seizures",
+      "dept": "neurology",
+      "description": "If you feel sudden changes in your behavior, movements or feelings, and in levels of consciousness, please go see a doctor.",
+      "tests": ["Genetic testing", " CT Scan"]
+      },
+      {
+      "type": "fever",
+      "dept": "general",
+      "description": "If you're sweating, you're chilling and shivering, you should go see a generalist doctor.",
+      "tests": ["Genetic testing", " CT Scan"]
+      },
+      {
+      "type": "lightheadedness",
+      "dept": "general",
+      "description": "faint, dizzy, being close to pass out. If you're in any of these situations, especially with chest pain, you're better off to see a doctor.",
+      "tests": ["CT Scan"]
+      },
+      {
+      "type": "heartburn",
+      "dept": "gastroenterology",
+      "description": "A burning feeling in the chest just behind the breastbone",
+      "tests": ["Ambulatory acid (pH) probe test"]
+      },
+      {
+      "type": "my tits hurt",
+      "dept": "oncology",
+      "description": "If you're experiencing dull ache, heaviness, tightness, a burning sensation in the breast tissue, or breast tenderness, please go see a doctor.",
+      "tests": ["X-ray exam"]
+      },
+      {
+      "type": "difficulty in breathing",
+      "dept": "cardiology",
+      "description": "Runny nose, itchy or watery eyes. Bad signs, please go see a doctor.",
+      "tests": ["X-ray exam",""]
+      },
+      {
+      "type": "back pain",
+      "dept": "orthopedy",
+      "description": "If the back pain is ongoing for more than three months, you most probably have chronic back pain. Make a doctor appointment as soon as possible.",
+      "tests": ["Straight leg test","Tripod sign test", "Femoral Stretch Test (L2-4)"]
+      },
   ],
   "intents": [
     {
@@ -39,7 +93,9 @@
         "fever",
         "lightheadeness",
         "heartburn",
-        "my tits hurt"
+        "my tits hurt",
+        "difficulty in breathing",
+        "back pain"
       ],
       "responses": [
         "What else?",
@@ -326,7 +382,7 @@
       ],
       "responses": [
         "If you wear eyeglasses and your head hurts, it might be because your diopters are not suiting your eyes anymore.",
-        "When was the last time you went to an phthalmologist? I think you should make an appointment to one right now.",
+        "When was the last time you went to an ophthalmologist? I think you should make an appointment to one right now.",
         "How much time did you spend in front of a screen today? Too much time spent can cause a severe headache."
       ],
       "context": [
