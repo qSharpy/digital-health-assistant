@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, NgZone } from "@angular/core";
+import { Component, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
 import { FunctionsService } from "../services/functions.service";
 import { HealthChatAdapter } from "./health.chat-adapter";
 import { WordProcessorService } from "../services/word-processor.service";
 import { ChatService } from "../services/chat.service";
 import { WebCallService } from "../services/web-call.service";
 import { Subscription } from "rxjs";
-import { NgChat } from "ng-chat/ng-chat/ng-chat.component";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -21,7 +20,7 @@ export class ChatComponent implements OnInit {
   buttonColor = "primary";
   phoneColor = "primary";
   private sub: Subscription;
-  @ViewChild("chat", { static: true }) chat: NgChat;
+  @ViewChild("chat", { static: true, read: ElementRef }) chat: ElementRef<HTMLElement>;
 
   constructor(
     fctService: FunctionsService,
