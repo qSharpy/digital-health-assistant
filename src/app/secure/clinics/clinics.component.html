@@ -10,11 +10,31 @@
     </div>
 
     <ng-container *ngFor="let clinic of clinics$ | async">
-        <div class="d-inline-block m-2">
-            <div class="clinic-container rounded position-relative">
-                <img [src]="clinic.image_url" class="w-100 h-100">
-                <div class="position-absolute open-sans clinic-name w-100 text-light pt-2 pb-2 pl-3 pr-3">
+        <div class="clc-container open-sans rounded d-inline-block m-2 bg-light">
+            <div class="clinic-container position-relative">
+                <div class="w-100 clinic-img">
+                    <img [src]="clinic.image_url" class="w-100 h-100">
+                </div>
+            </div>
+            <div class="p-2">
+                <div class="text-center mb-2 p-2 border-bottom font-weight-bold">
                     {{clinic.name}}
+                </div>
+                <div class="p-1 row">
+                    <span class="col col-4 font-weight-bold">Address: </span>
+                    <span class="col col-8">{{clinic.address}}</span>
+                </div>
+                <div class="p-1 row">
+                    <span class="col col-4 font-weight-bold">Schedule: </span>
+                    <span class="col col-8">{{clinic.schedule}}</span>
+                </div>
+                <div class="p-1 row">
+                    <span class="col col-4 font-weight-bold">Lab: </span>
+                    <span class="col col-8">{{clinic.laboratory_analysis}}</span>
+                </div>
+                <div class="p-2 mt-2"  fxLayout="row" fxLayoutAlign="center center">
+                    <button class="btn btn-primary">Appointment</button>
+                    <button *ngIf="false" class="btn btn-success ml-3">View on map</button>
                 </div>
             </div>
         </div>
@@ -22,7 +42,3 @@
 
 
 </section>
-
-<ng-template #clinicTemplate let-name="name" let-imageURL="imageURL">
-
-</ng-template>

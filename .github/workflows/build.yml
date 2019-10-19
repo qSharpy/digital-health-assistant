@@ -3,14 +3,11 @@ name: digital-health-assistant
 on:
   push:
     paths:
-      - 'functions/src/**/*.ts'
-      - 'functions/tsconfig.json'
-      - 'functions/package.json'
-      - 'functions/package-lock.json'
+      - 'functions/**'
       - 'src/**'
       - 'angular.json'
       - '.firebaserc'
-      - '.github/**/*.yml'
+      - '.github/workflows/**'
       - 'firebase.json'
       - 'firestore.indexes.json'
       - 'firestore.rules'

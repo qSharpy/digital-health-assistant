@@ -14,12 +14,18 @@
 		height: 40px;
 	}
 
+	.clc-container {
+		width: 300px;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	}
+
 	.clinic-container {
 		cursor: pointer;
-		width: 300px;
-		height: 230px;
 		overflow: hidden;
-		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+		.clinic-img {
+			height: 180px;
+		}
 
 		img {
 			transition: transform .4s ease-out;
@@ -27,14 +33,6 @@
 
 		&:hover img {
 			transform: scale(1.2);
-        }
-        
-        .clinic-name {
-            left: 0;
-            bottom: 0;
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-            background-color: rgba(0, 0, 0, .8);
         }
 	}
 }
