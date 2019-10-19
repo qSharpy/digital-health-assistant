@@ -1,6 +1,24 @@
 {
   "intents": [
     {
+      "tag": "showDoctorsFromClinic",
+      "patterns": [
+        "Get doctors from clinic",
+        "Show doctors from clinic",
+        "Get medics from clinic",
+        "List doctors from clinic",
+        "Doctors from clinic",
+        "Medics from clinic"
+      ],
+      "responses": [
+        "Here are they: {0}",
+        "*Cannot find any doctors for clinic"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "confirmation",
       "patterns": [
         "Yes",
