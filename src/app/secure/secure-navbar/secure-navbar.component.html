@@ -25,14 +25,14 @@
         <ul class="navbar-nav navbar-left p-0">
             <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link text-white row m-0" fxLayout="row" fxLayoutAlign="center center"
-                    routerLinkActive="active-item" routerLink="/secure/home">
+                    routerLinkActive="active-item" routerLink="/secure/profile">
                     <div class="d-inline-block text-center"
                         [ngClass]="{'col col-3': extendNavbar, 'col col-12': !extendNavbar}">
-                        <mat-icon>home</mat-icon>
+                        <mat-icon>person</mat-icon>
 
                     </div>
                     <div class="col col-9 d-inline-block  open-sans" *ngIf="extendNavbar">
-                        <span class="ml-2">Home</span>
+                        <span class="ml-2">Profile</span>
                     </div>
                 </a>
             </li>

@@ -8,3 +8,15 @@ export interface Account {
   phoneNumber?: string;
   geoPoint?: firebase.firestore.GeoPoint;
 }
+
+export interface Appointment {
+  start_date: {
+    _seconds: number,
+    _nanoseconds: number
+  };
+  end_date: {
+    _seconds: number,
+    _nanoseconds: number
+  };
+  patient_id: number;
+}

@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* angular-cli file: src/styles.css */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 html,
 body {
 	scroll-behavior: smooth;
@@ -135,10 +138,10 @@ label.mat-form-field-label {
 	font-family: 'Cairo';
 }
 
-.box-shadow-none{
+.box-shadow-none {
 	box-shadow: none !important;
-	
-	&:focus{
+
+	&:focus {
 		box-shadow: none !important;
 	}
 }
