@@ -77,6 +77,10 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onImageUpload(event) {
+    console.log(event.target.files);
+  }
+
   toggleChat() {
 
     this.expanded = !this.expanded;

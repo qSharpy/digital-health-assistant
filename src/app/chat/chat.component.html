@@ -12,6 +12,10 @@
 
 <div class="chat-actions" [ngClass]="{'expanded': expanded, 'compressed': !expanded}" fxLayout="row"
   fxLayoutAlign="center center" fxLayoutGap="10px">
+  <input (change)="onImageUpload($event)" class="d-none" type="file" name="imageUpload" id="imageUpload">
+  <label for="imageUpload">
+    <mat-icon class="clickable" color="{{buttonColor}}">cloud_upload</mat-icon>
+  </label>
   <mat-icon (click)="startOrEndWebCall()" color="{{phoneColor}}" class="clickable">
     {{wcs.isInCall ? 'call_end' : 'call'}}
   </mat-icon>
