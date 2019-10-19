@@ -17,7 +17,7 @@ export const getClinics = functions.https.onRequest((req, res) => {
                 "laboratory_analysis": data.laboratory_analysis,
                 "name": data.name,
                 "schedule": data.schedule,
-                "imageUrl": data.imageUrl,
+                "image_url": data.image_url,
             }
             clinics.push(clinic);
         });
