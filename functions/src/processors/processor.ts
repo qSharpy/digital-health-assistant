@@ -19,6 +19,7 @@ export interface ProcessorContext {
   messageLower: string;
   currentContext: string;
   previousUserMessages?: string[];
+  previousUserContexts?: string[];
   phoneNo?: string;
   email?: string;
 }

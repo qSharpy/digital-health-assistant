@@ -11,7 +11,7 @@ import { IntentClassificationResult } from "../models/intent-classification-resu
 
 export class IntentClassificationService extends TensorflowService {
 
-  constructor(modelUrl: string, errorThreshold: number = 0.25) {
+  constructor(modelUrl: string, errorThreshold: number = 0.55) {
     super(modelUrl, errorThreshold);
   }
 
@@ -28,6 +28,7 @@ export class IntentClassificationService extends TensorflowService {
           map(result => {
             const filteredWithIndices: number[][] = [];
             result.forEach((r, i) => {
+              console.log(r);
               if (r > this.errorThreshold) {
                 filteredWithIndices.push([i, r]);
               }
