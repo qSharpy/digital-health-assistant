@@ -20,7 +20,7 @@ export class NegationProcessor extends Processor {
 
   private executeSymptomsCollection(): Observable<ExecutionResult> {
     const allSymptomsNames = this.context.intentsModel.intents.find(x => x.tag === 'nextSymptomsFlow').patterns;
-    const onlySymptoms = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserContexts.length - 1)
+    const onlySymptoms = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserContexts.length)
     .map(sentence => sentence.split(' '))
     .filter(sentenceWords => {
         return sentenceWords.some(sw => allSymptomsNames.indexOf(sw) !== -1);
@@ -30,7 +30,7 @@ export class NegationProcessor extends Processor {
       });
       return of({
         isPositiveAnswer: true,
-        forceAnswer: 'I have registered the following symptoms: ' + onlySymptoms.join(', '),
+        forceAnswer: 'I have registered the following symptoms: ' + onlySymptoms.join(', ') + '. TODO VICTOR.',
         forceContext: null
       } as ExecutionResult);
   }
