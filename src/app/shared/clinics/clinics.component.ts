@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { Observable } from 'rxjs';
@@ -11,6 +11,8 @@ import { mergeMap, defaultIfEmpty, map, tap, startWith } from 'rxjs/operators';
   styleUrls: ['./clinics.component.scss']
 })
 export class ClinicsComponent implements OnInit {
+
+  @Input() secure = true;
 
   formControl: FormControl;
 
@@ -28,4 +30,6 @@ export class ClinicsComponent implements OnInit {
           clinic.name.toLocaleLowerCase().indexOf(input.toLocaleLowerCase()) !== -1))
       )));
   }
+
+
 }

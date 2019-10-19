@@ -7,13 +7,15 @@ import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import { PublicClinicsComponent } from './public-clinics/public-clinics.component';
 
 @NgModule({
   declarations: [
     LandingComponent,
     FooterComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    PublicClinicsComponent
   ],
   imports: [
     CommonModule,

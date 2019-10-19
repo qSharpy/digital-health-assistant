@@ -359,7 +359,7 @@
       "patterns": [
         "irregular heartbeat",
         "heart palpitation",
-        "heart pain"
+        "heart pain",
         "shortness of breath",
         "feeling dizzy"
       ],
@@ -393,7 +393,7 @@
       "tag": "symptoms-headache",
       "patterns": [
         "my head hurts",
-        "head is hurting and I am vomiting",
+        "head is hurting and I am vomiting"
       ],
       "responses": [
         "Make sure you drink enough water. If you don't remember the last time you drank water, this is the most plausible cause of your headache. Otherwise, describe me your symptoms further.",

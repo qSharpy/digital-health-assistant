@@ -6,13 +6,20 @@ import { SecureComponent } from './secure.component';
 import { HomeComponent } from './home/home.component';
 import { SecureNavbarComponent } from './secure-navbar/secure-navbar.component';
 import { SharedModule } from '../shared/shared.module';
-import { ClinicsComponent } from './clinics/clinics.component';
+
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SecureClinicsComponent } from './secure-clinics/secure-clinics.component';
 
 @NgModule({
-  declarations: [SecureComponent, HomeComponent, SecureNavbarComponent, ClinicsComponent, AppointmentsComponent],
+  declarations: [
+    SecureComponent,
+    HomeComponent,
+    SecureNavbarComponent,
+    AppointmentsComponent,
+    SecureClinicsComponent
+  ],
   imports: [
     CommonModule,
     SecureRoutingModule,
