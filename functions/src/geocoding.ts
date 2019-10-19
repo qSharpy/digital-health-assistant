@@ -15,3 +15,5 @@ export const geocoding = functions.https.onRequest((req, res) => {
 export function addressToPoint(address: string): Observable<LatLng> {
   return of({lat: 1, lng: 2} as LatLng);
 }
+
+// asd
