@@ -3,12 +3,13 @@ import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
 import { from } from "rxjs";
 import { map } from "rxjs/operators";
+import * as firebase from 'firebase/app';
 
 export const getClinics = functions.https.onRequest((req, res) => {
   const lat = req.query.lat;
   const long = req.query.long;
 
-  if (lat !== undefined && long !== undefined) {
+  if (lat != null && long != null) {
     getAllClinicsByAddress(lat, long).subscribe(clinics => {
       res.send(clinics);
     }, err => {
@@ -178,10 +179,23 @@ export const getAllClinics = () => {
 
 export const getAllClinicsByAddress = (lat: number = null, long: number = null) => {
   return getAllClinics().pipe(map(clinics => {
-    console.log(clinics);
-    return clinics;
+    return clinics.filter(c => {
+      const geoPoint: firebase.firestore.GeoPoint = c.address_geopoint;
+      const clinicGeoPoint = {lat: geoPoint.latitude, long: geoPoint.longitude};
+      const radius = 50;
+      const userGeoPoint = {lat: lat, long: long};
+      return arePointsNear(clinicGeoPoint, userGeoPoint, radius);
+    });
   }));
 };
+
+export function arePointsNear(checkPoint: {lat: number, long: number}, centerPoint: {lat: number, long: number}, km: number) {
+  const ky = 40000 / 360;
+  const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+  const dx = Math.abs(centerPoint.long - checkPoint.long) * kx;
+  const dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+  return Math.sqrt(dx * dx + dy * dy) <= km;
+}
 
 export const getAllClinicAppointments = (clinicId) => {
   const firestore = admin.firestore();
