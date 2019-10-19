@@ -35,7 +35,7 @@
       "dept": "general",
       "description": "faint, dizzy, being close to pass out. If you're in any of these situations, especially with chest pain, you're better off to see a doctor.",
       "tests": ["CT Scan"]
-      },+
+      },
       {
       "type": "heartburn",
       "dept": "gastroenterology",
