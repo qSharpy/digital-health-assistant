@@ -101,12 +101,12 @@ export const getDoctorsDetailsFromClinic = functions.https.onRequest((request, r
 
       doctorsOfClinic.forEach(id => {
         promises.push(firestore.doc("/doctors/"+id).get().then(item => {  
-          const data: any = item.data();
+          const tempData: any = item.data();
           const doctorData = {
-            "email": data.email,
-            "name": data.name,
-            "phone_number": data.phone_number,
-            "speciality": data.speciality
+            "email": tempData.email,
+            "name": tempData.name,
+            "phone_number": tempData.phone_number,
+            "speciality": tempData.speciality
           };
           doctorsDetails.push(doctorData);
         }).catch(err => console.log(err)));
@@ -115,7 +115,7 @@ export const getDoctorsDetailsFromClinic = functions.https.onRequest((request, r
 
     Promise.all(promises).then(() => {
       response.send(doctorsDetails);
-    });
+    }).catch(error => console.log(error));
 
   }).catch(e => {
     response.status(400).send(e);
