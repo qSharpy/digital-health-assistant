@@ -35,7 +35,7 @@
       "dept": "general",
       "description": "faint, dizzy, being close to pass out. If you're in any of these situations, especially with chest pain, you're better off to see a doctor.",
       "tests": ["CT Scan"]
-      },
+      },+
       {
       "type": "heartburn",
       "dept": "gastroenterology",
@@ -46,13 +46,13 @@
       "type": "my tits hurt",
       "dept": "oncology",
       "description": "If you're experiencing dull ache, heaviness, tightness, a burning sensation in the breast tissue, or breast tenderness, please go see a doctor.",
-      "tests": ["X-ray exam"]
+      "tests": ["X-ray test"]
       },
       {
       "type": "difficulty in breathing",
       "dept": "cardiology",
       "description": "Runny nose, itchy or watery eyes. Bad signs, please go see a doctor.",
-      "tests": ["X-ray exam",""]
+      "tests": ["X-ray test"]
       },
       {
       "type": "back pain",
@@ -200,6 +200,21 @@
         "Hi there",
         "Good to see you again",
         "Hi there, how can I help?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "whoami",
+      "patterns": [
+        "Who are you?",
+        "What is your name?",
+        "What do friends call you?"
+      ],
+      "responses": [
+        "I am your Digital Health Assistant.",
+        "My frends call me DHA, which is the short for Digial Health Assistant."
       ],
       "context": [
         ""
