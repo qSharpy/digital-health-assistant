@@ -33,3 +33,54 @@ export const getAccountDetailsByUid = (uid) => {
         }
     }))
 };
+
+export const getDoctorAppointments = functions.https.onRequest((request, response) => {
+    setCorsHeaders(response);
+    const userId = request.query.userId;
+    const firestore = admin.firestore();
+    const appointments = [];
+
+    const promises: Promise<void>[] = [];
+    promises.push(firestore.collectionGroup("appointments").where("patient_id", "==", userId).get().then(item => {
+        item.forEach(app => {
+            const data: any = app.data();
+            const tempAppointment = {
+                "end_date": data.end_date,
+                "patient_id": data.patient_id,
+                "start_date": data.start_date
+            };
+            appointments.push(tempAppointment);
+        });
+    }).catch(e => console.log(e)));
+
+    Promise.all(promises).then(() => {
+        response.send(appointments);
+    }).catch(error => console.log(error));
+
+});
+
+
+export const getCliniCAppointments = functions.https.onRequest((request, response) => {
+    setCorsHeaders(response);
+    const userId = request.query.userId;
+    const firestore = admin.firestore();
+    const appointments = [];
+
+    const promises: Promise<void>[] = [];
+    promises.push(firestore.collectionGroup("clinicAppointments").where("patient_id", "==", userId).get().then(item => {
+        item.forEach(app => {
+            const data: any = app.data();
+            const tempAppointment = {
+                "end_date": data.end_date,
+                "patient_id": data.patient_id,
+                "start_date": data.start_date
+            };
+            appointments.push(tempAppointment);
+        });
+    }).catch(e => console.log(e)));
+
+    Promise.all(promises).then(() => {
+        response.send(appointments);
+    }).catch(error => console.log(error));
+
+});
