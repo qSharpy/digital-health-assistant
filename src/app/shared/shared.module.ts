@@ -19,8 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ClinicsComponent } from './clinics/clinics.component';
 @NgModule({
-  declarations: [],
+  declarations: [ClinicsComponent],
   imports: [
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -61,7 +62,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    ClinicsComponent
   ]
 })
 export class SharedModule { }
