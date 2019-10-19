@@ -85,9 +85,9 @@
       "patterns": [
         "dermatology",
         "acne",
-        "acne vulgaris", 
-        "keratotic papule", 
-        "hyperidrosis", 
+        "acne vulgaris",
+        "keratotic papule",
+        "hyperidrosis",
         "tetracycline"
       ],
       "responses": [
@@ -103,7 +103,7 @@
       "patterns": [
         "dermatology",
         "acne",
-        "folliculitis", 
+        "folliculitis",
         "tazorac"
       ],
       "responses": [
@@ -250,7 +250,7 @@
     {
       "tag": "how-are-you",
       "patterns": [
-        "What’s up?", 
+        "What’s up?",
         "How is your day?"
       ],
       "responses": [
@@ -265,8 +265,8 @@
       "tag": "how-old-are-you",
       "patterns": [
         "How old are you?",
-         "What age are you?",
-         "When were you born?"
+        "What age are you?",
+        "When were you born?"
       ],
       "responses": [
         "I was born on 13 October 2019",
@@ -291,11 +291,9 @@
     {
       "tag": "favourite-book",
       "patterns": [
-        "patterns": [
-          "Do you like reading?", 
-          "What books do you enjoy reading?",
-          "What's your favourite book?"
-        ],
+        "Do you like reading?",
+        "What books do you enjoy reading?",
+        "What's your favourite book?"
       ],
       "responses": [
         "My favourite book is Being Mortal: Medicine and What Matters in the End.",
