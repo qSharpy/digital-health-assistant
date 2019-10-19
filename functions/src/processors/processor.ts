@@ -1,4 +1,5 @@
 import { Observable, of } from "rxjs";
+import { IntentsModel } from "../services/tokens.service";
 
 export abstract class Processor {
 
@@ -13,6 +14,7 @@ export interface ExecutionResult {
   isPositiveAnswer: boolean;
   dataForReplacing?: string[];
   forceAnswer?: string;
+  forceContext?: string;
 }
 
 export interface ProcessorContext {
@@ -22,6 +24,7 @@ export interface ProcessorContext {
   previousUserContexts?: string[];
   phoneNo?: string;
   email?: string;
+  intentsModel?: IntentsModel;
 }
 
 export function tryLoadProcessorByTagName(tag: string, processorContext: ProcessorContext): Observable<Processor> {
