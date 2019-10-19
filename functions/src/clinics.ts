@@ -1,8 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
-import { from } from "rxjs";
-import { map } from "rxjs/operators";
+import { from, forkJoin, of } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
 import * as firebase from 'firebase/app';
 
 export const getClinics = functions.https.onRequest((req, res) => {
@@ -79,20 +79,16 @@ export const getClinicAppointments = functions.https.onRequest((req, res) => {
   }
 });
 
-//Get clinic by name
-export const getClinicByName = functions.https.onRequest((request, response) => {
-  setCorsHeaders(response);
-  let clinicByName: any;
-  const clinicName: String = request.query.clinicName;
 
+export function getDoctorsForClinicByClinicName(clinicName: string) {
   const firestore = admin.firestore();
-  firestore.collection("clinics").get().then(allClinics => {
-
+  return from(firestore.collection("clinics").get()).pipe(map(allClinics => {
+    let foundClinic: any = null;
     allClinics.forEach(clinic => {
       const data: any = clinic.data();
 
-      if (clinicName === data.name) {
-        clinicByName = {
+      if (clinicName.toLowerCase() === data.name.toLowerCase()) {
+        foundClinic = {
           "id": clinic.id,
           "address": data.address,
           "address_geopoint": data.address_geopoint,
@@ -102,18 +98,22 @@ export const getClinicByName = functions.https.onRequest((request, response) => 
           "schedule": data.schedule,
           "image_url": data.image_url,
         }
-        response.send(clinicByName);
       }
     });
-
-    if (clinicByName == null)
-      response.status(400).send(clinicByName);
-
-  }).catch(e => {
-    response.status(400).send(e);
+    return foundClinic;
+  }),
+  switchMap(foundClinic => {
+    if (foundClinic == null) {
+      return of([]);
+    }
+    const doctorsIds: string[] = foundClinic.doctors;
+    const observables = doctorsIds.map(did => {
+      return from(firestore.doc('doctors/' + did).get()).pipe(map(x => x.data()));
+    });
+    return forkJoin(observables);
   })
-
-});
+  );
+}
 
 export const getDoctorsDetailsFromClinic = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
