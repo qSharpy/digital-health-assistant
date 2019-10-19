@@ -10,3 +10,4 @@ export * from './sendEmail';
 export * from './clinics';
 export * from './doctors';
 export * from './accounts';
+export * from './geocoding';
