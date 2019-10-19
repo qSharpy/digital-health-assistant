@@ -10,13 +10,13 @@
     </div>
 
     <ng-container *ngFor="let clinic of clinics$ | async">
-        <div class="clc-container open-sans rounded d-inline-block m-2 bg-light">
+        <div class="clc-container float-left open-sans rounded d-inline-block m-2 bg-light">
             <div class="clinic-container position-relative">
                 <div class="w-100 clinic-img">
                     <img [src]="clinic.image_url" class="w-100 h-100">
                 </div>
             </div>
-            <div class="p-2">
+            <div class="p-2" style="height: 200px;">
                 <div class="text-center mb-2 p-2 border-bottom font-weight-bold">
                     {{clinic.name}}
                 </div>
@@ -32,10 +32,10 @@
                     <span class="col col-4 font-weight-bold">Lab: </span>
                     <span class="col col-8">{{clinic.laboratory_analysis}}</span>
                 </div>
-                <div class="p-2 mt-2"  fxLayout="row" fxLayoutAlign="center center">
-                    <button class="btn btn-primary">Appointment</button>
-                    <button *ngIf="false" class="btn btn-success ml-3">View on map</button>
-                </div>
+            </div>
+            <div class="p-2 mt-2" fxLayout="row" fxLayoutAlign="center center">
+                <button class="btn btn-primary">Appointment</button>
+                <button *ngIf="false" class="btn btn-success ml-3">View on map</button>
             </div>
         </div>
     </ng-container>
