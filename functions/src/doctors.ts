@@ -3,7 +3,6 @@ import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
 import { from } from "rxjs";
 import { map } from "rxjs/operators";
-import { firestore } from "firebase";
 
 
 export const checkValidInterval = functions.https.onRequest((req, res) => {
@@ -139,7 +138,6 @@ export const checkValidIntervalForAppointment = (doctorId, date) => {
   console.log(startDate);
   console.log(endDate);
   let suggested_time: any = [];
-  let result: any = {}
 
   return getAllDoctorAppointments(doctorId).pipe(map(appointments => {
     return appointments.filter(appointment => {
@@ -153,7 +151,7 @@ export const checkValidIntervalForAppointment = (doctorId, date) => {
       }
       suggested_time.push(appointment);
       console.log("valid")
-      return true; 
+      return true;
     });
   }));
 }
