@@ -39,10 +39,15 @@ export class NegationProcessor extends Processor {
       .map(x => x.dept)
       .filter((value, index, self) => self.indexOf(value) === index);
 
+      const descs = symptomsData
+      .filter(x => x.description != null)
+      .map(x => x.description)
+      .filter((value, index, self) => self.indexOf(value) === index);
+
       console.log(depts);
 
       return of({
-        forceAnswer: `You must do the following tests: ${tests.join(',')}.`,
+        forceAnswer: `You must do the following tests: ${tests.join(',')}. ${descs.join(', ')}`,
         forceContext: 'setAppointmentTime'
       } as ExecutionResult);
   }
