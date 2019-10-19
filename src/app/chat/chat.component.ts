@@ -1,26 +1,28 @@
-import { Component, OnInit, ViewChild, NgZone, ElementRef } from "@angular/core";
-import { FunctionsService } from "../services/functions.service";
-import { HealthChatAdapter } from "./health.chat-adapter";
-import { WordProcessorService } from "../services/word-processor.service";
-import { ChatService } from "../services/chat.service";
-import { WebCallService } from "../services/web-call.service";
-import { Subscription } from "rxjs";
-import { AuthService } from "../services/auth.service";
+import { Component, OnInit, ViewChild, NgZone, ElementRef, AfterViewInit } from '@angular/core';
+import { FunctionsService } from '../services/functions.service';
+import { HealthChatAdapter } from './health.chat-adapter';
+import { WordProcessorService } from '../services/word-processor.service';
+import { ChatService } from '../services/chat.service';
+import { WebCallService } from '../services/web-call.service';
+import { Subscription, timer } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: "app-chat",
-  templateUrl: "./chat.component.html",
-  styleUrls: ["./chat.component.scss"]
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   userId = 999;
   adapter: HealthChatAdapter;
   private darkTheme: boolean;
-  chatTheme = "light-theme";
-  buttonColor = "primary";
-  phoneColor = "primary";
+  chatTheme = 'light-theme';
+  buttonColor = 'primary';
+  phoneColor = 'primary';
   private sub: Subscription;
-  @ViewChild("chat", { static: true, read: ElementRef }) chat: ElementRef<HTMLElement>;
+  expanded = true;
+
+  @ViewChild('chat', { static: true, read: ElementRef }) chat: ElementRef<HTMLElement>;
 
   constructor(
     fctService: FunctionsService,
@@ -34,20 +36,26 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+
     setTimeout(() => {
       this.adapter.receiveMessage(this.cs.initialMessage);
     }, 1000);
   }
 
+  ngAfterViewInit() {
+
+    timer(1000).subscribe(() => this.expandChat());
+  }
+
   onThemeChanged() {
     this.darkTheme = !this.darkTheme;
-    this.chatTheme = this.darkTheme ? "dark-theme" : "light-theme";
-    this.buttonColor = this.darkTheme ? "accent" : "primary";
+    this.chatTheme = this.darkTheme ? 'dark-theme' : 'light-theme';
+    this.buttonColor = this.darkTheme ? 'accent' : 'primary';
     this.phoneColor = this.wcs.isInCall
-      ? "warn"
+      ? 'warn'
       : this.darkTheme
-      ? "accent"
-      : "primary";
+        ? 'accent'
+        : 'primary';
   }
 
   startOrEndWebCall() {
@@ -65,7 +73,30 @@ export class ChatComponent implements OnInit {
           this.adapter.sendMessageFromAudio(newMessage);
         });
       });
-      this.phoneColor = "warn";
+      this.phoneColor = 'warn';
     }
+  }
+
+  toggleChat() {
+
+    this.expanded = !this.expanded;
+
+    if (this.expanded) {
+      this.expandChat();
+    } else {
+      this.compressChat();
+    }
+  }
+
+  private expandChat() {
+    const elemnt = this.chat.nativeElement.getElementsByClassName('ng-chat-window');
+
+    elemnt.item(0).classList.add('maximized-chat');
+  }
+
+  private compressChat() {
+    const elemnt = this.chat.nativeElement.getElementsByClassName('ng-chat-window');
+
+    elemnt.item(0).classList.remove('maximized-chat');
   }
 }

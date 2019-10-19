@@ -3,7 +3,15 @@
   [audioEnabled]="false" [theme]="chatTheme" [historyPageSize]="1000" [persistWindowsState]="false"
   [isViewportOnMobileEnabled]="true">
 </ng-chat>
-<div class="chat-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+<div class="chat-actions-top" [ngClass]="{'expand-top-actions': expanded, 'compressed-top-actons': !expanded}"
+  fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-icon class="clickable" *ngIf="expanded" color="{{buttonColor}}" (click)="toggleChat()">arrow_drop_down</mat-icon>
+  <mat-icon class="clickable" *ngIf="!expanded" color="{{buttonColor}}" (click)="toggleChat()">arrow_drop_up</mat-icon>
+</div>
+
+<div class="chat-actions" [ngClass]="{'expanded': expanded, 'compressed': !expanded}" fxLayout="row"
+  fxLayoutAlign="center center" fxLayoutGap="10px">
   <mat-icon (click)="startOrEndWebCall()" color="{{phoneColor}}" class="clickable">
     {{wcs.isInCall ? 'call_end' : 'call'}}
   </mat-icon>
