@@ -974,16 +974,18 @@
         "Please provide a clinic name"
       ],
       "context": [
-        "show_clinic_by_name"
+        "appointment_provide_date"
       ]
     },
     {
-      "tag": "show_clinic_by_name",
+      "tag": "appointment_provide_date",
       "patterns": [],
       "responses": [
-        "Clinic name is: {0}"
+        "Please provide the date and time for {0} clinic"
       ],
-      "context": []
+      "context": [
+        "add_clinic_appointment_for_user"
+      ]
     }
   ]
 }

@@ -3,17 +3,18 @@ import { Observable } from "rxjs";
 import { getClinicByName } from "../clinics";
 import { map } from "rxjs/operators";
 
-export class ShowClinicByName extends Processor {
+export class AppointmentProvideDate extends Processor {
 
     constructor(context: ProcessorContext) {
         super(context);
     }
 
     execute(): Observable<ExecutionResult> {
-        return getClinicByName(this.context.messageLower).pipe(map(clinics => {
+        return getClinicByName(this.context.messageLower).pipe(map(clinic => {
+            console.log(clinic.name);
             return {
-                isPositiveAnswer: clinics.length > 0,
-                dataForReplacing: [clinics.map(x => x.name).join(', ')]
+                isPositiveAnswer: clinic !== undefined,
+                dataForReplacing: [clinic.name]
             } as ExecutionResult;
         }));
     }
