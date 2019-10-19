@@ -1,7 +1,7 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { getAppointmentsForUser } from "../accounts";
+import { map, switchMap, tap } from "rxjs/operators";
+import { getAppointmentsForUser, getAccountDetailsEmailOrPhone } from "../accounts";
 
 export class ShowAppointmentsForUser extends Processor {
 
@@ -10,17 +10,16 @@ export class ShowAppointmentsForUser extends Processor {
   }
 
   execute(): Observable<ExecutionResult> {
-
-    const uid = "4FMHHTiSeuUyVMzdSRb84iwCM4l1";
-
-    return getAppointmentsForUser(uid).pipe(
-      map(appointments => {
-        return {
-          isPositiveAnswer: appointments && appointments.length > 0,
-          dataForReplacing: [appointments.map(x => x.patient_id).join(', ')]
-        } as ExecutionResult;
-      })
+    const a = getAccountDetailsEmailOrPhone(this.context.email, this.context.phoneNo).pipe(
+      switchMap(account => getAppointmentsForUser(account.id)),
+      map(appointments => ({
+        isPositiveAnswer: appointments && appointments.length > 0,
+        dataForReplacing: [appointments.map(x => 
+          "<br/> Appointment from " + new Date(x.start_date.seconds * 1000).toLocaleString() + " to " + new Date(x.end_date.seconds * 1000).toLocaleString()).join(";")]
+      } as ExecutionResult
+      ))
     );
-  }
 
+    return a;
+  }
 }
