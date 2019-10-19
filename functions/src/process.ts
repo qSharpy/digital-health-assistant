@@ -70,7 +70,8 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
-          const textResponse = getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
+            getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
           response.say = textResponse.length === 0 ? 'Did not understand' : textResponse;
           return response;
         }));
