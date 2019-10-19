@@ -18,6 +18,24 @@ export const getAccountDetails = functions.https.onRequest((req, res) => {
     }
 });
 
+
+export const getAccountInsuranceTypeByUid = functions.https.onRequest((req, res) => {
+    setCorsHeaders(res);
+
+    const uid = req.query.uid;
+
+    if (uid !== undefined) {
+        getAccountInsuranceType(uid).subscribe(doctors => {
+            res.send(doctors);
+        }, err => {
+            res.status(400).send(err);
+        });
+    } else {
+        res.status(400).send("You must provide the user uid.");
+    }
+
+});
+
 export const getAccountDetailsByUid = (uid) => {
     const firestore = admin.firestore();
     return from(firestore.doc("accounts/" + uid).get()).pipe(map(doc => {
@@ -34,6 +52,21 @@ export const getAccountDetailsByUid = (uid) => {
     }))
 };
 
+export const getAccountInsuranceType = (uid) => {
+    const firestore = admin.firestore();
+    return from(firestore.doc("insurances/" + uid).get()).pipe(map(doc => {
+        const data: any = doc.data();
+        return {
+            "patient_id": doc.id,
+            "type": data.type,
+            "price": data.price,
+            "options": data.options,
+            "acquisition_date": data.acquisition_date,
+            "expiry_date": data.expiry_date
+        }
+    }))
+};
+
 export const getDoctorAppointments = functions.https.onRequest((request, response) => {
     setCorsHeaders(response);
     const userId = request.query.userId;
@@ -41,7 +74,7 @@ export const getDoctorAppointments = functions.https.onRequest((request, respons
     const appointments = [];
 
     const promises: Promise<void>[] = [];
-    promises.push(firestore.collectionGroup("appointments").where("patient_id", "==", userId).get().then(item => {
+    promises.push(firestore.collectionGroup("doctorAppointments").where("patient_id", "==", userId).get().then(item => {
         item.forEach(app => {
             const data: any = app.data();
             const tempAppointment = {
@@ -60,7 +93,7 @@ export const getDoctorAppointments = functions.https.onRequest((request, respons
 });
 
 
-export const getCliniCAppointments = functions.https.onRequest((request, response) => {
+export const getClinicAppointments = functions.https.onRequest((request, response) => {
     setCorsHeaders(response);
     const userId = request.query.userId;
     const firestore = admin.firestore();
