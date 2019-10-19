@@ -81,44 +81,9 @@
       ]
     },
     {
-      "tag": "symptoms-acne-vulgaris",
-      "patterns": [
-        "dermatology",
-        "acne",
-        "acne vulgaris",
-        "keratotic papule",
-        "hyperidrosis",
-        "tetracycline"
-      ],
-      "responses": [
-        "It could be a sign of acne vulgaris. Do you want me to make a doctor appointment? Other symptoms",
-        "To me, it seems like an acne breakout is on the way. Other symptoms?"
-      ],
-      "context": [
-        ""
-      ]
-    },
-    {
-      "tag": "symptoms-acne-SOAP",
-      "patterns": [
-        "dermatology",
-        "acne",
-        "folliculitis",
-        "tazorac"
-      ],
-      "responses": [
-        "The tazorac 0.1 cream seems like the best decision for your condition. Other symptoms? Want me to make a doctor appointment?",
-        "It seems like an acne soap. Other symptoms?"
-      ],
-      "context": [
-        ""
-      ]
-    },
-    {
       "tag": "symptoms-skin-burn",
       "patterns": [
         "dermatology",
-        "burn",
         "skin burn",
         "burn compensation"
       ],
@@ -133,7 +98,6 @@
     {
       "tag": "symptoms-teeth-extraction",
       "patterns": [
-        "teeth",
         "carious teeth",
         "periodontal",
         "impacted tooth",
@@ -151,7 +115,6 @@
     {
       "tag": "symptoms-teeth-abscess",
       "patterns": [
-        "teeth",
         "teeth pain",
         "teeth abscess",
         "mandibular pain",
@@ -171,7 +134,6 @@
     {
       "tag": "symptoms-teeth-rehabilitation",
       "patterns": [
-        "teeth",
         "teeth pain",
         "teeth trauma",
         "damaged steel crowns",
