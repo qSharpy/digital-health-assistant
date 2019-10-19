@@ -3,20 +3,13 @@ import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
 import { from } from "rxjs";
 import { map } from "rxjs/operators";
-import { GeoCollectionReference, GeoFirestore, GeoQuery } from 'geofirestore';
+import * as firebase from 'firebase/app';
 
 export const getClinics = functions.https.onRequest((req, res) => {
-
-  getAllClinics().subscribe(clinics => {
-    res.send(clinics);
-  }, err => {
-    res.status(400).send(err);
-  });
-
   const lat = req.query.lat;
   const long = req.query.long;
 
-  if (lat !== undefined && long !== undefined) {
+  if (lat != null && long != null) {
     getAllClinicsByAddress(lat, long).subscribe(clinics => {
       res.send(clinics);
     }, err => {
@@ -181,61 +174,28 @@ export const getAllClinics = () => {
       clinics.push(clinic);
     });
     return clinics;
-  }))
-
-
-  return from(firestore.collection("clinics").get())
-    .pipe(map(snapshot => {
-      let clinics = [];
-      snapshot.forEach(doc => {
-        const data: any = doc.data();
-        const clinic = {
-          "id": doc.id,
-          "address": data.address,
-          "address_geopoint": data.address_geopoint,
-          "doctors": data.doctors,
-          "laboratory_analysis": data.laboratory_analysis,
-          "name": data.name,
-          "schedule": data.schedule,
-          "image_url": data.image_url,
-        }
-        clinics.push(clinic);
-      });
-      return clinics;
-    }))
+  }));
 };
 
 export const getAllClinicsByAddress = (lat: number = null, long: number = null) => {
-  console.log("lat: " + lat)
-  console.log("long: " + long)
-  const firestore = admin.firestore();
-  const geofirestore: GeoFirestore = new GeoFirestore(firestore);
-  const geocollection: GeoCollectionReference = geofirestore.collection('clinics');
-  const km = 50;
-  console.log(new admin.firestore.GeoPoint(+lat, +long));
-  const query: GeoQuery = geocollection.near({ center: new admin.firestore.GeoPoint(+lat, +long), radius: km });
-
-  return from(query.get())
-    .pipe(map(snapshot => {
-      let clinics = [];
-      snapshot.forEach(doc => {
-        const data: any = doc.data();
-        const clinic = {
-          "id": doc.id,
-          "address": data.address,
-          "address_geopoint": data.address_geopoint,
-          "doctors": data.doctors,
-          "laboratory_analysis": data.laboratory_analysis,
-          "name": data.name,
-          "schedule": data.schedule,
-          "image_url": data.image_url,
-        }
-        clinics.push(clinic);
-      });
-      return clinics;
-    }))
-
+  return getAllClinics().pipe(map(clinics => {
+    return clinics.filter(c => {
+      const geoPoint: firebase.firestore.GeoPoint = c.address_geopoint;
+      const clinicGeoPoint = {lat: geoPoint.latitude, long: geoPoint.longitude};
+      const radius = 50;
+      const userGeoPoint = {lat: lat, long: long};
+      return arePointsNear(clinicGeoPoint, userGeoPoint, radius);
+    });
+  }));
 };
+
+export function arePointsNear(checkPoint: {lat: number, long: number}, centerPoint: {lat: number, long: number}, km: number) {
+  const ky = 40000 / 360;
+  const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+  const dx = Math.abs(centerPoint.long - checkPoint.long) * kx;
+  const dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+  return Math.sqrt(dx * dx + dy * dy) <= km;
+}
 
 export const getAllClinicAppointments = (clinicId) => {
   const firestore = admin.firestore();

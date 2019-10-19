@@ -33,6 +33,7 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
   if (chatMessage.previousUserMessages) {
     previousUserMessages = chatMessage.previousUserMessages.split('^');
   }
+  chatMessage.text = stripUneededKeywords(chatMessage.text);
   const processorContext: ProcessorContext = {
     currentContext: chatMessage.context,
     email: chatMessage.email,
@@ -76,4 +77,13 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
       }));
     })
   );
+}
+
+export function stripUneededKeywords(x: string) {
+  const xt = x.toLowerCase();
+  [',', '.', '!', '?', ';', '"', '"', '(', ')',
+  'i think ', ' please', 'can you ', 'will you ', 'could you ', 'if you could', 'if possible'].forEach(y => {
+    xt = xt.replace(y, '');
+  });
+  return xt;
 }
