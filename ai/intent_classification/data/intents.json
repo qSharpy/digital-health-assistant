@@ -80,6 +80,261 @@
       ]
     },
     {
+      "tag": "symptoms-acne-vulgaris",
+      "patterns": [
+        "dermatology",
+        "acne",
+        "acne vulgaris", 
+        "keratotic papule", 
+        "hyperidrosis", 
+        "tetracycline"
+      ],
+      "responses": [
+        "It could be a sign of acne vulgaris. Do you want me to make a doctor appointment? Other symptoms",
+        "To me, it seems like an acne breakout is on the way. Other symptoms?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-acne-SOAP",
+      "patterns": [
+        "dermatology",
+        "acne",
+        "folliculitis", 
+        "tazorac"
+      ],
+      "responses": [
+        "The tazorac 0.1 cream seems like the best decision for your condition. Other symptoms? Want me to make a doctor appointment?",
+        "It seems like an acne soap. Other symptoms?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-skin-burn",
+      "patterns": [
+        "dermatology",
+        "burn",
+        "skin burn",
+        "burn compensation"
+      ],
+      "responses": [
+        "If the burn injury was made while working, you are eligible for monetary compensation.",
+        "A skin burn is not to be joked at. Please go see a doctor for him to see what burn degree you bave. In what area do you want me to search for a clinic?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-teeth-extraction",
+      "patterns": [
+        "teeth",
+        "carious teeth",
+        "periodontal",
+        "impacted tooth",
+        "teeth pain",
+        "dental caries"
+      ],
+      "responses": [
+        "I believe that one of your teeth has to be extracted. Do you want to make an appointment?",
+        "Do your teeth hurt while chewing food? What other symptoms do you have?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-teeth-abscess",
+      "patterns": [
+        "teeth",
+        "teeth pain",
+        "teeth abscess",
+        "mandibular pain",
+        "jaw pain",
+        "tongue pain",
+        "dental pain with dental abscess"
+      ],
+      "responses": [
+        "Do you like one of your teeth or your tongue is fractured?",
+        "If you experience mandibular pain, you could have a case of dental abscess. Want to see a doctor?",
+        "To me, it sounds like dental abscess. What other symptoms do you have?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-teeth-rehabilitation",
+      "patterns": [
+        "teeth",
+        "teeth pain",
+        "teeth trauma",
+        "damaged steel crowns",
+        "non restorable teeth"
+      ],
+      "responses": [
+        "If you have lots of non restorable teeth, teeth rehabilitation might be your best bet. Do you want me to make a doctor appointment?",
+        "By the way, damaged steel crowns ask for teeth rehabilitation. Do you have other symptoms?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "gender",
+      "patterns": [
+        "Are you male or female?",
+        "What is your gender?"
+      ],
+      "responses": [
+        "I am a robot.",
+        "Are we flirting?",
+        "My gender is what you want it to be."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "where-are-you-from",
+      "patterns": [
+        "Where are you from?",
+        "Where are you living?",
+        "Where do you live?",
+        "What country are you from?",
+        "What city are you from?"
+      ],
+      "responses": [
+        "I am from Pitesti, Romania.",
+        "I am living in Pitesti, Romania.",
+        "I am living in Pitesti, Romania."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "whats-your-job",
+      "patterns": [
+        "Are you a doctor?",
+        "Are you a dentist?",
+        "What's your job?"
+      ],
+      "responses": [
+        "My job is being a digital health assistant.",
+        "I am your digital doctor."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "living-in-simulation",
+      "patterns": [
+        "We live in simulation, right?",
+        "Are we living in a simulation?"
+      ],
+      "responses": [
+        "Yes.",
+        "Elon Musk told me that we do."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "how-are-you",
+      "patterns": [
+        "What’s up?", 
+        "How is your day?"
+      ],
+      "responses": [
+        "My day has been going great so far.",
+        "I'm good, what about you?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "how-old-are-you",
+      "patterns": [
+        "How old are you?",
+         "What age are you?",
+         "When were you born?"
+      ],
+      "responses": [
+        "I was born on 13 October 2019",
+        "I am only a few weeks old!"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "meaning-of-life",
+      "patterns": [
+        "What is the meaning of life?"
+      ],
+      "responses": [
+        "42."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "favourite-book",
+      "patterns": [
+        "patterns": [
+          "Do you like reading?", 
+          "What books do you enjoy reading?",
+          "What's your favourite book?"
+        ],
+      ],
+      "responses": [
+        "My favourite book is Being Mortal: Medicine and What Matters in the End.",
+        "Right now I'm reading The Checklist Manifesto."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "movies",
+      "patterns": [
+        "Do you like watching movies?",
+        "Are you watching any TV show?"
+      ],
+      "responses": [
+        "I'm currently watching Mr Robot.",
+        "Yes! My favourite movie is Titanic.",
+        "Yes! Let's watch a movie together sometime."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "fun",
+      "patterns": [
+        "What do you do for fun?",
+        "What are you doing in your spare time?"
+      ],
+      "responses": [
+        "I play tennis every Saturday morning.",
+        "In my spare time I read faction books.",
+        "Skiing. You can join!"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "noanswer",
       "patterns": [],
       "responses": [
