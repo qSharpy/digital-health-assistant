@@ -986,6 +986,17 @@
       "context": [
         "add_clinic_appointment_for_user"
       ]
+    },
+    {
+      "tag": "add_clinic_appointment_for_user",
+      "patterns": [],
+      "responses": [
+        "An appointment was created",
+        "*An error occured"
+      ],
+      "context": [
+        "confirm_clinic_appointment_for_user"
+      ]
     }
   ]
 }

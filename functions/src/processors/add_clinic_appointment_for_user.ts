@@ -10,6 +10,8 @@ export class AddClinicAppointmentForUser extends Processor {
     }
 
     execute(): Observable<ExecutionResult> {
+        console.log("prev messages");
+        console.log(this.context.previousUserMessages);
         const clinicName = this.context.previousUserMessages[this.context.previousUserMessages.length - 1];
         console.log(clinicName);
         return getClinicByName(clinicName).pipe(map(clinic => {
