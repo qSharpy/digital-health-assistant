@@ -34,7 +34,9 @@
         "my tits hurt"
       ],
       "responses": [
-
+        "What else?",
+        "Anything else?",
+        "Are you experiencing something else as well?"
       ],
       "context": [
         "nextSymptomsFlow"

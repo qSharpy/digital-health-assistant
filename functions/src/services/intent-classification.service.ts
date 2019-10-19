@@ -28,7 +28,6 @@ export class IntentClassificationService extends TensorflowService {
           map(result => {
             const filteredWithIndices: number[][] = [];
             result.forEach((r, i) => {
-              console.log(r);
               if (r > this.errorThreshold) {
                 filteredWithIndices.push([i, r]);
               }
