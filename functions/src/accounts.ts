@@ -54,12 +54,14 @@ export const getAccountDetailsByUid = (uid) => {
 };
 
 export const getAccountDetailsEmailOrPhone = (email, phone) => {
+    console.log("email: " + email);
+    console.log("phone: " + phone);
     const firestore = admin.firestore();
     let accountsCollectionQuery: Query = null;
-    if (email) {
+    if (email != null) {
         accountsCollectionQuery = firestore.collection("accounts").where("email", "==", email);
     }
-    if (phone) {
+    if (phone != null) {
         accountsCollectionQuery = firestore.collection("accounts").where("phoneNumber", "==", phone);
     }
 

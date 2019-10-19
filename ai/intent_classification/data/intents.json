@@ -46,13 +46,13 @@
       "type": "my tits hurt",
       "dept": "oncology",
       "description": "If you're experiencing dull ache, heaviness, tightness, a burning sensation in the breast tissue, or breast tenderness, please go see a doctor.",
-      "tests": ["X-ray exam"]
+      "tests": ["X-ray test"]
       },
       {
       "type": "difficulty in breathing",
       "dept": "cardiology",
       "description": "Runny nose, itchy or watery eyes. Bad signs, please go see a doctor.",
-      "tests": ["X-ray exam",""]
+      "tests": ["X-ray test"]
       },
       {
       "type": "back pain",
@@ -200,6 +200,37 @@
         "Hi there",
         "Good to see you again",
         "Hi there, how can I help?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "who-will-win-softvision-contest",
+      "patterns": [
+        "Who do you think will win this contest?",
+        "Who will be the winner of this contest?",
+        "Who will win softvision 2019 contest?",
+        "Who will be the winner of the softvision 2019 programming contest?",
+        "Who do you think will win cognizant softvision 2019 programming contest?"
+      ],
+      "responses": [
+        "The winner of the contest should be me."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "whoami",
+      "patterns": [
+        "Who are you?",
+        "What is your name?",
+        "What do friends call you?"
+      ],
+      "responses": [
+        "I am your Digital Health Assistant.",
+        "My frends call me DHA, which is the short for Digial Health Assistant."
       ],
       "context": [
         ""

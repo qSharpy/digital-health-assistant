@@ -41,18 +41,58 @@ export class LandingComponent implements OnInit {
   }
 
   private buildInsurencePlans(): void {
-    const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in
-    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+    const descriptionPlatinum = `Platinum: covers 90% on average of your medical costs.<br>
+  INSURED BENEFITS:<br>
+  <ul>
+  <li>Quick access to over 850 partner medical centers</li>
+  <li>Costs paid directly by the company in the network of partner medical centers</li>
+  <li>Fast programming at some of the partner medical clinics, at any time, with DGA</li>
+  <li>Choosing the provider of medical services (according to the insurance conditions)</li>
+  <li>The possibility of taking over the family members insurance (husband / wife, children).</li>
+  <li>Ease in opening a reimbursement file, directly from the site via Digital Health Assistant</li>
+  </ul>`;
 
-    this.insurencePlans.push(new InsurencePlan(1, 'Platinum Insurence', description));
-    this.insurencePlans.push(new InsurencePlan(2, 'Gold Insurence', description));
-    this.insurencePlans.push(new InsurencePlan(3, 'Silver Insurence', description));
-    this.insurencePlans.push(new InsurencePlan(4, 'Bronze Insurence', description));
+    const descriptionGold = `Gold: covers 80% on average of your medical costs.<br>
+INSURED BENEFITS:<br>
+<ul>
+<li>Quick access to over 850 partner medical centers</li>
+<li>Costs paid directly by the company in the network of partner medical centers</li>
+<li>Fast programming at some of the partner medical clinics, at any time, with DGA</li>
+<li>Choosing the provider of medical services (according to the insurance conditions)</li>
+<li>The possibility of taking over the family members insurance (husband / wife, children).</li>
+<li>Ease in opening a reimbursement file, directly from the site or PWA mobila application</li>
+</ul>`;
+
+    const descriptionSilver = `Silver: covers 70% on average of your medical costs; You pay 30%
+    <br>INSURED BENEFITS:<br>
+    It covers medical services that do not require hospitalization in case of the following risks:
+    <ul>
+    <li>General medicine consultations by general practitioner, internal medicine doctor and pediatrician</li>
+    <li>Consultation of various specialties: over 30 clinical and surgical medical specialties</li>
+    <li>Outpatient surgery and ambulance services</li>
+    </ul>
+    <ul>
+    Monitoring of chronic diseases:
+    <li>Consultations (depending on the characteristics of the group, they can be 2/4/8 / year of insurance)</li>
+    </ul>`;
+
+    const descriptionBronze = `Bronze: covers 70% on average of your medical costs; you pay 40%.
+    <br>INSURED BENEFITS:<br>
+    It covers medical services that do not require hospitalization in case of the following risks:
+    <ul>
+    <li>Accident, illness (acute diseases and acute onset of a chronic / pre-existing disease)</li>
+    <li>General medicine consultations by general practitioner, internal medicine doctor and pediatrician</li>
+    <li>Consultation of various specialties: over 30 clinical and surgical medical specialties</li>
+     </ul>
+    <ul>
+    <br>
+    <b>No monitoring of chronic diseases</b>
+    `;
+
+    this.insurencePlans.push(new InsurencePlan(1, 'Platinum', descriptionPlatinum));
+    this.insurencePlans.push(new InsurencePlan(2, 'Gold', descriptionGold));
+    this.insurencePlans.push(new InsurencePlan(3, 'Silver', descriptionSilver));
+    this.insurencePlans.push(new InsurencePlan(4, 'Bronze', descriptionBronze));
   }
 
   changeInsurencePlan = (plan: InsurencePlan) => this._currentInsurencePlan$.next(plan);

@@ -59,44 +59,35 @@
         <div class="p-2 row m-0 mt-4">
             <div
                 class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
-                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'phone', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'phone', content: 'The 
+                Digital Health Assistant can be contacted via phone calls. 
+                You can choose to get a call from the assistant 
+                or you can initiate it. With just simple steps you can interact with our built and customized AI. 
+                For more examples of what our Digital Assisant please make a call and say help. '}"></ng-container>
             </div>
             <div
                 class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
-                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'perm_phone_msg', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'perm_phone_msg', content: '
+                Besides begging contacted by phone call, our Digital Health Assistant has the option of geting in touch with you 
+                via a web browser call. You simply can use your laptop, smart phone or tablet. Try it now ! It\'s just in your right side.
+                Important HINT: Night mode feature
+                '}"></ng-container>
             </div>
             <div
                 class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
-                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'textsms', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'textsms', content: '
+                 
+                Perhaps the simplest and most interactive way to interact with the Digital Chat Assistant is the chat window. Even 
+                if you are in the office, in the subway, at home or any other location with internet connection you can access the chat box.changeInsurencePlan
+                Digital Assistant make you life more easier for you and us. Please give it a try! 
+                '}"></ng-container>
             </div>
             <div
                 class="col col-12 col-sm-6 col-md-3 mt-2 mt-md-0 d-inline-flex justify-content-center align-items-center">
-                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'chat', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat'}"></ng-container>
-
+                <ng-container [ngTemplateOutlet]="infoContainerTemplate" [ngTemplateOutletContext]="{icon: 'chat', content: '
+                If you don\'t have internet access or you don\'t want to talk with DHA, keep calm and don\'t panik!. We\'ve built the SMS functionality.
+                Send SMS to our assistant and he we\'ll be able to support and solve main of your problems. 
+                '}"></ng-container>
             </div>
         </div>
     </div>
@@ -133,8 +124,8 @@
                         {{insurence?.name}}
                     </div>
                     <div class="p-2 text-muted">
-                        <p>
-                            {{insurence?.description}}
+                        <p [innerHTML]= "insurence.description">
+                            
                         </p>
                     </div>
                     <div class="p-2  text-muted d-flex justify-content-start align-items-center">
@@ -155,7 +146,7 @@
 
         </div>
         <div class="col col-0 col-md-4 p-0">
-            <img src="https://i.ibb.co/j6C9WWN/beach-dawn-hd-wallpaper-292442.jpg" class="w-100 h-100">
+            <img src="https://i.ibb.co/9T3mWLh/type-of-ind-health-insurace.png" class="w-100 h-100">
         </div>
     </div>
 
@@ -169,17 +160,17 @@
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'alarm',
                     title: '24x7 Support',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    content: 'Digital Health Assistant is always here for you.'}"></ng-container>
                 </div>
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'system_update_alt',
                     title: 'Easy Claim System',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    content: 'Great user experience.'}"></ng-container>
                 </div>
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'verified_user',
                     title: 'Get Started With Us',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    content: 'Just type help in the chat box.'}"></ng-container>
                 </div>
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'sync',
@@ -191,23 +182,23 @@
             <div class="pl-3 pr-3 pt-1 pb-1 d-flex justify-content-center align-items-center flex-wrap">
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'policy',
-                    title: 'Multi-policy Discount',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    title: 'Multi-insurance Package',
+                    content: 'Posibility to choose from 4 insurance packages.'}"></ng-container>
                 </div>
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'supervisor_account',
-                    title: 'Online Account',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    title: 'Online Administration ',
+                    content: 'Account can be managed online.'}"></ng-container>
                 </div>
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'lock',
                     title: 'Strongly Secure',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    content: 'Your data is secured with us. GDPR complaint.'}"></ng-container>
                 </div>
                 <div class="d-inline-block p-2 service-container m-1">
                     <ng-container [ngTemplateOutlet]="serviceContainerTemplate" [ngTemplateOutletContext]="{icon: 'menu_book',
                     title: 'Understandable Terms',
-                    content: 'Lorem ipsum dolor sit amet, consectetur.'}"></ng-container>
+                    content: 'No hidden terms.'}"></ng-container>
                 </div>
             </div>
         </div>
