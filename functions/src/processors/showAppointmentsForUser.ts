@@ -1,5 +1,5 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { getAppointmentsForUser } from "../accounts";
 
