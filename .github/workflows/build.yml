@@ -7,7 +7,7 @@ on:
       - 'src/**'
       - 'angular.json'
       - '.firebaserc'
-      - '.github/**/*.yml'
+      - '.github/workflows/**'
       - 'firebase.json'
       - 'firestore.indexes.json'
       - 'firestore.rules'
