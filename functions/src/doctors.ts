@@ -1,8 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
-import { from } from "rxjs";
-import { map } from "rxjs/operators";
+import { from, Observable } from "rxjs";
+import { map, switchMap, tap } from "rxjs/operators";
 
 
 export const checkValidInterval = functions.https.onRequest((req, res) => {
@@ -145,7 +145,7 @@ export const checkValidIntervalForAppointment = (doctorId, date) => {
       const appointmentEndDate: Date = appointment.end_date.toDate();
       console.log("app start date: " + appointmentStartDate);
       console.log("app end date: " + appointmentEndDate);
-      if((appointmentStartDate < endDate) && (appointmentEndDate > startDate)) {
+      if ((appointmentStartDate < endDate) && (appointmentEndDate > startDate)) {
         console.log("invalid")
         return false;
       }
@@ -164,3 +164,45 @@ export const getAppointmentSuggestions = (doctorId, date) => {
 
 }
 
+export const getFirstDoctorAvailabilityBySpeciality = (speciality: string) => {
+  const firestore = admin.firestore();
+  let docsArray: FirebaseFirestore.QueryDocumentSnapshot[] = [];
+
+  return from(firestore.collection('doctors').where('speciality', '==', speciality).get()).pipe(
+    tap(doctors => docsArray = doctors.docs),
+    map(doctors => doctors.docs),
+    switchMap(docs =>
+      from(Promise.all(docs.map(doc => doc.ref.collection('doctorAppointments').orderBy('end_date', 'asc').limit(1).get())))),
+    map(appointments => appointments.map(appointment => appointment.docs[0].data())),
+    map(appointments => ({ doctors: docsArray, appointments }))
+  )
+}
+
+export const getFirstDoctorAvailabilityBySpecialityApi = functions.https.onRequest((req, res) => {
+  setCorsHeaders(res);
+
+  const firestore = admin.firestore();
+  const speciality = req.query.speciality;
+
+  getFirstDoctorAvailabilityBySpeciality(speciality)
+  .pipe(
+    map(val => ({
+      doctorId: val.doctors.map(doctor => doctor.id)[0],
+      appointment: val.appointments[0]
+    })),
+    switchMap(val => 
+      from(firestore.collection('clinics').get()).pipe(
+        map(clinics => clinics.docs.filter(clinic => clinic.data().doctors.indexOf(val.doctorId))),
+        map(clinics => ({
+          clinicName: clinics[0].data().name,
+          appointment: val.appointment
+        })
+      ))
+    )
+  ).subscribe(val => res.send({
+    clinicName: val.clinicName,
+    start_date: val.appointment.start_date,
+    end_date: val.appointment.end_date,
+    patient_id: val.appointment.patient_id
+  }), error => res.sendStatus(400).send(error));
+});
