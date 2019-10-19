@@ -206,6 +206,22 @@
       ]
     },
     {
+      "tag": "who-will-win-softvision-contest",
+      "patterns": [
+        "Who do you think will win this contest?",
+        "Who will be the winner of this contest?",
+        "Who will win softvision 2019 contest?",
+        "Who will be the winner of the softvision 2019 programming contest?",
+        "Who do you think will win cognizant softvision 2019 programming contest?"
+      ],
+      "responses": [
+        "The winner of the contest should be me."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "whoami",
       "patterns": [
         "Who are you?",
