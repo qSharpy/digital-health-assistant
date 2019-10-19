@@ -80,7 +80,7 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
 }
 
 export function stripUneededKeywords(x: string) {
-  const xt = x.toLowerCase();
+  let xt = x.toLowerCase();
   [',', '.', '!', '?', ';', '"', '"', '(', ')',
   'i think ', ' please', 'can you ', 'will you ', 'could you ', 'if you could', 'if possible'].forEach(y => {
     xt = xt.replace(y, '');
