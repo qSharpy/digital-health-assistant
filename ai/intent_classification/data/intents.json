@@ -96,6 +96,104 @@
       ]
     },
     {
+      "tag": "symptoms-blood-in-urine",
+      "patterns": [
+        "blood in urine",
+        "peeing blood",
+        "urinary obstruction",
+        "bladder obstruction"
+      ],
+      "responses": [
+        "I think you need a prescription for Levaquin and Phenergan tablets. Do you want me to make an appointment to the doctor?",
+        "I highly encourage you to drink extra water. You should go to the emergency room as soon as posible."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-circumcision",
+      "patterns": [
+        "ballooning of the foreskin",
+        "skin ballooning",
+        "tight penis foreskin",
+        "pee spraying"
+      ],
+      "responses": [
+        "If you didn't get a circumcision while you were young, I think now it's the time. What other symptoms do you have?",
+        "If your skin is tight around your penis, you might have a case of phimosis. Do you want me to make an appointment to the doctor?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-cystopyelogram",
+      "patterns": [
+        "clot evacuation",
+        "bladder obstruction",
+        "blood in urine"
+      ],
+      "responses": [
+        "If you didn't get a circumcision while you were young, I think now it's the time. What other symptoms do you have?",
+        "If your skin is tight around your penis, you might have a case of phimosis. Do you want me to make an appointment to the doctor for further inspection?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-angina",
+      "patterns": [
+        "lack of oxygen",
+        "chest tightness",
+        "chest pain",
+        "heavy chest aching",
+        "difficulty in breathing"
+      ],
+      "responses": [
+        "Angina is chest pain due to a lack of oxygen to the heart. Its symptoms are alike to your symptoms. Do you want me to make an appointment to the doctor?",
+        "By the way, do you smoke? I believe you might have angina. It can be cured by making more exercise and medication. Do talk with a doctor."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-atrial-fibrillation",
+      "patterns": [
+        "irregular heartbeat",
+        "heart palpitation",
+        "shortness of breath",
+        "feeling dizzy"
+      ],
+      "responses": [
+        "That might be a sign of atrial fibrillation. The rhythm of the heart can be controlled with medication. Would you like a doctor appointment? If yes, on what address?",
+        "Atrial fibrillation is a disease that increases the risk of blood clot forming inside the heart. Please make an appointment with me or go see a cardiologist as soon as possible.",
+        "Seems like a case of atrial fibrillation. What other symptoms do you have?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-cataract",
+      "patterns": [
+        "sensitivity to light",
+        "blurred vision",
+        "fuzzy spots in field of vision",
+        "double vision in a single eye",
+        "fading of colors"
+      ],
+      "responses": [
+        "Fuzzy spots, blurred vision and fading of colors are the most common symptoms of cataract. Are you available to see an ophthalmologist in the upcoming weeks?",
+        "Could be the beginning of a cataract. What other symptoms do you have? Do you want me to make an appointment to an ophthalmologist." 
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "symptoms-teeth-extraction",
       "patterns": [
         "carious teeth",
@@ -147,6 +245,7 @@
         ""
       ]
     },
+    
     {
       "tag": "gender",
       "patterns": [
