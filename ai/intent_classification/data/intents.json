@@ -22,8 +22,8 @@
       "tag": "give_clinics_location",
       "patterns": [],
       "responses": [
-        "*Can't find you",
-        "Thanks for the location. Here are the clinics: {0}"
+        "*Can't find any clinics near you",
+        "Thanks for the location. Here are the clinics: {0}."
       ]
     },
     {
@@ -32,11 +32,12 @@
         "Hi there",
         "How are you",
         "Is anyone there?",
-        "Hello",
-        "Good day"
+        "Hello"
       ],
       "responses": [
-        "Hello, thanks for asking",
+        "Hello",
+        "Hi",
+        "Hi there",
         "Good to see you again",
         "Hi there, how can I help?"
       ],
