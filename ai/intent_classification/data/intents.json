@@ -212,6 +212,38 @@
       ]
     },
     {
+      "tag": "symptoms-headache-eyeglasses",
+      "patterns": [
+        "eye fatigue",
+        "eye pain",
+        "eyes hurt when wearing eyeglasses",
+        "head hurts when wearing eyeglasses"
+      ],
+      "responses": [
+        "If you wear eyeglasses and your head hurts, it might be because your diopters are not suiting your eyes anymore.",
+        "When was the last time you went to an phthalmologist? I think you should make an appointment to one right now.",
+        "How much time did you spend in front of a screen today? Too much time spent can cause a severe headache."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-headache",
+      "patterns": [
+        "my head hurts",
+        "head is hurting and I am vomiting",
+      ],
+      "responses": [
+        "Make sure you drink enough water. If you don't remember the last time you drank water, this is the most plausible cause of your headache. Otherwise, describe me your symptoms further.",
+        "Stressed lately? Please make sure you get 7-9 hours of sleep each night.",
+        "How much time did you spend in front of a screen today? Too much time spent can cause a severe headache."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "symptoms-cataract",
       "patterns": [
         "sensitivity to light",
@@ -239,6 +271,22 @@
       "responses": [
         "Most probably you have a sprained ankle. Don't move too much. Keep in mind you should see a doctor in case it is something more severe.",
         "Did you fall or did sport while not warmed up? You might've sprained your ankle. Bandage your ankle or let a doctor do it for you."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-wrist-sprain",
+      "patterns": [
+        "wrist sprain",
+        "swollen wrist",
+        "wrist pain",
+        "my wrist hurts"
+      ],
+      "responses": [
+        "Most probably you have a sprained wrist. Don't move your hand too much. Keep in mind you should see a doctor.",
+        "Did you fall or did sport while not warmed up? You might've sprained your wrist. Bandage your wrist or let a doctor do it for you."
       ],
       "context": [
         ""
@@ -305,6 +353,37 @@
       "responses": [
         "If you feel pain in your right lower side of your abdomen, you could have appendicitis. Other symptoms?",
         "You could have appendicitis. Do you want me to make an appointment for you?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-alzheimers",
+      "patterns": [
+        "memory loss",
+        "difficulty completing familiar tasks",
+        "difficulty determining time or place",
+        "personality and mood changes"
+      ],
+      "responses": [
+        "Do you have any other symptoms? From what I can tell, this makes me go alzheimers route.",
+        "I believe you might have a very mild alzheimers stage on the road. Please talk to your doctor of choice or let me do an appointment for you."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-rotator-cuff-tendinitis",
+      "patterns": [
+        "a clicking sound when raising my arm",
+        "stiffness in shoulder",
+        "swelling in my shoulder"
+      ],
+      "responses": [
+        "Beware of the posibility of rotator cuff tendinitis. Shall we make an appointment?",
+        "In my book, this sounds like tendinitis. Any other symptoms?"
       ],
       "context": [
         ""
