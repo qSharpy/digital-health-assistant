@@ -12,12 +12,14 @@ export abstract class Processor {
 export interface ExecutionResult {
   isPositiveAnswer: boolean;
   dataForReplacing?: string[];
+  forceAnswer?: string;
 }
 
 export interface ProcessorContext {
   messageLower: string;
   currentContext: string;
   previousUserMessages?: string[];
+  previousUserContexts?: string[];
   phoneNo?: string;
   email?: string;
 }

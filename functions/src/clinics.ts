@@ -1,14 +1,15 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
-import { from } from "rxjs";
-import { map } from "rxjs/operators";
+import { from, forkJoin, of } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
+import * as firebase from 'firebase/app';
 
 export const getClinics = functions.https.onRequest((req, res) => {
   const lat = req.query.lat;
   const long = req.query.long;
 
-  if (lat !== undefined && long !== undefined) {
+  if (lat != null && long != null) {
     getAllClinicsByAddress(lat, long).subscribe(clinics => {
       res.send(clinics);
     }, err => {
@@ -78,20 +79,16 @@ export const getClinicAppointments = functions.https.onRequest((req, res) => {
   }
 });
 
-//Get clinic by name
-export const getClinicByName = functions.https.onRequest((request, response) => {
-  setCorsHeaders(response);
-  let clinicByName: any;
-  const clinicName: String = request.query.clinicName;
 
+export function getDoctorsForClinicByClinicName(clinicName: string) {
   const firestore = admin.firestore();
-  firestore.collection("clinics").get().then(allClinics => {
-
+  return from(firestore.collection("clinics").get()).pipe(map(allClinics => {
+    let foundClinic: any = null;
     allClinics.forEach(clinic => {
       const data: any = clinic.data();
 
-      if (clinicName === data.name) {
-        clinicByName = {
+      if (clinicName.toLowerCase() === data.name.toLowerCase()) {
+        foundClinic = {
           "id": clinic.id,
           "address": data.address,
           "address_geopoint": data.address_geopoint,
@@ -101,18 +98,22 @@ export const getClinicByName = functions.https.onRequest((request, response) => 
           "schedule": data.schedule,
           "image_url": data.image_url,
         }
-        response.send(clinicByName);
       }
     });
-
-    if (clinicByName == null)
-      response.status(400).send(clinicByName);
-
-  }).catch(e => {
-    response.status(400).send(e);
+    return foundClinic;
+  }),
+  switchMap(foundClinic => {
+    if (foundClinic == null) {
+      return of([]);
+    }
+    const doctorsIds: string[] = foundClinic.doctors;
+    const observables = doctorsIds.map(did => {
+      return from(firestore.doc('doctors/' + did).get()).pipe(map(x => x.data()));
+    });
+    return forkJoin(observables);
   })
-
-});
+  );
+}
 
 export const getDoctorsDetailsFromClinic = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
@@ -178,14 +179,27 @@ export const getAllClinics = () => {
 
 export const getAllClinicsByAddress = (lat: number = null, long: number = null) => {
   return getAllClinics().pipe(map(clinics => {
-    console.log(clinics);
-    return clinics;
+    return clinics.filter(c => {
+      const geoPoint: firebase.firestore.GeoPoint = c.address_geopoint;
+      const clinicGeoPoint = {lat: geoPoint.latitude, long: geoPoint.longitude};
+      const radius = 50;
+      const userGeoPoint = {lat: lat, long: long};
+      return arePointsNear(clinicGeoPoint, userGeoPoint, radius);
+    });
   }));
 };
 
+export function arePointsNear(checkPoint: {lat: number, long: number}, centerPoint: {lat: number, long: number}, km: number) {
+  const ky = 40000 / 360;
+  const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+  const dx = Math.abs(centerPoint.long - checkPoint.long) * kx;
+  const dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+  return Math.sqrt(dx * dx + dy * dy) <= km;
+}
+
 export const getAllClinicAppointments = (clinicId) => {
   const firestore = admin.firestore();
-  return from(firestore.collection("clinics/" + clinicId + "/appointments").get()).pipe(map(snapshot => {
+  return from(firestore.collection("clinics/" + clinicId + "/clinicAppointments").get()).pipe(map(snapshot => {
     let appointments = [];
     snapshot.forEach(doc => {
       const data: any = doc.data();
@@ -209,7 +223,7 @@ export const createNewClinicAppointment = (clinicId, patientId, date) => {
   // 60 mins default
   endDate.setMinutes(endDate.getMinutes() + 60);
 
-  return firestore.collection("clinics/" + clinicId + "/appointments").add({
+  return firestore.collection("clinics/" + clinicId + "/clinicAppointments").add({
     start_date: startDate,
     end_date: endDate,
     patient_id: patientId
@@ -217,5 +231,5 @@ export const createNewClinicAppointment = (clinicId, patientId, date) => {
 };
 export const deleteExistingClinicAppointment = (clinicId, appointmentId) => {
   const firestore = admin.firestore();
-  return firestore.doc("clinics/" + clinicId + "/appointments/" + appointmentId).delete();
+  return firestore.doc("clinics/" + clinicId + "/clinicAppointments/" + appointmentId).delete();
 };

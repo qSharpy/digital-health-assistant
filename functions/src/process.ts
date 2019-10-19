@@ -33,12 +33,18 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
   if (chatMessage.previousUserMessages) {
     previousUserMessages = chatMessage.previousUserMessages.split('^');
   }
+  let previousUserContexts: string[] = [];
+  if (chatMessage.previousUserContexts) {
+    previousUserContexts = chatMessage.previousUserContexts.split('^');
+  }
+  chatMessage.text = stripUneededKeywords(chatMessage.text);
   const processorContext: ProcessorContext = {
     currentContext: chatMessage.context,
     email: chatMessage.email,
     messageLower: chatMessage.text.toLowerCase(),
     phoneNo: chatMessage.phoneNo,
-    previousUserMessages: previousUserMessages
+    previousUserMessages: previousUserMessages,
+    previousUserContexts: previousUserContexts
   };
   return new TokensService().loadIntentsFromStorage().pipe(
     switchMap(intentsModel => {
@@ -69,11 +75,21 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
-          const textResponse = getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
+            getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
           response.say = textResponse.length === 0 ? 'Did not understand' : textResponse;
           return response;
         }));
       }));
     })
   );
+}
+
+export function stripUneededKeywords(x: string) {
+  let xt = x.toLowerCase();
+  [',', '.', '!', '?', ';', '"', '"', '(', ')',
+  'i think ', 'please', 'can you ', 'will you ', 'could you ', 'if you could', 'if possible'].forEach(y => {
+    xt = xt.replace(y, '');
+  });
+  return xt;
 }

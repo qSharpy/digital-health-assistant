@@ -1,6 +1,103 @@
 {
   "intents": [
     {
+      "tag": "startSymptomsFlow",
+      "patterns": [
+        "i feel sick",
+        "i need help",
+        "i about to die",
+        "i am feeling nauseaus",
+        "i am hurting",
+        "something is bothering me",
+        "something is wrong",
+        "something is wrong with me"
+      ],
+      "responses": [
+        "Tell me a list of your symptoms",
+        "What is wrong?",
+        "Tell me what hurts",
+        "What are you experiencing?"
+      ],
+      "context": ["nextSymptomsFlow"]
+    },
+    {
+      "tag": "nextSymptomsFlow",
+      "patterns": [
+        "headache",
+        "toothache",
+        "nausea",
+        "vomiting",
+        "seizures",
+        "fever",
+        "lightheadeness",
+        "heartburn",
+        "my tits hurt"
+      ],
+      "responses": [
+        "What else?",
+        "Anything else?",
+        "Are you experiencing something else as well?"
+      ],
+      "context": [
+        "nextSymptomsFlow"
+      ]
+    },
+    {
+      "tag": "showDoctorsFromClinic",
+      "patterns": [
+        "Get doctors from clinic",
+        "Show doctors from clinic",
+        "Get medics from clinic",
+        "List doctors from clinic",
+        "Doctors from clinic",
+        "Medics from clinic"
+      ],
+      "responses": [
+        "Here are they: {0}",
+        "*Cannot find any doctors for clinic"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "confirmation",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Sure",
+        "Go ahead",
+        "OK",
+        "i am finished",
+        "finished",
+        "finish"
+      ],
+      "responses": [
+        "Done: {0}",
+        "*Failed: {0}"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "negation",
+      "patterns": [
+        "No",
+        "Nah",
+        "Not",
+        "Stop",
+        "Nope"
+      ],
+      "responses": [
+        "Stopped: {0}",
+        "*Can't stop: {0}"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "clinics",
       "patterns": [
         "Show me the clinics",
@@ -22,8 +119,8 @@
       "tag": "give_clinics_location",
       "patterns": [],
       "responses": [
-        "*Can't find you",
-        "Thanks for the location. Here are the clinics: {0}"
+        "*Can't find any clinics near you",
+        "Thanks for the location. Here are the clinics: {0}."
       ]
     },
     {
@@ -32,11 +129,12 @@
         "Hi there",
         "How are you",
         "Is anyone there?",
-        "Hello",
-        "Good day"
+        "Hello"
       ],
       "responses": [
-        "Hello, thanks for asking",
+        "Hello",
+        "Hi",
+        "Hi there",
         "Good to see you again",
         "Hi there, how can I help?"
       ],
@@ -96,6 +194,186 @@
       ]
     },
     {
+      "tag": "symptoms-blood-in-urine",
+      "patterns": [
+        "blood in urine",
+        "peeing blood",
+        "urinary obstruction",
+        "bladder obstruction"
+      ],
+      "responses": [
+        "I think you need a prescription for Levaquin and Phenergan tablets. Do you want me to make an appointment to the doctor?",
+        "I highly encourage you to drink extra water. You should go to the emergency room as soon as posible."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-circumcision",
+      "patterns": [
+        "ballooning of the foreskin",
+        "skin ballooning",
+        "tight penis foreskin",
+        "pee spraying"
+      ],
+      "responses": [
+        "If you didn't get a circumcision while you were young, I think now it's the time. What other symptoms do you have?",
+        "If your skin is tight around your penis, you might have a case of phimosis. Do you want me to make an appointment to the doctor?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-cystopyelogram",
+      "patterns": [
+        "clot evacuation",
+        "bladder obstruction",
+        "blood in urine"
+      ],
+      "responses": [
+        "If you didn't get a circumcision while you were young, I think now it's the time. What other symptoms do you have?",
+        "If your skin is tight around your penis, you might have a case of phimosis. Do you want me to make an appointment to the doctor for further inspection?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-angina",
+      "patterns": [
+        "lack of oxygen",
+        "chest tightness",
+        "chest pain",
+        "heavy chest aching",
+        "difficulty in breathing"
+      ],
+      "responses": [
+        "Angina is chest pain due to a lack of oxygen to the heart. Its symptoms are alike to your symptoms. Do you want me to make an appointment to the doctor?",
+        "By the way, do you smoke? I believe you might have angina. It can be cured by making more exercise and medication. Do talk with a doctor."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-atrial-fibrillation",
+      "patterns": [
+        "irregular heartbeat",
+        "heart palpitation",
+        "shortness of breath",
+        "feeling dizzy"
+      ],
+      "responses": [
+        "That might be a sign of atrial fibrillation. The rhythm of the heart can be controlled with medication. Would you like a doctor appointment? If yes, on what address?",
+        "Atrial fibrillation is a disease that increases the risk of blood clot forming inside the heart. Please make an appointment with me or go see a cardiologist as soon as possible.",
+        "Seems like a case of atrial fibrillation. What other symptoms do you have?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-cataract",
+      "patterns": [
+        "sensitivity to light",
+        "blurred vision",
+        "fuzzy spots in field of vision",
+        "double vision in a single eye",
+        "fading of colors"
+      ],
+      "responses": [
+        "Fuzzy spots, blurred vision and fading of colors are the most common symptoms of cataract. Are you available to see an ophthalmologist in the upcoming weeks?",
+        "Could be the beginning of a cataract. What other symptoms do you have? Do you want me to make an appointment to an ophthalmologist."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-ankle-sprain",
+      "patterns": [
+        "ankle sprain",
+        "swollen ankle",
+        "ankle pain",
+        "my ankle hurts"
+      ],
+      "responses": [
+        "Most probably you have a sprained ankle. Don't move too much. Keep in mind you should see a doctor in case it is something more severe.",
+        "Did you fall or did sport while not warmed up? You might've sprained your ankle. Bandage your ankle or let a doctor do it for you."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-achilles-tendon-rupture",
+      "patterns": [
+        "pain near the heel",
+        "cannot bend the foot forward",
+        "can not stand on my toes",
+        "feeling tight in the heel and foot"
+      ],
+      "responses": [
+        "If you feel pain while standing on your toes, it's possible that your achilles tendon ruptured. Do make a doctor appointment, please.",
+        "Can you bend your foot forward? Do you feel pain near the heel? If yes, your achilles tendon might be ruptured. You have to see a doctor for treatment. Do you want to make an appointment sometime soon?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-chronic-back-pain",
+      "patterns": [
+        "back pain",
+        "back pain for long time",
+        "back pain when bending",
+        "back pain when lifting",
+        "stabbing pain in the back"
+      ],
+      "responses": [
+        "If the back pain is ongoing for more than three months, you most probably have chronic back pain. Make a doctor appointment as soon as possible.",
+        "Back pain is not to be joked around. Please make a doctor appointment as soon as possible."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-biceps-tendon-tear",
+      "patterns": [
+        "sharp pain in shoulder",
+        "sharp pain in elbow",
+        "can not rotate my arm",
+        "cramps in my biceps muscle",
+        "audible arm pop noise"
+      ],
+      "responses": [
+        "Pain in the shoulder and elbow area is correlated with biceps tendon tear. What other symptoms do you have?",
+        "Cramps, pops and pain are symptoms of biceps tendon tear. If you experience these, you should go see an orthopaedic surgeon."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-appendicitis",
+      "patterns": [
+        "abdominal bloating",
+        "loss of appetite",
+        "nausea and vomiting",
+        "sudden pain on the right side of the lower abdomen"
+      ],
+      "responses": [
+        "If you feel pain in your right lower side of your abdomen, you could have appendicitis. Other symptoms?",
+        "You could have appendicitis. Do you want me to make an appointment for you?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "symptoms-teeth-extraction",
       "patterns": [
         "carious teeth",
@@ -147,8 +425,9 @@
         ""
       ]
     },
+
     {
-      "tag": "gender",
+      "tag": "personal-gender",
       "patterns": [
         "Are you male or female?",
         "What is your gender?"
@@ -163,7 +442,7 @@
       ]
     },
     {
-      "tag": "where-are-you-from",
+      "tag": "personal-where-are-you-from",
       "patterns": [
         "Where are you from?",
         "Where are you living?",
@@ -181,7 +460,7 @@
       ]
     },
     {
-      "tag": "whats-your-job",
+      "tag": "personal-whats-your-job",
       "patterns": [
         "Are you a doctor?",
         "Are you a dentist?",
@@ -196,7 +475,7 @@
       ]
     },
     {
-      "tag": "living-in-simulation",
+      "tag": "personal-living-in-simulation",
       "patterns": [
         "We live in simulation, right?",
         "Are we living in a simulation?"
@@ -210,7 +489,7 @@
       ]
     },
     {
-      "tag": "how-are-you",
+      "tag": "personal-how-are-you",
       "patterns": [
         "What’s up?",
         "How is your day?"
@@ -224,7 +503,7 @@
       ]
     },
     {
-      "tag": "how-old-are-you",
+      "tag": "personal-how-old-are-you",
       "patterns": [
         "How old are you?",
         "What age are you?",
@@ -239,7 +518,7 @@
       ]
     },
     {
-      "tag": "meaning-of-life",
+      "tag": "personal-meaning-of-life",
       "patterns": [
         "What is the meaning of life?"
       ],
@@ -251,7 +530,7 @@
       ]
     },
     {
-      "tag": "favourite-book",
+      "tag": "personal-favourite-book",
       "patterns": [
         "Do you like reading?",
         "What books do you enjoy reading?",
@@ -266,7 +545,7 @@
       ]
     },
     {
-      "tag": "movies",
+      "tag": "personal-movies",
       "patterns": [
         "Do you like watching movies?",
         "Are you watching any TV show?"
@@ -281,7 +560,7 @@
       ]
     },
     {
-      "tag": "fun",
+      "tag": "personal-fun",
       "patterns": [
         "What do you do for fun?",
         "What are you doing in your spare time?"
