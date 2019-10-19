@@ -13,7 +13,7 @@ export const getClinics = functions.https.onRequest((req, res) => {
     });
 });
 
-
+//Get clinic by name
 export const getClinicByName = functions.https.onRequest((request, response) => {
     setCorsHeaders(response);
     let clinicByName : any;
