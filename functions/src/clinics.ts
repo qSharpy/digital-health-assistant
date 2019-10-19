@@ -179,6 +179,29 @@ export const getAllClinics = () => {
   }));
 };
 
+export const getClinicByName = (name) => {
+  const firestore = admin.firestore();
+
+  return from(firestore.collection("clinics").where("name", "==", name).get()).pipe(map(snapshot => {
+    let clinics = [];
+    snapshot.forEach(doc => {
+      const data: any = doc.data();
+      const clinic = {
+        "id": doc.id,
+        "address": data.address,
+        "address_geopoint": data.address_geopoint,
+        "doctors": data.doctors,
+        "laboratory_analysis": data.laboratory_analysis,
+        "name": data.name,
+        "schedule": data.schedule,
+        "image_url": data.image_url,
+      }
+      clinics.push(clinic);
+    });
+    return clinics;
+  }));
+};
+
 export const getAllClinicsByAddress = (lat: number = null, long: number = null) => {
   return getAllClinics().pipe(map(clinics => {
     return clinics.filter(c => {

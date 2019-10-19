@@ -953,7 +953,7 @@
       "patterns": [
         "show my appointments",
         "show appointments for me",
-        "show my clinics and doctors appointments"
+        "show all appointments for me"
       ],
       "responses": [
         "Here are your appointments: {0}",
@@ -962,6 +962,28 @@
       "context": [
         ""
       ]
+    },
+    {
+      "tag": "createAppointmentForUser",
+      "patterns": [
+        "create appointment for me",
+        "add appointment for me",
+        "make an appointment for me"
+      ],
+      "responses": [
+        "Please provide a clinic name"
+      ],
+      "context": [
+        "show_clinic_by_name"
+      ]
+    },
+    {
+      "tag": "show_clinic_by_name",
+      "patterns": [],
+      "responses": [
+        "Clinic name is: {0}"
+      ],
+      "context": []
     }
   ]
 }
