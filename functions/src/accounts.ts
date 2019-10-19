@@ -1,8 +1,9 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
-import { from } from "rxjs";
+import { from, of, forkJoin } from "rxjs";
 import { map } from "rxjs/operators";
+import { Query } from "@google-cloud/firestore";
 
 export const getAccountDetails = functions.https.onRequest((req, res) => {
     setCorsHeaders(res);
@@ -50,6 +51,38 @@ export const getAccountDetailsByUid = (uid) => {
             "geoPoint": data.geoPoint,
         }
     }))
+};
+
+export const getAccountDetailsEmailOrPhone = (email, phone) => {
+    console.log("email: " + email);
+    console.log("phone: " + phone);
+    const firestore = admin.firestore();
+    let accountsCollectionQuery: Query = null;
+    if (email != null) {
+        accountsCollectionQuery = firestore.collection("accounts").where("email", "==", email);
+    }
+    if (phone != null) {
+        accountsCollectionQuery = firestore.collection("accounts").where("phoneNumber", "==", phone);
+    }
+
+    if (accountsCollectionQuery != null) {
+        return from(accountsCollectionQuery.get()).pipe(map(snapshot => {
+            const data = snapshot.docs[0].data();
+
+            console.log("account: " + snapshot.docs[0].id);
+            return {
+                "id": snapshot.docs[0].id,
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "createdDate": data.createdDate,
+                "phoneNumber": data.phoneNumber,
+                "geoPoint": data.geoPoint,
+            }
+        }))
+    } else {
+        return of(null);
+    }
 };
 
 export const getAccountInsuranceType = (uid) => {
@@ -120,11 +153,24 @@ export const getMyClinicAppointments = functions.https.onRequest((request, respo
 
 export const getAppointmentsForUser = (uid) => {
     const firestore = admin.firestore();
-    const promises: Promise<any>[] = [];
 
-    promises.push(firestore.collectionGroup("clinicAppointments").where("patient_id", "==", uid).get().then());
-    promises.push(firestore.collectionGroup("doctorAppointments").where("patient_id", "==", uid).get().then());
+    const appointments = [];
+    console.log("User uid " + uid);
+    let doctorAppointment = from(firestore.collectionGroup("doctorAppointments").where("patient_id", "==", uid).get());
+    let clinicAppointment = from(firestore.collectionGroup("clinicAppointments").where("patient_id", "==", uid).get());
+    return forkJoin([doctorAppointment, clinicAppointment]).pipe(map(snapshots => {
+        snapshots.forEach(snapshot => {
+            snapshot.docs.forEach(doc => {
+                const data: any = doc.data();
+                const appointment = {
+                    "end_date": data.end_date,
+                    "patient_id": data.patient_id,
+                    "start_date": data.start_date
+                }
+                appointments.push(appointment);
+            });
 
-    return from(Promise.all(promises));
-
+        });
+        return appointments;
+    }));
 }

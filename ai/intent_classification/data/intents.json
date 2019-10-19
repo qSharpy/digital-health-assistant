@@ -59,7 +59,7 @@
       "dept": "orthopedy",
       "description": "If the back pain is ongoing for more than three months, you most probably have chronic back pain. Make a doctor appointment as soon as possible.",
       "tests": ["Straight leg test","Tripod sign test", "Femoral Stretch Test (L2-4)"]
-      },
+      }
   ],
   "intents": [
     {
@@ -935,7 +935,9 @@
     {
       "tag": "showAppointmentsForUser",
       "patterns": [
-        "show my appointments"
+        "show my appointments",
+        "show appointments for me",
+        "show my clinics and doctors appointments"
       ],
       "responses": [
         "Here are your appointments: {0}",
