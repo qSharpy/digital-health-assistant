@@ -1,4 +1,12 @@
 {
+  "symptomsMap": [
+     {
+      "type": "nausea",
+      "dept": "gastro",
+      "description": "if you vomit gfy",
+      "tests": ["simple blood test", "ct scan"]
+      }
+  ],
   "intents": [
     {
       "tag": "startSymptomsFlow",
@@ -848,6 +856,19 @@
       "patterns": [],
       "responses": [
         "Loading hospital details"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "showAppointmentsForUser",
+      "patterns": [
+        "show my appointments"
+      ],
+      "responses": [
+        "Here are your appointments: {0}",
+        "*Cannot find any appointment for you"
       ],
       "context": [
         ""
