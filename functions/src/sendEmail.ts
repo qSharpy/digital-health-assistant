@@ -1,3 +1,8 @@
+if (global.process.env.FUNCTIONS_EMULATOR) {
+  global.process.env.GOOGLE_APPLICATION_CREDENTIALS = './firebaseServiceAccountKey.json';
+}
+
+
 import {createTransport} from 'nodemailer';
 import * as functions from 'firebase-functions';
 import { from } from 'rxjs';

@@ -1,3 +1,7 @@
+if (global.process.env.FUNCTIONS_EMULATOR) {
+  global.process.env.GOOGLE_APPLICATION_CREDENTIALS = './firebaseServiceAccountKey.json';
+}
+
 import * as functions from "firebase-functions";
 import { TokensService } from "./services/tokens.service";
 import { ChatMessage } from './models/chat-message';
