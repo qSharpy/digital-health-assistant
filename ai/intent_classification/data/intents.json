@@ -852,6 +852,19 @@
       "context": [
         ""
       ]
+    },
+    {
+      "tag": "showAppointmentsForUser",
+      "patterns": [
+        "show my appointments"
+      ],
+      "responses": [
+        "Here are your appointments: {0}",
+        "*Cannot find any appointment for you"
+      ],
+      "context": [
+        ""
+      ]
     }
   ]
 }
