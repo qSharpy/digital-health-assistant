@@ -11,6 +11,8 @@ export const environment = {
     functionsEmulator: true,
     firestoreEmulator: false,
     fct_processUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/process',
+    fct_getClinicsUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/getClinics',
+    fct_getDoctorsUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/getDoctors',
     apiKey: 'AIzaSyCpMy4UwL5LALmp2KGBaRFWjlvJ9ha3n6w',
     authDomain: 'digital-health-assistant.firebaseapp.com',
     databaseURL: 'https://digital-health-assistant.firebaseio.com',
