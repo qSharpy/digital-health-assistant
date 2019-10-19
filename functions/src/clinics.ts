@@ -32,19 +32,52 @@ export const getClinics = functions.https.onRequest((req, res) => {
 
 });
 
+export const createClinicAppointment = functions.https.onRequest((req, res) => {
+  setCorsHeaders(res);
+
+  const clinicId = req.query.clinicId;
+  const startDate = req.query.date;
+
+  createNewClinicAppointment(clinicId, startDate).then(
+    data => {
+      res.send("Appointment added successfully");
+    }).catch(
+      error => {
+        res.status(400).send(error);
+      });
+});
+export const deleteClinicAppointment = functions.https.onRequest((req, res) => {
+  setCorsHeaders(res);
+
+  const clinicId = req.query.clinicId;
+  const appointmentId = req.query.appointmentId;
+
+  if (clinicId !== undefined && appointmentId !== undefined) {
+    deleteExistingClinicAppointment(clinicId, appointmentId).then(
+      data => {
+        res.send("Appointment deleted successfully");
+      }).catch(
+        error => {
+          res.status(400).send(error);
+        });
+  } else {
+    res.status(400).send("You must provide the clinic id and the appointment id.")
+  }
+});
+
 export const getClinicAppointments = functions.https.onRequest((req, res) => {
   setCorsHeaders(res);
-  const clinicId = req.query.clinicId;
 
+  const clinicId = req.query.clinicId;
   if (clinicId !== undefined) {
     getAllClinicAppointments(clinicId).subscribe(appointments => {
       res.send(appointments);
     }, err => {
       res.status(400).send(err);
     });
+  } else {
+    res.status(400).send("You must provide the clinic id.")
   }
-  res.status(400).send("You must provide the clinic id.")
-
 });
 
 //Get clinic by name
@@ -100,7 +133,7 @@ export const getDoctorsDetailsFromClinic = functions.https.onRequest((request, r
       }
 
       doctorsOfClinic.forEach(id => {
-        promises.push(firestore.doc("/doctors/"+id).get().then(item => {  
+        promises.push(firestore.doc("/doctors/" + id).get().then(item => {
           const tempData: any = item.data();
           const doctorData = {
             "email": tempData.email,
@@ -200,7 +233,7 @@ export const getAllClinicsByAddress = (lat: number = null, long: number = null) 
 
 export const getAllClinicAppointments = (clinicId) => {
   const firestore = admin.firestore();
-  return from(firestore.collection("clinics/" + clinicId + "/").get()).pipe(map(snapshot => {
+  return from(firestore.collection("clinics/" + clinicId + "/appointments").get()).pipe(map(snapshot => {
     let appointments = [];
     snapshot.forEach(doc => {
       const data: any = doc.data();
@@ -214,4 +247,23 @@ export const getAllClinicAppointments = (clinicId) => {
     });
     return appointments;
   }))
+};
+
+export const createNewClinicAppointment = (uid, date) => {
+  const firestore = admin.firestore();
+
+  const startDate = new Date(date);
+  const endDate = new Date(startDate);
+  // 60 mins default
+  endDate.setMinutes(endDate.getMinutes() + 60);
+
+  return firestore.collection("clinics/" + uid + "/appointments").add({
+    start_date: startDate,
+    end_date: endDate,
+    patient_id: uid
+  });
+};
+export const deleteExistingClinicAppointment = (clinicId, appointmentId) => {
+  const firestore = admin.firestore();
+  return firestore.doc("clinics/" + clinicId + "/appointments/" + appointmentId).delete();
 };
