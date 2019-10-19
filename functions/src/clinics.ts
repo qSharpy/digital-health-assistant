@@ -35,16 +35,22 @@ export const getClinics = functions.https.onRequest((req, res) => {
 export const createClinicAppointment = functions.https.onRequest((req, res) => {
   setCorsHeaders(res);
 
+  // date should be send as 2018-12-08T18:00:20.794Z
   const clinicId = req.query.clinicId;
+  const patientId = req.query.patientId;
   const startDate = req.query.date;
 
-  createNewClinicAppointment(clinicId, startDate).then(
-    data => {
-      res.send("Appointment added successfully");
-    }).catch(
-      error => {
-        res.status(400).send(error);
-      });
+  if (clinicId !== undefined && patientId !== undefined && startDate !== undefined) {
+    createNewClinicAppointment(clinicId, patientId, startDate).then(
+      data => {
+        res.send("Appointment added successfully");
+      }).catch(
+        error => {
+          res.status(400).send(error);
+        });
+  } else {
+    res.status(400).send("You must provide the clinic id, the patient id and the start date.")
+  }
 });
 export const deleteClinicAppointment = functions.https.onRequest((req, res) => {
   setCorsHeaders(res);
@@ -249,7 +255,7 @@ export const getAllClinicAppointments = (clinicId) => {
   }))
 };
 
-export const createNewClinicAppointment = (uid, date) => {
+export const createNewClinicAppointment = (clinicId, patientId, date) => {
   const firestore = admin.firestore();
 
   const startDate = new Date(date);
@@ -257,10 +263,10 @@ export const createNewClinicAppointment = (uid, date) => {
   // 60 mins default
   endDate.setMinutes(endDate.getMinutes() + 60);
 
-  return firestore.collection("clinics/" + uid + "/appointments").add({
+  return firestore.collection("clinics/" + clinicId + "/appointments").add({
     start_date: startDate,
     end_date: endDate,
-    patient_id: uid
+    patient_id: patientId
   });
 };
 export const deleteExistingClinicAppointment = (clinicId, appointmentId) => {
