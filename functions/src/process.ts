@@ -10,6 +10,7 @@ import { IntentsModelWithTag } from "./models/intents-model-with-tag";
 import { getAnswer } from "./services/helpers";
 import { IntentClassificationService } from "./services/intent-classification.service";
 
+
 export const process = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
   getHttpResult(request).subscribe(x => {
@@ -60,7 +61,7 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
       if (!foundResponse) {
         return of(response);
       }
-      response.context = foundResponse.context && foundResponse.context.length > 0 ? foundResponse.context[0] : null;
+      response.context = foundResponse.context != null && foundResponse.context.length > 0 && foundResponse.context[0].length > 0 ? foundResponse.context[0] : null;
       return tryLoadProcessorByTagName(imt.tag, processorContext).pipe(switchMap(processor => {
         if (!processor) {
           response.say = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)].replace('*', '');

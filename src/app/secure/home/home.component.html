@@ -1,1 +1,95 @@
-<p>home works!</p>
+<section class="w-100 h-100 p-3">
+    <div class="row m-0">
+        <div class="p-2 w-50">
+            <div class="col col-12 bg-light rounded panel-container p-0">
+                <ng-container *ngTemplateOutlet="personalInformationTemplate"></ng-container>
+            </div>
+        </div>
+        <div class="p-2 w-50">
+            <div class="col col-12 bg-light rounded panel-container p-0">
+                <ng-container *ngTemplateOutlet="currentInsurenceInfoTemplate"></ng-container>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #currentInsurenceInfoTemplate>
+    <div class="header p-3 open-sans border-bottom">
+        Current insurence info
+    </div>
+
+    <div class="p-2 mt-3">
+        <div class="row m-0 open-sans mt-3">
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <label class="font-weight-bold">Insurence type: </label>
+            </div>
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <span>Platinum insurence</span>
+            </div>
+        </div>
+
+        <div class="row m-0 open-sans mt-4">
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <label for="startDate" class="font-weight-bold">Start date: </label>
+            </div>
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <span>19/10/2019 10:18</span>
+            </div>
+        </div>
+
+        <div class="row m-0 open-sans mt-4">
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <label for="startDate" class="font-weight-bold">End date: </label>
+            </div>
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <span>19/10/2020 10:18</span>
+            </div>
+        </div>
+
+        <div class="p-2 mt-3" fxLayout="row" fxLayoutAlign="end center">
+            <button type="button" class="pl-3 pr-3 open-sans box-shadow-none btn btn-danger mr-3">Delete</button>
+            <button type="button" class="pl-3 pr-3 open-sans box-shadow-none btn btn-success">Upgrade</button>
+        </div>
+
+    </div>
+</ng-template>
+
+<ng-template #personalInformationTemplate>
+    <div class="header p-3 open-sans border-bottom">
+        Personal information
+    </div>
+
+    <div class="p-2 mt-3">
+        <div class="row m-0 open-sans mt-3">
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <label for="firstName" class="font-weight-bold">First name: </label>
+            </div>
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="center center">
+                <input class="form-control" type="text" name="firstName" id="firstName" value="First name">
+            </div>
+        </div>
+
+        <div class="row m-0 open-sans mt-3">
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <label for="lastName" class="font-weight-bold">Last name: </label>
+            </div>
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="center center">
+                <input class="form-control" type="text" name="lastName" id="lastName" value="Last name">
+            </div>
+        </div>
+
+        <div class="row m-0 open-sans mt-3">
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="start center">
+                <label for="firstName" class="font-weight-bold">Phone number: </label>
+            </div>
+            <div class="col col-6" fxLayout="row" fxLayoutAlign="center center">
+                <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="+40760272632">
+            </div>
+        </div>
+
+        <div class="p-2 mt-3" fxLayout="row" fxLayoutAlign="end center">
+            <button type="button" class="pl-3 pr-3 open-sans box-shadow-none btn btn-success">Edit</button>
+        </div>
+
+    </div>
+</ng-template>

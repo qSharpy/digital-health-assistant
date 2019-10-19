@@ -6,7 +6,8 @@
         "Show me the clinics",
         "What are the clinics",
         "Clinics",
-        "My clinics"
+        "My clinics",
+        "All clinics"
       ],
       "responses": [
         "What is your location?",

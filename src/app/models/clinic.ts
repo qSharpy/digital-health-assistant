@@ -7,4 +7,5 @@ export interface Clinic {
     laboratory_analysis: boolean;
     name: string;
     schedule: string;
+    image_url: string;
 }

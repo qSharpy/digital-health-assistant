@@ -1,8 +1,31 @@
 :host {
   .chat-actions {
     position: fixed;
+    z-index: 1000;
+  }
+
+  .chat-actions-top {
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .expand-top-actions {
+    bottom: 86%;
+    right: 11%;
+  }
+
+  .compressed-top-actons {
+    bottom: 330px;
+    right: 25px;
+  }
+
+  .expanded {
+    bottom: 12%;
+    right: 11%;
+  }
+
+  .compressed {
     bottom: 5px;
     right: 25px;
-    z-index: 1000;
   }
 }
