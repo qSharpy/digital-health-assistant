@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
-import { from, Observable } from "rxjs";
+import { from } from "rxjs";
 import { map, switchMap, tap } from "rxjs/operators";
 
 
@@ -204,5 +204,5 @@ export const getFirstDoctorAvailabilityBySpecialityApi = functions.https.onReque
     start_date: val.appointment.start_date,
     end_date: val.appointment.end_date,
     patient_id: val.appointment.patient_id
-  }), error => res.sendStatus(400).send(error));
+  }), error => res.sendStatus(400).send('Sorry, try anouther action'));
 });
