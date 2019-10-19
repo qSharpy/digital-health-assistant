@@ -1,6 +1,6 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
 import { Observable, of } from "rxjs";
-import { map, switchMap, tap, catchError } from "rxjs/operators";
+import { map, switchMap, catchError } from "rxjs/operators";
 import { getAppointmentsForUser, getAccountDetailsEmailOrPhone } from "../accounts";
 
 export class ShowAppointmentsForUser extends Processor {
