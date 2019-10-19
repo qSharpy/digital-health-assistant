@@ -920,7 +920,9 @@
     {
       "tag": "showAppointmentsForUser",
       "patterns": [
-        "show my appointments"
+        "show my appointments",
+        "show appointments for me",
+        "show my clinics and doctors appointments"
       ],
       "responses": [
         "Here are your appointments: {0}",
