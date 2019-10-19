@@ -6,6 +6,8 @@ import { ChatService } from '../services/chat.service';
 import { WebCallService } from '../services/web-call.service';
 import { Subscription, timer } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { VisionUploadService } from '../services/vision-upload.service';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -30,7 +32,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
     private cs: ChatService,
     private auth: AuthService,
     public wcs: WebCallService,
-    private zone: NgZone
+    private zone: NgZone,
+    private vision: VisionUploadService
   ) {
     this.adapter = new HealthChatAdapter(fctService, wps, cs, wcs, auth);
   }
@@ -78,7 +81,30 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   onImageUpload(event) {
-    console.log(event.target.files);
+    const file = event.target.files[0];
+    console.log(file);
+    this.vision.callGoogleVisionAPI(file).pipe(
+      map(val => val.responses[0].fullTextAnnotation.text as string))
+      .subscribe(text => {
+
+        console.log(text);
+
+        const initString = '6. Symptomatology at the time of medical examination and its debut:';
+        const initIndex = text.indexOf(initString) + initString.length;
+
+        const finalString = '7. Presumably for current events';
+        const finalIndex = text.indexOf(finalString);
+
+        console.log(initIndex, finalIndex);
+
+        const result = text.substring(initIndex, finalIndex);
+
+        console.log(result.split('-'));
+      });
+  }
+
+  private removeNewLineAndSpaces(text: string): string {
+    return text.replace('/\r?\n|\r/g', '').replace(/\s+/g, '');
   }
 
   toggleChat() {

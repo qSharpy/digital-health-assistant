@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class ChatService {
   allUserSentences: string[] = [];
+  allUserContexts: string[] = [];
   lastContext: string;
   lastResponseFromContext: string;
   private clearSubject = new Subject<boolean>();
@@ -15,6 +16,7 @@ export class ChatService {
   clearChat() {
     this.lastContext = null;
     this.allUserSentences = [];
+    this.allUserContexts = [];
     this.clearSubject.next(true);
   }
 
@@ -32,4 +34,9 @@ export class ChatService {
     return result.join('^');
   }
 
+  get allUserContextsAsString() {
+    let result = ['start'];
+    result = result.concat(this.allUserContexts);
+    return result.join('^');
+  }
 }

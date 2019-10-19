@@ -18,6 +18,24 @@ export const getAccountDetails = functions.https.onRequest((req, res) => {
     }
 });
 
+
+export const getAccountInsuranceTypeByUid = functions.https.onRequest((req, res) => {
+    setCorsHeaders(res);
+
+    const uid = req.query.uid;
+
+    if (uid !== undefined) {
+        getAccountInsuranceType(uid).subscribe(doctors => {
+            res.send(doctors);
+        }, err => {
+            res.status(400).send(err);
+        });
+    } else {
+        res.status(400).send("You must provide the user uid.");
+    }
+
+});
+
 export const getAccountDetailsByUid = (uid) => {
     const firestore = admin.firestore();
     return from(firestore.doc("accounts/" + uid).get()).pipe(map(doc => {
@@ -33,3 +51,69 @@ export const getAccountDetailsByUid = (uid) => {
         }
     }))
 };
+
+export const getAccountInsuranceType = (uid) => {
+    const firestore = admin.firestore();
+    return from(firestore.doc("insurances/" + uid).get()).pipe(map(doc => {
+        const data: any = doc.data();
+        return {
+            "patient_id": doc.id,
+            "type": data.type,
+            "price": data.price,
+            "options": data.options,
+            "acquisition_date": data.acquisition_date,
+            "expiry_date": data.expiry_date
+        }
+    }))
+};
+
+export const getDoctorAppointments = functions.https.onRequest((request, response) => {
+    setCorsHeaders(response);
+    const userId = request.query.userId;
+    const firestore = admin.firestore();
+    const appointments = [];
+
+    const promises: Promise<void>[] = [];
+    promises.push(firestore.collectionGroup("doctorAppointments").where("patient_id", "==", userId).get().then(item => {
+        item.forEach(app => {
+            const data: any = app.data();
+            const tempAppointment = {
+                "end_date": data.end_date,
+                "patient_id": data.patient_id,
+                "start_date": data.start_date
+            };
+            appointments.push(tempAppointment);
+        });
+    }).catch(e => console.log(e)));
+
+    Promise.all(promises).then(() => {
+        response.send(appointments);
+    }).catch(error => console.log(error));
+
+});
+
+
+export const getMyClinicAppointments = functions.https.onRequest((request, response) => {
+    setCorsHeaders(response);
+    const userId = request.query.userId;
+    const firestore = admin.firestore();
+    const appointments = [];
+
+    const promises: Promise<void>[] = [];
+    promises.push(firestore.collectionGroup("clinicAppointments").where("patient_id", "==", userId).get().then(item => {
+        item.forEach(app => {
+            const data: any = app.data();
+            const tempAppointment = {
+                "end_date": data.end_date,
+                "patient_id": data.patient_id,
+                "start_date": data.start_date
+            };
+            appointments.push(tempAppointment);
+        });
+    }).catch(e => console.log(e)));
+
+    Promise.all(promises).then(() => {
+        response.send(appointments);
+    }).catch(error => console.log(error));
+
+});

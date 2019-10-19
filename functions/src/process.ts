@@ -33,16 +33,22 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
   if (chatMessage.previousUserMessages) {
     previousUserMessages = chatMessage.previousUserMessages.split('^');
   }
+  let previousUserContexts: string[] = [];
+  if (chatMessage.previousUserContexts) {
+    previousUserContexts = chatMessage.previousUserContexts.split('^');
+  }
   chatMessage.text = stripUneededKeywords(chatMessage.text);
   const processorContext: ProcessorContext = {
     currentContext: chatMessage.context,
     email: chatMessage.email,
     messageLower: chatMessage.text.toLowerCase(),
     phoneNo: chatMessage.phoneNo,
-    previousUserMessages: previousUserMessages
+    previousUserMessages: previousUserMessages,
+    previousUserContexts: previousUserContexts,
   };
   return new TokensService().loadIntentsFromStorage().pipe(
     switchMap(intentsModel => {
+      processorContext.intentsModel = intentsModel;
       if (!chatMessage.context) {
         return new IntentClassificationService('https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fmodel.json?alt=media').process(chatMessage).pipe(map(results => {
           if (!results || results.length === 0) {
@@ -70,7 +76,11 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
-          const textResponse = getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
+            getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          if (executionResult.forceContext !== undefined) {
+            response.context = executionResult.forceContext;
+          }
           response.say = textResponse.length === 0 ? 'Did not understand' : textResponse;
           return response;
         }));

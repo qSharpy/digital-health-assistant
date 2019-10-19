@@ -40,7 +40,7 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     this.authService.signIn(this.createAuthenticationCredential())
-      .subscribe(() => this.router.navigate(['/secure/home']),
+      .subscribe(() => this.router.navigate(['/secure/profile']),
         error => {
           this.errorMessage = 'Invalid credentials';
           console.log(error);
