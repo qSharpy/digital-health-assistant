@@ -1,6 +1,10 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-admin.initializeApp(functions.config().firebase);
+import { creds } from "./firebaseServiceAccountKey";
+
+admin.initializeApp({
+  credential: admin.credential.cert(creds)
+});
 
 export const getClinics = functions.https.onRequest((req, res) => {
     let clinics = [];

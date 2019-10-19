@@ -1,4 +1,4 @@
-{
+export const creds: any = {
   "type": "service_account",
   "project_id": "digital-health-assistant",
   "private_key_id": "0afb3f84825fb671b107f261392885fabab8a33b",
@@ -9,4 +9,4 @@
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ic2wx%40digital-health-assistant.iam.gserviceaccount.com"
-}
+};

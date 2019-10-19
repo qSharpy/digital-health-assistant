@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "SET GOOGLE_APPLICATION_CREDENTIALS=\"../firebaseServiceAccountKey.json\" && concurrently \"npm run ng serve\" \"npm run firebase serve -- --only functions\"",
+    "start": "concurrently \"npm run ng serve\" \"npm run firebase serve -- --only functions\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
