@@ -117,3 +117,14 @@ export const getMyClinicAppointments = functions.https.onRequest((request, respo
     }).catch(error => console.log(error));
 
 });
+
+export const getAppointmentsForUser = (uid) => {
+    const firestore = admin.firestore();
+    const promises: Promise<any>[] = [];
+
+    promises.push(firestore.collectionGroup("clinicAppointments").where("patient_id", "==", uid).get().then());
+    promises.push(firestore.collectionGroup("doctorAppointments").where("patient_id", "==", uid).get().then());
+
+    return from(Promise.all(promises));
+
+}
