@@ -9,6 +9,8 @@ export const getClinics = functions.https.onRequest((req, res) => {
   const lat = req.query.lat;
   const long = req.query.long;
 
+  setCorsHeaders(res);
+
   if (lat != null && long != null) {
     getAllClinicsByAddress(lat, long).subscribe(clinics => {
       res.send(clinics);
@@ -102,16 +104,16 @@ export function getDoctorsForClinicByClinicName(clinicName: string) {
     });
     return foundClinic;
   }),
-  switchMap(foundClinic => {
-    if (foundClinic == null) {
-      return of([]);
-    }
-    const doctorsIds: string[] = foundClinic.doctors;
-    const observables = doctorsIds.map(did => {
-      return from(firestore.doc('doctors/' + did).get()).pipe(map(x => x.data()));
-    });
-    return forkJoin(observables);
-  })
+    switchMap(foundClinic => {
+      if (foundClinic == null) {
+        return of([]);
+      }
+      const doctorsIds: string[] = foundClinic.doctors;
+      const observables = doctorsIds.map(did => {
+        return from(firestore.doc('doctors/' + did).get()).pipe(map(x => x.data()));
+      });
+      return forkJoin(observables);
+    })
   );
 }
 
@@ -181,15 +183,15 @@ export const getAllClinicsByAddress = (lat: number = null, long: number = null) 
   return getAllClinics().pipe(map(clinics => {
     return clinics.filter(c => {
       const geoPoint: firebase.firestore.GeoPoint = c.address_geopoint;
-      const clinicGeoPoint = {lat: geoPoint.latitude, long: geoPoint.longitude};
+      const clinicGeoPoint = { lat: geoPoint.latitude, long: geoPoint.longitude };
       const radius = 50;
-      const userGeoPoint = {lat: lat, long: long};
+      const userGeoPoint = { lat: lat, long: long };
       return arePointsNear(clinicGeoPoint, userGeoPoint, radius);
     });
   }));
 };
 
-export function arePointsNear(checkPoint: {lat: number, long: number}, centerPoint: {lat: number, long: number}, km: number) {
+export function arePointsNear(checkPoint: { lat: number, long: number }, centerPoint: { lat: number, long: number }, km: number) {
   const ky = 40000 / 360;
   const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
   const dx = Math.abs(centerPoint.long - checkPoint.long) * kx;
