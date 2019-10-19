@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class ChatService {
   allUserSentences: string[] = [];
   lastContext: string;
+  lastResponseFromContext: string;
   private clearSubject = new Subject<boolean>();
 
   constructor() { }

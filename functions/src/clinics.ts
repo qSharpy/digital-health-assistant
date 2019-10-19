@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import * as firebase from 'firebase/app';
 import { setCorsHeaders } from "./services/http.service";
 import { from } from "rxjs";
 import { map } from "rxjs/operators";

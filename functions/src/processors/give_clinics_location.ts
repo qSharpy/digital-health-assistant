@@ -1,7 +1,8 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
 import { Observable } from "rxjs";
-import { getAllClinics } from "../clinics";
-import { map } from "rxjs/operators";
+import {  getAllClinicsByAddress } from "../clinics";
+import { map, switchMap } from "rxjs/operators";
+import { addressToPoint } from "../geocoding";
 
 export class GiveClinicsLocationProcessor extends Processor {
 
@@ -10,12 +11,15 @@ export class GiveClinicsLocationProcessor extends Processor {
   }
 
   execute(): Observable<ExecutionResult> {
-    return getAllClinics().pipe(map(clinics => {
-      return {
-        isPositiveAnswer: clinics.length > 0,
-        dataForReplacing: [clinics.map(x => x.name).join(', ')]
-      } as ExecutionResult;
-    }));
+    return addressToPoint(this.context.messageLower).pipe(
+      switchMap(latLng => getAllClinicsByAddress(+latLng.lat, +latLng.lng)),
+      map(clinics => {
+        return {
+          isPositiveAnswer: clinics.length > 0,
+          dataForReplacing: [clinics.map(x => x.name).join(', ')]
+        } as ExecutionResult;
+      })
+    );
   }
 
 }
