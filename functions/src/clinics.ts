@@ -3,16 +3,8 @@ import * as admin from "firebase-admin";
 import { setCorsHeaders } from "./services/http.service";
 import { from } from "rxjs";
 import { map } from "rxjs/operators";
-import { GeoCollectionReference, GeoFirestore, GeoQuery } from 'geofirestore';
 
 export const getClinics = functions.https.onRequest((req, res) => {
-
-  getAllClinics().subscribe(clinics => {
-    res.send(clinics);
-  }, err => {
-    res.status(400).send(err);
-  });
-
   const lat = req.query.lat;
   const long = req.query.long;
 
@@ -181,60 +173,14 @@ export const getAllClinics = () => {
       clinics.push(clinic);
     });
     return clinics;
-  }))
-
-
-  return from(firestore.collection("clinics").get())
-    .pipe(map(snapshot => {
-      let clinics = [];
-      snapshot.forEach(doc => {
-        const data: any = doc.data();
-        const clinic = {
-          "id": doc.id,
-          "address": data.address,
-          "address_geopoint": data.address_geopoint,
-          "doctors": data.doctors,
-          "laboratory_analysis": data.laboratory_analysis,
-          "name": data.name,
-          "schedule": data.schedule,
-          "image_url": data.image_url,
-        }
-        clinics.push(clinic);
-      });
-      return clinics;
-    }))
+  }));
 };
 
 export const getAllClinicsByAddress = (lat: number = null, long: number = null) => {
-  console.log("lat: " + lat)
-  console.log("long: " + long)
-  const firestore = admin.firestore();
-  const geofirestore: GeoFirestore = new GeoFirestore(firestore);
-  const geocollection: GeoCollectionReference = geofirestore.collection('clinics');
-  const km = 50;
-  console.log(new admin.firestore.GeoPoint(+lat, +long));
-  const query: GeoQuery = geocollection.near({ center: new admin.firestore.GeoPoint(+lat, +long), radius: km });
-
-  return from(query.get())
-    .pipe(map(snapshot => {
-      let clinics = [];
-      snapshot.forEach(doc => {
-        const data: any = doc.data();
-        const clinic = {
-          "id": doc.id,
-          "address": data.address,
-          "address_geopoint": data.address_geopoint,
-          "doctors": data.doctors,
-          "laboratory_analysis": data.laboratory_analysis,
-          "name": data.name,
-          "schedule": data.schedule,
-          "image_url": data.image_url,
-        }
-        clinics.push(clinic);
-      });
-      return clinics;
-    }))
-
+  return getAllClinics().pipe(map(clinics => {
+    console.log(clinics);
+    return clinics;
+  }));
 };
 
 export const getAllClinicAppointments = (clinicId) => {
