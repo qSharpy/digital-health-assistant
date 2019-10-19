@@ -25,6 +25,7 @@ export const process = functions.https.onRequest((request, response) => {
 });
 
 function getHttpResult(request: functions.Request): Observable<ProcessResponse> {
+  const forcedContexts = ['negation', 'confirmation'];
   const chatMessage = request.body as ChatMessage;
   if (!chatMessage.text || chatMessage.text.length === 0) {
     return of({ say: 'You did not say anything' });
@@ -49,15 +50,25 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
   return new TokensService().loadIntentsFromStorage().pipe(
     switchMap(intentsModel => {
       processorContext.intentsModel = intentsModel;
-      if (!chatMessage.context) {
-        return new IntentClassificationService('https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fmodel.json?alt=media').process(chatMessage).pipe(map(results => {
-          if (!results || results.length === 0) {
+      return new IntentClassificationService('https://firebasestorage.googleapis.com/v0/b/digital-health-assistant.appspot.com/o/intentclassification%2Fmodel.json?alt=media').process(chatMessage).pipe(map(results => {
+        if (!results || results.length === 0) {
+          if (!chatMessage.context) {
             return { intentsModel, tag: null } as IntentsModelWithTag;
+          } else {
+            return { intentsModel, tag: chatMessage.context } as IntentsModelWithTag;
           }
+        }
+        if (forcedContexts.indexOf(results[0].theClass) !== -1) {
           return { intentsModel, tag: results[0].theClass } as IntentsModelWithTag;
-        }));
-      }
-      return of({ intentsModel, tag: chatMessage.context } as IntentsModelWithTag);
+        } else {
+          if (!chatMessage.context) {
+            return { intentsModel, tag: results[0].theClass } as IntentsModelWithTag;
+          } else {
+            return { intentsModel, tag: chatMessage.context} as IntentsModelWithTag;
+          }
+        }
+
+      }));
     }),
     switchMap(imt => {
       const response: ProcessResponse = { say: 'Did not recognize.' };
