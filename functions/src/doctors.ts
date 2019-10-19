@@ -91,7 +91,7 @@ export const getAllDoctors = () => {
 
 export const getAllDoctorAppointments = (doctorId) => {
   const firestore = admin.firestore();
-  return from(firestore.collection("doctors/" + doctorId + "/appointments").get()).pipe(map(snapshot => {
+  return from(firestore.collection("doctors/" + doctorId + "/doctorAppointments").get()).pipe(map(snapshot => {
     let appointments = [];
     snapshot.forEach(doc => {
       const data: any = doc.data();
@@ -119,7 +119,7 @@ export const createNewDoctorAppointment = (doctorId, patientId, date) => {
   console.log(patientId)
   console.log(date)
 
-  return firestore.collection("doctors/" + doctorId + "/appointments").add({
+  return firestore.collection("doctors/" + doctorId + "/doctorAppointments").add({
     start_date: startDate,
     end_date: endDate,
     patient_id: patientId
@@ -127,7 +127,7 @@ export const createNewDoctorAppointment = (doctorId, patientId, date) => {
 };
 export const deleteExistingDoctorAppointment = (doctorId, appointmentId) => {
   const firestore = admin.firestore();
-  return firestore.doc("doctors/" + doctorId + "/appointments/" + appointmentId).delete();
+  return firestore.doc("doctors/" + doctorId + "/doctorAppointments/" + appointmentId).delete();
 };
 
 export const checkValidIntervalForAppointment = (doctorId, date) => {

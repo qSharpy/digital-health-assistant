@@ -199,7 +199,7 @@ export function arePointsNear(checkPoint: {lat: number, long: number}, centerPoi
 
 export const getAllClinicAppointments = (clinicId) => {
   const firestore = admin.firestore();
-  return from(firestore.collection("clinics/" + clinicId + "/appointments").get()).pipe(map(snapshot => {
+  return from(firestore.collection("clinics/" + clinicId + "/clinicAppointments").get()).pipe(map(snapshot => {
     let appointments = [];
     snapshot.forEach(doc => {
       const data: any = doc.data();
@@ -223,7 +223,7 @@ export const createNewClinicAppointment = (clinicId, patientId, date) => {
   // 60 mins default
   endDate.setMinutes(endDate.getMinutes() + 60);
 
-  return firestore.collection("clinics/" + clinicId + "/appointments").add({
+  return firestore.collection("clinics/" + clinicId + "/clinicAppointments").add({
     start_date: startDate,
     end_date: endDate,
     patient_id: patientId
@@ -231,5 +231,5 @@ export const createNewClinicAppointment = (clinicId, patientId, date) => {
 };
 export const deleteExistingClinicAppointment = (clinicId, appointmentId) => {
   const firestore = admin.firestore();
-  return firestore.doc("clinics/" + clinicId + "/appointments/" + appointmentId).delete();
+  return firestore.doc("clinics/" + clinicId + "/clinicAppointments/" + appointmentId).delete();
 };

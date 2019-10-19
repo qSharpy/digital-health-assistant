@@ -74,7 +74,7 @@ export const getDoctorAppointments = functions.https.onRequest((request, respons
     const appointments = [];
 
     const promises: Promise<void>[] = [];
-    promises.push(firestore.collectionGroup("appointments").where("patient_id", "==", userId).get().then(item => {
+    promises.push(firestore.collectionGroup("doctorAppointments").where("patient_id", "==", userId).get().then(item => {
         item.forEach(app => {
             const data: any = app.data();
             const tempAppointment = {
@@ -93,7 +93,7 @@ export const getDoctorAppointments = functions.https.onRequest((request, respons
 });
 
 
-export const getCliniCAppointments = functions.https.onRequest((request, response) => {
+export const getClinicAppointments = functions.https.onRequest((request, response) => {
     setCorsHeaders(response);
     const userId = request.query.userId;
     const firestore = admin.firestore();
