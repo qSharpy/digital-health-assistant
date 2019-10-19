@@ -27,6 +27,14 @@ export class TokensService {
 
 export interface IntentsModel {
   intents: Intent[];
+  symptomsMap: SymptomDefinition[];
+}
+
+export interface SymptomDefinition {
+  dept?: string;
+  type: string;
+  description?: string;
+  tests?: string[];
 }
 
 export interface Intent {

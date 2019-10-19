@@ -1,4 +1,12 @@
 {
+  "symptomsMap": [
+     {
+      "type": "nausea",
+      "dept": "gastro",
+      "description": "if you vomit gfy",
+      "tests": ["simple blood test", "ct scan"]
+      }
+  ],
   "intents": [
     {
       "tag": "startSymptomsFlow",
