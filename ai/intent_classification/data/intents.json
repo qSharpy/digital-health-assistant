@@ -1,6 +1,40 @@
 {
   "intents": [
     {
+      "tag": "confirmation",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Sure",
+        "Go ahead",
+        "OK"
+      ],
+      "responses": [
+        "Done: {0}",
+        "*Failed: {0}"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "negation",
+      "patterns": [
+        "No",
+        "Nah",
+        "Not",
+        "Stop",
+        "Nope"
+      ],
+      "responses": [
+        "Stopped: {0}",
+        "*Can't stop: {0}"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "clinics",
       "patterns": [
         "Show me the clinics",
@@ -188,7 +222,7 @@
       ],
       "responses": [
         "Fuzzy spots, blurred vision and fading of colors are the most common symptoms of cataract. Are you available to see an ophthalmologist in the upcoming weeks?",
-        "Could be the beginning of a cataract. What other symptoms do you have? Do you want me to make an appointment to an ophthalmologist." 
+        "Could be the beginning of a cataract. What other symptoms do you have? Do you want me to make an appointment to an ophthalmologist."
       ],
       "context": [
         ""
@@ -204,7 +238,7 @@
       ],
       "responses": [
         "Most probably you have a sprained ankle. Don't move too much. Keep in mind you should see a doctor in case it is something more severe.",
-        "Did you fall or did sport while not warmed up? You might've sprained your ankle. Bandage your ankle or let a doctor do it for you." 
+        "Did you fall or did sport while not warmed up? You might've sprained your ankle. Bandage your ankle or let a doctor do it for you."
       ],
       "context": [
         ""
@@ -328,7 +362,7 @@
         ""
       ]
     },
-    
+
     {
       "tag": "personal-gender",
       "patterns": [
