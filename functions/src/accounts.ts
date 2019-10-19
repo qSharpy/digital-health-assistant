@@ -93,7 +93,7 @@ export const getDoctorAppointments = functions.https.onRequest((request, respons
 });
 
 
-export const getClinicAppointments = functions.https.onRequest((request, response) => {
+export const getMyClinicAppointments = functions.https.onRequest((request, response) => {
     setCorsHeaders(response);
     const userId = request.query.userId;
     const firestore = admin.firestore();
