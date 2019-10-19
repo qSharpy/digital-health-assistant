@@ -14,6 +14,7 @@ export const environment = {
     fct_getClinicsUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/getClinics',
     fct_getDoctorsUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/getDoctors',
     fct_getAccountDetailsUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/getAccountDetails',
+    fct_getAccountInsuranceTypeByUidUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/getAccountInsuranceTypeByUid',
     fct_createClinicAppointmentUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/createClinicAppointment',
     fct_deleteClinicAppointmentUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/deleteClinicAppointment',
     fct_createDoctorAppointmentUrl: 'https://us-central1-digital-health-assistant.cloudfunctions.net/createDoctorAppointment',

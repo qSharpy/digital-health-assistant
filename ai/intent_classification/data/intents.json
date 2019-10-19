@@ -1,6 +1,48 @@
 {
   "intents": [
     {
+      "tag": "startSymptomsFlow",
+      "patterns": [
+        "i feel sick",
+        "i need help",
+        "i about to die",
+        "i am feeling nauseaus",
+        "i am hurting",
+        "something is bothering me",
+        "something is wrong",
+        "something is wrong with me"
+      ],
+      "responses": [
+        "Tell me a list of your symptoms",
+        "What is wrong?",
+        "Tell me what hurts",
+        "What are you experiencing?"
+      ],
+      "context": ["nextSymptomsFlow"]
+    },
+    {
+      "tag": "nextSymptomsFlow",
+      "patterns": [
+        "headache",
+        "toothache",
+        "nausea",
+        "vomiting",
+        "seizures",
+        "fever",
+        "lightheadeness",
+        "heartburn",
+        "my tits hurt"
+      ],
+      "responses": [
+        "What else?",
+        "Anything else?",
+        "Are you experiencing something else as well?"
+      ],
+      "context": [
+        "nextSymptomsFlow"
+      ]
+    },
+    {
       "tag": "showDoctorsFromClinic",
       "patterns": [
         "Get doctors from clinic",
@@ -25,7 +67,10 @@
         "Yeah",
         "Sure",
         "Go ahead",
-        "OK"
+        "OK",
+        "i am finished",
+        "finished",
+        "finish"
       ],
       "responses": [
         "Done: {0}",

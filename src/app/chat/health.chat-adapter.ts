@@ -67,6 +67,7 @@ export class HealthChatAdapter extends ChatAdapter {
       text: lowerMessage,
       context: this.chatService.lastContext,
       previousUserMessages: this.chatService.allUserSentencesAsString,
+      previousUserContexts: this.chatService.allUserContextsAsString,
       lastResponseFromContext: this.chatService.lastResponseFromContext,
       email: this.user != null ? this.user.email : null,
       phoneNo: this.user != null ? this.user.phoneNumber : null
@@ -83,6 +84,7 @@ export class HealthChatAdapter extends ChatAdapter {
       .subscribe(say => {
         this.chatService.lastContext = say.context;
         this.chatService.lastResponseFromContext = say.lastResponseFromContext;
+        this.chatService.allUserContexts.push(say.lastResponseFromContext == null ? '' : say.lastResponseFromContext);
         this.receiveMessage(say.say);
       });
   }
@@ -113,6 +115,7 @@ export class HealthChatAdapter extends ChatAdapter {
       context: this.chatService.lastContext,
       lastResponseFromContext: this.chatService.lastResponseFromContext,
       previousUserMessages: this.chatService.allUserSentencesAsString,
+      previousUserContexts: this.chatService.allUserContextsAsString,
       email: this.user != null ? this.user.email : null,
       phoneNo: this.user != null ? this.user.phoneNumber : null
     } as ChatMessage;
@@ -128,6 +131,7 @@ export class HealthChatAdapter extends ChatAdapter {
       .subscribe(x => {
         this.chatService.lastContext = x.context;
         this.chatService.lastResponseFromContext = x.lastResponseFromContext;
+        this.chatService.allUserContexts.push(x.lastResponseFromContext == null ? '' : x.lastResponseFromContext);
         this.callService.speak(x.say).subscribe(() => { });
         this.receiveMessage(x.say);
       });
