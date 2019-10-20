@@ -10,6 +10,22 @@ import { IntentsModelWithTag } from "./models/intents-model-with-tag";
 import { getAnswer } from "./services/helpers";
 import { IntentClassificationService } from "./services/intent-classification.service";
 
+import {AddClinicAppointmentForUser} from './processors/add_clinic_appointment_for_user';
+import {AppointmentProvideDate} from './processors/appointment_provide_date';
+import {ConfirmationProcessor} from './processors/confirmation';
+import {GiveClinicsLocationProcessor} from './processors/give_clinics_location';
+import {NegationProcessor} from './processors/negation';
+import {ShowAppointmentsForUser} from './processors/showAppointmentsForUser';
+import {ShowDoctorsFromClinicProcessor} from './processors/showDoctorsFromClinic';
+
+console.log(
+  AddClinicAppointmentForUser,
+   AppointmentProvideDate,
+   ConfirmationProcessor,
+  GiveClinicsLocationProcessor,
+   NegationProcessor,
+   ShowAppointmentsForUser,
+    ShowDoctorsFromClinicProcessor);
 
 export const process = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
@@ -73,22 +89,26 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
     switchMap(imt => {
       const response: ProcessResponse = { say: 'Did not recognize.' };
       if (!imt.tag) {
-        return of(response);
+        imt.tag = 'noanswer';
       }
       const foundResponse = imt.intentsModel.intents.find(x => x.tag === imt.tag);
       if (!foundResponse) {
+        console.error("No intent for " + imt.tag);
         return of(response);
       }
       response.lastResponseFromContext = imt.tag;
       response.context = foundResponse.context != null && foundResponse.context.length > 0 && foundResponse.context[0].length > 0 ? foundResponse.context[0] : null;
       return tryLoadProcessorByTagName(imt.tag, processorContext).pipe(switchMap(processor => {
         if (!processor) {
+          console.error("No processor for " + imt.tag);
           response.say = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)].replace('*', '');
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
+          console.error(executionResult);
           const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
             getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          console.error(textResponse);
           if (executionResult.forceContext !== undefined) {
             response.context = executionResult.forceContext;
           }

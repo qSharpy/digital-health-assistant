@@ -10,25 +10,31 @@ export class NegationProcessor extends Processor {
   execute(): Observable<ExecutionResult> {
     if (this.context.previousUserContexts != null &&
       this.context.previousUserContexts.length > 0 &&
-      this.context.previousUserContexts[this.context.previousUserContexts.length - 1].toLowerCase().includes('symptoms')) {
+      this.context.previousUserContexts[this.context.previousUserContexts.length - 1].toLowerCase().includes('nextsymptomsflow')) {
       return this.executeSymptomsCollection();
     }
     return of({
-      isPositiveAnswer: true
+      isPositiveAnswer: true,
+      forceContext: null
     } as ExecutionResult);
   }
 
+
   private executeSymptomsCollection(): Observable<ExecutionResult> {
     const allSymptomsNames = this.context.intentsModel.intents.find(x => x.tag === 'nextSymptomsFlow').patterns;
-    const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserContexts.length)
-      .map(sentence => sentence.split(' '))
-      .filter(sentenceWords => {
-        return sentenceWords.some(sw => allSymptomsNames.indexOf(sw) !== -1);
+
+    const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserMessages.length)
+      .map(sentence => sentence.split(',').map(z => z.trim()))
+      .reduce((a, b) => a.concat(b))
+      .filter(sentenceWithSymptom => {
+        return allSymptomsNames.some(symptom => {
+          return sentenceWithSymptom.includes(symptom);
+        });
       })
-      .map(sentenceWords => {
-        return sentenceWords.find(x => allSymptomsNames.indexOf(x) !== -1);
-      })
-      .map(x => this.context.intentsModel.symptomsMap.find(y => y.type.toLowerCase() === x.toLowerCase()));
+      .map(x => allSymptomsNames.find(s => x.includes(s)))
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .map(s => this.context.intentsModel.symptomsMap.find(x => x.type === s))
+      .filter(s => s);
 
     const tests = symptomsData.filter(x => x.tests != null && x.tests.length > 0)
       .map(x => x.tests)
@@ -39,16 +45,16 @@ export class NegationProcessor extends Processor {
       .map(x => x.dept)
       .filter((value, index, self) => self.indexOf(value) === index);
 
+      console.log(depts);
+
       const descs = symptomsData
       .filter(x => x.description != null)
       .map(x => x.description)
       .filter((value, index, self) => self.indexOf(value) === index);
 
-      console.log(depts);
-
       return of({
         forceAnswer: `You must do the following tests: ${tests.join(',')}. ${descs.join(', ')}. I have set up an appointment at 23rd of November, at 2 o'clock.`,
-        forceContext: 'setAppointmentTime'
+        forceContext: null
       } as ExecutionResult);
   }
 

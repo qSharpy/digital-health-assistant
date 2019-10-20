@@ -1,5 +1,5 @@
 export const StringFormat = (str: string, args: string[]) =>
-  str.replace(/{(\d+)}/g, (match, index) => args[index] || '');
+  str.replace(/{(\d+)}/g, (match, index) => (args && args[index]) || '');
 
 export function getAnswer(allAnswers: string[], isPositive: boolean, payload: string[] = null): string {
   const collection = isPositive ? allAnswers.filter(x => !x.startsWith('*')) : allAnswers.filter(x => x.startsWith('*')).map(x => x.replace('*', ''));
