@@ -22,7 +22,7 @@ export class NegationProcessor extends Processor {
 
   private executeSymptomsCollection(): Observable<ExecutionResult> {
     const allSymptomsNames = this.context.intentsModel.intents.find(x => x.tag === 'nextSymptomsFlow').patterns;
-    const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserContexts.length)
+    const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserMessages.length)
       .map(sentence => sentence.split(' '))
       .filter(sentenceWords => {
         return sentenceWords.some(sw => allSymptomsNames.indexOf(sw) !== -1);
@@ -31,7 +31,7 @@ export class NegationProcessor extends Processor {
         return sentenceWords.find(x => allSymptomsNames.indexOf(x) !== -1);
       })
       .map(x => this.context.intentsModel.symptomsMap.find(y => y.type.toLowerCase() === x.toLowerCase()));
-
+      console.log(symptomsData);
     const tests = symptomsData.filter(x => x.tests != null && x.tests.length > 0)
       .map(x => x.tests)
       .reduce((a, b) => a.concat(b))
