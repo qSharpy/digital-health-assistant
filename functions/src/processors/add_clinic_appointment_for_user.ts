@@ -2,7 +2,7 @@ import { Processor, ExecutionResult, ProcessorContext } from "./processor";
 import { Observable, from, forkJoin, of } from "rxjs";
 import { getClinicByName, createNewClinicAppointment } from "../clinics";
 import { map, switchMap, catchError } from "rxjs/operators";
-import { getAccountDetailsEmailOrPhone } from "..";
+import { getAccountDetailsEmailOrPhone } from "../accounts";
 
 export class AddClinicAppointmentForUser extends Processor {
 

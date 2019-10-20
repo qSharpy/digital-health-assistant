@@ -18,7 +18,14 @@ import {NegationProcessor} from './processors/negation';
 import {ShowAppointmentsForUser} from './processors/showAppointmentsForUser';
 import {ShowDoctorsFromClinicProcessor} from './processors/showDoctorsFromClinic';
 
-console.log(AddClinicAppointmentForUser, AppointmentProvideDate, ConfirmationProcessor, GiveClinicsLocationProcessor, NegationProcessor, ShowAppointmentsForUser, ShowDoctorsFromClinicProcessor);
+console.log(
+  AddClinicAppointmentForUser,
+   AppointmentProvideDate,
+   ConfirmationProcessor,
+  GiveClinicsLocationProcessor,
+   NegationProcessor,
+   ShowAppointmentsForUser,
+    ShowDoctorsFromClinicProcessor);
 
 export const process = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
