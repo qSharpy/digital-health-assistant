@@ -87,8 +87,10 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
+          console.log(executionResult);
           const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
             getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          console.log(textResponse);
           if (executionResult.forceContext !== undefined) {
             response.context = executionResult.forceContext;
           }
