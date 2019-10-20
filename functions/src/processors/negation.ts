@@ -10,7 +10,7 @@ export class NegationProcessor extends Processor {
   execute(): Observable<ExecutionResult> {
     if (this.context.previousUserContexts != null &&
       this.context.previousUserContexts.length > 0 &&
-      this.context.previousUserContexts[this.context.previousUserContexts.length - 1].toLowerCase().includes('symptoms')) {
+      this.context.previousUserContexts[this.context.previousUserContexts.length - 1].toLowerCase().includes('nextsymptomsflow')) {
       return this.executeSymptomsCollection();
     }
     return of({
