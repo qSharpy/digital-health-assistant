@@ -992,7 +992,7 @@
       "patterns": [],
       "responses": [
         "An appointment was created",
-        "*An error occured"
+        "*An error occured while creating your appointment"
       ],
       "context": [
         "confirm_clinic_appointment_for_user"

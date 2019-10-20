@@ -1,7 +1,7 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
-import { Observable, from, forkJoin } from "rxjs";
+import { Observable, from, forkJoin, of } from "rxjs";
 import { getClinicByName, createNewClinicAppointment } from "../clinics";
-import { map, switchMap } from "rxjs/operators";
+import { map, switchMap, catchError } from "rxjs/operators";
 import { getAccountDetailsEmailOrPhone } from "..";
 
 export class AddClinicAppointmentForUser extends Processor {
@@ -17,6 +17,12 @@ export class AddClinicAppointmentForUser extends Processor {
         return forkJoin([getClinicByName(clinicName),
         getAccountDetailsEmailOrPhone(this.context.email, this.context.phoneNo)]).pipe(
             switchMap(([clinic, account]) => from(createNewClinicAppointment(clinic.id, account.id, date))),
+            catchError((e) => {
+                return of({
+                    isPositiveAnswer: false
+                } as ExecutionResult
+                )
+            }),
             map(val => ({
                 isPositiveAnswer: true,
             } as ExecutionResult))
