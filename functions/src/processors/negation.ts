@@ -22,16 +22,20 @@ export class NegationProcessor extends Processor {
 
   private executeSymptomsCollection(): Observable<ExecutionResult> {
     const allSymptomsNames = this.context.intentsModel.intents.find(x => x.tag === 'nextSymptomsFlow').patterns;
+
     const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserMessages.length)
       .map(sentence => sentence.split(',').map(z => z.trim()))
-      .filter(sentenceWords => {
-        return sentenceWords.some(sw => allSymptomsNames.indexOf(sw) !== -1);
+      .reduce((a, b) => a.concat(b))
+      .filter(sentenceWithSymptom => {
+        return allSymptomsNames.some(symptom => {
+          return sentenceWithSymptom.includes(symptom);
+        });
       })
-      .map(sentenceWords => {
-        return sentenceWords.find(x => allSymptomsNames.indexOf(x) !== -1);
-      })
-      .map(x => this.context.intentsModel.symptomsMap.find(y => y.type.toLowerCase() === x.toLowerCase()));
-      console.log(symptomsData);
+      .map(x => allSymptomsNames.find(s => x.includes(s)))
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .map(s => this.context.intentsModel.symptomsMap.find(x => x.type === s))
+      .filter(s => s);
+
     const tests = symptomsData.filter(x => x.tests != null && x.tests.length > 0)
       .map(x => x.tests)
       .reduce((a, b) => a.concat(b))
@@ -45,8 +49,6 @@ export class NegationProcessor extends Processor {
       .filter(x => x.description != null)
       .map(x => x.description)
       .filter((value, index, self) => self.indexOf(value) === index);
-
-      console.log(depts);
 
       return of({
         forceAnswer: `You must do the following tests: ${tests.join(',')}. ${descs.join(', ')}. I have set up an appointment at 23rd of November, at 2 o'clock.`,
