@@ -11,7 +11,16 @@ export class AddClinicAppointmentForUser extends Processor {
     }
 
     execute(): Observable<ExecutionResult> {
-        const date = new Date(this.context.messageLower);
+        let date = new Date();
+        try {
+            date = new Date(this.context.messageLower);
+        }
+        catch {
+            return of({
+                isPositiveAnswer: false
+            } as ExecutionResult);
+        }
+
         const clinicName = this.context.previousUserMessages[this.context.previousUserMessages.length - 1];
 
         return forkJoin([getClinicByName(clinicName),
