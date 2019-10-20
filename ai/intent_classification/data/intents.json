@@ -321,6 +321,7 @@
       "tag": "how-are-you",
       "patterns": [
         "What is up",
+        "Are you ok",
         "How are you",
         "What are you up to?",
         "What are you doing?"
