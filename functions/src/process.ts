@@ -10,6 +10,15 @@ import { IntentsModelWithTag } from "./models/intents-model-with-tag";
 import { getAnswer } from "./services/helpers";
 import { IntentClassificationService } from "./services/intent-classification.service";
 
+import * as p1 from './processors/add_clinic_appointment_for_user';
+import * as p2 from './processors/appointment_provide_date';
+import * as p3 from './processors/confirmation';
+import * as p4 from './processors/give_clinics_location';
+import * as p5 from './processors/negation';
+import * as p6 from './processors/showAppointmentsForUser';
+import * as p7 from './processors/showDoctorsFromClinic';
+
+console.log(p1, p2, p3, p4, p5, p6, p7);
 
 export const process = functions.https.onRequest((request, response) => {
   setCorsHeaders(response);
