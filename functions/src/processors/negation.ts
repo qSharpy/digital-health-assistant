@@ -45,6 +45,8 @@ export class NegationProcessor extends Processor {
       .map(x => x.dept)
       .filter((value, index, self) => self.indexOf(value) === index);
 
+      console.log(depts);
+
       const descs = symptomsData
       .filter(x => x.description != null)
       .map(x => x.description)
