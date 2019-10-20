@@ -4,7 +4,7 @@
       "type": "headache",
       "dept": "neurology",
       "description": "When was the last time you went to an ophthalmologist? I think you should make an appointment to one right now.",
-      "tests": ["Neurological examination", "Genetic testing", "CT scan"]
+      "tests": ["Neurological examination", "Genetic testing", "RMN scan"]
       },
       {
       "type": "toothache",
@@ -13,10 +13,16 @@
       "tests": ["3D Dental Scan", " CT Scan"]
       },
       {
-      "type": "nausea",
+      "type": "belly pain",
       "dept": "gastroenterology",
       "description": "If you have an unpleasant, diffuse sensation of unease and discomfort, often perceived as an urge to vomit; please go see a doctor.",
-      "tests": ["Simple blood test", " CT Scan"]
+      "tests": ["Upper digestive endoscopy", " Upper abdominal ultrasound", " CT Scan"]
+      },
+      {
+      "type": "stomach pain",
+      "dept": "gastroenterology",
+      "description": "If you have an unpleasant, diffuse sensation of unease and discomfort, often perceived as an urge to vomit; please go see a doctor.",
+      "tests": ["Upper digestive endoscopy", " Upper abdominal ultrasound"," CT Scan"]
       },
       {
       "type": "seizures",
@@ -28,7 +34,7 @@
       "type": "fever",
       "dept": "general",
       "description": "If you're sweating, you're chilling and shivering, you should go see a generalist doctor.",
-      "tests": ["Genetic testing", " CT Scan"]
+      "tests": ["Blood basic analisys", "CT Scan"]
       },
       {
       "type": "lightheadedness",
@@ -51,13 +57,61 @@
       {
       "type": "difficulty in breathing",
       "dept": "cardiology",
-      "description": "Runny nose, itchy or watery eyes. Bad signs, please go see a doctor.",
-      "tests": ["X-ray test"]
+      "description": "Cardiovascular disease generally refers to conditions that involve narrowed or blocked blood vessels that can lead to a heart attack, chest pain (angina) or stroke.",
+      "tests": ["EKG test and usual blood analyses"]
+      },
+      {
+      "type": "arm pain",
+      "dept": "orthopedy",
+      "description": "Burning pain that immobilizes the joint, preventing movement?",
+      "tests": ["X-Ray"]
+      },
+      {
+      "type": "hand pain",
+      "dept": "orthopedy",
+      "description": "Hand pain is one feature of joint inflammation (arthritis) that may be felt in the hand. Repetitive motion injuries, including carpal tunnel syndrome, can cause pain in the wrist and hand",
+      "tests": ["X-Ray"]
+      },
+      {
+      "type": "knee pain",
+      "dept": "orthopedy",
+      "description": "Knee pain is a common complaint that affects people of all ages. Knee pain may be the result of an injury, such as a ruptured ligament or torn cartilage. Do you want to schedule a laboratory appoiment?",
+      "tests": ["X-Ray"]
+      },
+      {
+      "type": "elbow pain",
+      "dept": "orthopedy",
+      "description": "Causes. Elbow pain is often caused by overuse. Many sports, hobbies and jobs require repetitive hand, wrist or arm movements. I stronlgy recommend to make a doctor appoiment and the following analisys.",
+      "tests": ["X-Ray"]
+      },
+      {
+      "type": "shoulder pain",
+      "dept": "orthopedy",
+      "description": "Sometimes, excessive use of the shoulder leads to inflammation and swelling of the bursa between the rotator cuff and part of the shoulder blade known as the acromion. I strongly suggest a doctor appoiment.",
+      "tests": ["X-Ray"]
+      },
+      {
+      "type": "ass pain",
+      "dept": "orthopedy",
+      "description": "Rectal pain is pain or discomfort in the lower portion of the gastrointestinal tract. The term is often used interchangeably with pain in the anus or anal pain. It is a fairly common problem and can result from conditions such as hemorrhoids or anal fissures. I strongly suggest a doctor appoiment. Just type create appoiment",
+      "tests": ["X-Ray"]
+      },
+      {
+      "type": "heart pain",
+      "dept": "cardiology",
+      "description": "Cardiovascular disease generally refers to conditions that involve narrowed or blocked blood vessels that can lead to a heart attack, chest pain (angina) or stroke..",
+      "tests": ["EKG test and usual blood analyses"]
       },
       {
       "type": "back pain",
       "dept": "orthopedy",
       "description": "If the back pain is ongoing for more than three months, you most probably have chronic back pain. Make a doctor appointment as soon as possible.",
+      "tests": ["Straight leg test","Tripod sign test", "Back Stretch Test (L2-3)"]
+      },
+      {
+      "type": "leg pain",
+      "dept": "orthopedy",
+      "description": "If the leg pain is ongoing for more than three months, you most probably have chronic back pain. Make a doctor appointment as soon as possible.",
       "tests": ["Straight leg test","Tripod sign test", "Femoral Stretch Test (L2-4)"]
       }
   ],
@@ -93,8 +147,18 @@
         "fever",
         "lightheadeness",
         "heartburn",
+        "heart pain",
         "my tits hurt",
         "difficulty in breathing",
+        "leg pain",
+        "belly pain",
+        "stomach pain",
+        "hand pain",
+        "ass pain",
+        "arm pain",
+        "knee pain",
+        "elbow pain",
+        "shoulder pain",
         "back pain"
       ],
       "responses": [
@@ -333,6 +397,20 @@
       ]
     },
     {
+      "tag": "cancer-diagnostic",
+      "patterns": [
+        "i have cancer",
+        "i think I have cancer",
+        "after google search i might have cancer"
+      ],
+      "responses": [
+        "Please don't panic. In our times this can be healed."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "symptoms-blood-in-urine",
       "patterns": [
         "blood in urine",
@@ -359,6 +437,65 @@
       "responses": [
         "If you didn't get a circumcision while you were young, I think now it's the time. What other symptoms do you have?",
         "If your skin is tight around your penis, you might have a case of phimosis. Do you want me to make an appointment to the doctor?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-shoulder",
+      "patterns": [
+        "shoulder pain",
+        "my shoulder is hurting me",
+        "i have shoulder problems",
+        "i have issues on the shoulder"
+      ],
+      "responses": [
+        "Sometimes, excessive use of the shoulder leads to inflammation and swelling of the bursa between the rotator cuff and part of the shoulder blade known as the acromion. I strongly suggest a doctor appoiment. What other symptoms do you have?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-arm",
+      "patterns": [
+        "arm pain",
+        "my arm is disconforting me",
+        "have issue with the arm",
+        "arm problems"
+      ],
+      "responses": [
+        "I believe you are experiencing burning pain that immobilizes the joint, preventing movement"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-arm",
+      "patterns": [
+        "arm pain",
+        "my arm is disconforting me",
+        "have issue with the arm",
+        "arm problems"
+      ],
+      "responses": [
+        "I believe you are experiencing burning pain that immobilizes the joint, preventing movement"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-ass",
+      "patterns": [
+        "ass pain",
+        "anus pain",
+        "hemorrhoid pain"
+      ],
+      "responses": [
+        "This doesn't sound to good. How manifest the pain? What kind of symptoms?"
       ],
       "context": [
         ""
@@ -603,6 +740,20 @@
       "responses": [
         "Beware of the posibility of rotator cuff tendinitis. Shall we make an appointment?",
         "In my book, this sounds like tendinitis. Any other symptoms?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "symptoms-belly",
+      "patterns": [
+        "belly pain",
+        "stomach pain",
+        "abdominal discomfort"
+      ],
+      "responses": [
+        "If you have an unpleasant, diffuse sensation of unease and discomfort, often perceived as an urge to vomit; please go see a doctor. Shall we make an appointment to a doctor?"
       ],
       "context": [
         ""
