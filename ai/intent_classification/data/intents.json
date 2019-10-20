@@ -198,11 +198,18 @@
         "OK",
         "i am finished",
         "finished",
-        "finish"
+        "finish",
+        "o k",
+        "okay",
+        "great",
+        "all right",
+        "allright",
+        "of course"
       ],
       "responses": [
-        "Done: {0}",
-        "*Failed: {0}"
+        "Cool",
+        "Great!",
+        "Glad to help"
       ],
       "context": [
         ""
@@ -215,11 +222,15 @@
         "Nah",
         "Not",
         "Stop",
-        "Nope"
+        "Nope",
+        "Nothing",
+        "Nothing else"
       ],
       "responses": [
-        "Stopped: {0}",
-        "*Can't stop: {0}"
+        "Stopped.",
+        "I stopped",
+        "Will not continue",
+        "*Can't stop"
       ],
       "context": [
         ""
@@ -955,7 +966,8 @@
       "responses": [
         "Sorry, can't understand you",
         "Please give me more info",
-        "Not sure I understand"
+        "Not sure I understand",
+        "Can you repeat, please?"
       ],
       "context": [
         ""

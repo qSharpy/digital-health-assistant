@@ -73,7 +73,7 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
     switchMap(imt => {
       const response: ProcessResponse = { say: 'Did not recognize.' };
       if (!imt.tag) {
-        return of(response);
+        imt.tag = 'noanswer';
       }
       const foundResponse = imt.intentsModel.intents.find(x => x.tag === imt.tag);
       if (!foundResponse) {
@@ -87,8 +87,10 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
+          console.log(executionResult);
           const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
             getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
+          console.log(textResponse);
           if (executionResult.forceContext !== undefined) {
             response.context = executionResult.forceContext;
           }

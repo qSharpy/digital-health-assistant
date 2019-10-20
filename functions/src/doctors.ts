@@ -177,7 +177,7 @@ export const getFirstDoctorAvailabilityBySpeciality = (speciality: string) => {
     map(appointments => ({ doctors: docsArray, appointments }))
   )
 }
-
+/*
 export const getFirstDoctorAvailabilityBySpecialityApi = functions.https.onRequest((req, res) => {
   setCorsHeaders(res);
 
@@ -190,7 +190,7 @@ export const getFirstDoctorAvailabilityBySpecialityApi = functions.https.onReque
       doctorId: val.doctors.map(doctor => doctor.id)[0],
       appointment: val.appointments[0]
     })),
-    switchMap(val => 
+    switchMap(val =>
       from(firestore.collection('clinics').get()).pipe(
         map(clinics => clinics.docs.filter(clinic => clinic.data().doctors.indexOf(val.doctorId))),
         map(clinics => ({
@@ -206,3 +206,4 @@ export const getFirstDoctorAvailabilityBySpecialityApi = functions.https.onReque
     patient_id: val.appointment.patient_id
   }), error => res.sendStatus(400).send('Sorry, try anouther action'));
 });
+*/

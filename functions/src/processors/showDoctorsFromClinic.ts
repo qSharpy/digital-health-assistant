@@ -19,6 +19,7 @@ export class ShowDoctorsFromClinicProcessor extends Processor {
     const newIndex = fromWordIndex + 6;
     const clinicName = this.context.messageLower.substring(newIndex);
     return getDoctorsForClinicByClinicName(clinicName).pipe(map(doctors => {
+      console.log(doctors);
       return {
         isPositiveAnswer: doctors && doctors.length > 0,
         dataForReplacing: [doctors.map(d => d.name).join(', ')]
