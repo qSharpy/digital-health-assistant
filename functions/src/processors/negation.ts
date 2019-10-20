@@ -53,7 +53,7 @@ export class NegationProcessor extends Processor {
       .filter((value, index, self) => self.indexOf(value) === index);
 
       return of({
-        forceAnswer: `You must do the following tests: ${tests.join(',')}. ${descs.join(', ')}. I have set up an appointment at 23rd of November, at 2 o'clock.`,
+        forceAnswer: `You must do the following tests: ${tests.join(',')}. ${descs.join(', ')}. I suggest you to make an appoiment.`,
         forceContext: null
       } as ExecutionResult);
   }
