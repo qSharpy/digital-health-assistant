@@ -137,8 +137,9 @@
         "finish"
       ],
       "responses": [
-        "Done: {0}",
-        "*Failed: {0}"
+        "Cool",
+        "Great!",
+        "Glad to help"
       ],
       "context": [
         ""

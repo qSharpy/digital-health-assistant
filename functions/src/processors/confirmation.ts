@@ -9,8 +9,7 @@ export class ConfirmationProcessor extends Processor {
 
   execute(): Observable<ExecutionResult> {
     return of({
-      isPositiveAnswer: true,
-      dataForReplacing: ['you confirmed something']
+      isPositiveAnswer: true
     } as ExecutionResult);
   }
 
