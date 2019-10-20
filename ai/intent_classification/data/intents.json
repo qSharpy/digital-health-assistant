@@ -300,7 +300,7 @@
         "Tell me about yourself"
       ],
       "responses": [
-        "My name is Digital Health Assistant (you can call me DHA) and I'm here to aid you in the following: personalized doctor appointments, symptomology clarification, gotta complete this description."
+        "My name is Digital Health Assistant (you can call me DHA) and I'm here to aid you in the following: personalized doctor and clinic appointments, symptomology clarification and data anlaysis, finding partner hospitals nearby."
       ],
       "context": [
         ""
