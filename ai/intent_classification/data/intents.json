@@ -163,8 +163,10 @@
         "Nothing else"
       ],
       "responses": [
-        "Stopped: {0}",
-        "*Can't stop: {0}"
+        "Stopped.",
+        "I stopped",
+        "Will not continue",
+        "*Can't stop"
       ],
       "context": [
         ""

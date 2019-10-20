@@ -14,7 +14,8 @@ export class NegationProcessor extends Processor {
       return this.executeSymptomsCollection();
     }
     return of({
-      isPositiveAnswer: true
+      isPositiveAnswer: true,
+      forceContext: null
     } as ExecutionResult);
   }
 
