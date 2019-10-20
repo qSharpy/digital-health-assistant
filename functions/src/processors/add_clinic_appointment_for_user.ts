@@ -1,7 +1,8 @@
 import { Processor, ExecutionResult, ProcessorContext } from "./processor";
-import { Observable } from "rxjs";
-import { getClinicByName } from "../clinics";
-import { map } from "rxjs/operators";
+import { Observable, from, forkJoin } from "rxjs";
+import { getClinicByName, createNewClinicAppointment } from "../clinics";
+import { map, switchMap } from "rxjs/operators";
+import { getAccountDetailsEmailOrPhone } from "..";
 
 export class AddClinicAppointmentForUser extends Processor {
 
@@ -10,17 +11,16 @@ export class AddClinicAppointmentForUser extends Processor {
     }
 
     execute(): Observable<ExecutionResult> {
-        console.log("prev messages");
-        console.log(this.context.previousUserMessages);
+        const date = new Date(this.context.messageLower);
         const clinicName = this.context.previousUserMessages[this.context.previousUserMessages.length - 1];
-        console.log(clinicName);
-        return getClinicByName(clinicName).pipe(map(clinic => {
-            console.log(clinic.name);
-            return {
-                isPositiveAnswer: clinic !== undefined,
-                dataForReplacing: [clinic.name]
-            } as ExecutionResult;
-        }));
+
+        return forkJoin([getClinicByName(clinicName),
+        getAccountDetailsEmailOrPhone(this.context.email, this.context.phoneNo)]).pipe(
+            switchMap(([clinic, account]) => from(createNewClinicAppointment(clinic.id, account.id, date))),
+            map(val => ({
+                isPositiveAnswer: true,
+            } as ExecutionResult))
+        )
     }
 
 }
