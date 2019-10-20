@@ -77,20 +77,22 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
       }
       const foundResponse = imt.intentsModel.intents.find(x => x.tag === imt.tag);
       if (!foundResponse) {
+        console.error("No intent for " + imt.tag);
         return of(response);
       }
       response.lastResponseFromContext = imt.tag;
       response.context = foundResponse.context != null && foundResponse.context.length > 0 && foundResponse.context[0].length > 0 ? foundResponse.context[0] : null;
       return tryLoadProcessorByTagName(imt.tag, processorContext).pipe(switchMap(processor => {
         if (!processor) {
+          console.error("No processor for " + imt.tag);
           response.say = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)].replace('*', '');
           return of(response);
         }
         return processor.execute().pipe(map(executionResult => {
-          console.log(executionResult);
+          console.error(executionResult);
           const textResponse = executionResult.forceAnswer != null ? executionResult.forceAnswer :
             getAnswer(foundResponse.responses, executionResult.isPositiveAnswer, executionResult.dataForReplacing);
-          console.log(textResponse);
+          console.error(textResponse);
           if (executionResult.forceContext !== undefined) {
             response.context = executionResult.forceContext;
           }
