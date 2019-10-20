@@ -37,6 +37,12 @@
       "tests": ["CT Scan"]
       },
       {
+      "type": "vomiting",
+      "dept": "gastroenterology",
+      "description": "If you have an unpleasant, diffuse sensation of unease and discomfort, often perceived as an urge to vomit; Do you want a laboratory appoiment?",
+      "tests": ["CT Scan"]
+      },
+      {
       "type": "heartburn",
       "dept": "gastroenterology",
       "description": "A burning feeling in the chest just behind the breastbone",
