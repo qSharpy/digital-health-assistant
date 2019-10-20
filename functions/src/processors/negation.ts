@@ -19,6 +19,7 @@ export class NegationProcessor extends Processor {
     } as ExecutionResult);
   }
 
+
   private executeSymptomsCollection(): Observable<ExecutionResult> {
     const allSymptomsNames = this.context.intentsModel.intents.find(x => x.tag === 'nextSymptomsFlow').patterns;
     const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserContexts.length)
