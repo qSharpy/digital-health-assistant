@@ -23,7 +23,7 @@ export class NegationProcessor extends Processor {
   private executeSymptomsCollection(): Observable<ExecutionResult> {
     const allSymptomsNames = this.context.intentsModel.intents.find(x => x.tag === 'nextSymptomsFlow').patterns;
     const symptomsData = this.context.previousUserMessages.slice(this.context.previousUserMessages.length - 11, this.context.previousUserMessages.length)
-      .map(sentence => sentence.split(' '))
+      .map(sentence => sentence.split(',').map(z => z.trim()))
       .filter(sentenceWords => {
         return sentenceWords.some(sw => allSymptomsNames.indexOf(sw) !== -1);
       })
