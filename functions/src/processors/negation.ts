@@ -48,7 +48,7 @@ export class NegationProcessor extends Processor {
 
       return of({
         forceAnswer: `You must do the following tests: ${tests.join(',')}. ${descs.join(', ')}. I have set up an appointment at 23rd of November, at 2 o'clock.`,
-        forceContext: 'setAppointmentTime'
+        forceContext: null
       } as ExecutionResult);
   }
 

@@ -82,6 +82,7 @@ function getHttpResult(request: functions.Request): Observable<ProcessResponse> 
       response.lastResponseFromContext = imt.tag;
       response.context = foundResponse.context != null && foundResponse.context.length > 0 && foundResponse.context[0].length > 0 ? foundResponse.context[0] : null;
       return tryLoadProcessorByTagName(imt.tag, processorContext).pipe(switchMap(processor => {
+        console.log(processor);
         if (!processor) {
           response.say = foundResponse.responses[Math.floor(Math.random() * foundResponse.responses.length)].replace('*', '');
           return of(response);
